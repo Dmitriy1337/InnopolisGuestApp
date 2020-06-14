@@ -1,0 +1,2 @@
+rootProject.name='InnoGuestApplication'
+include ':app'

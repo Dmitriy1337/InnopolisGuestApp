@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/LoginFragment">
+
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="com.ui.innoguestapplication.fragments.LoginFragment"
+        android:label="@string/login_fragment_label"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/MenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/MenuFragment"
+        android:name="com.ui.innoguestapplication.fragments.MenuFragment"
+        android:label="@string/menu_fragment_label"
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_Menuragment_to_SceduleFragment"
+            app:destination="@id/SceduleFragment"
+            app:enterAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_MenuFragment_to_mapFragment"
+            app:destination="@id/MapFragment"
+            app:exitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_MenuFragment_to_FAQFragment"
+            app:destination="@id/FAQFragment" />
+        <action
+            android:id="@+id/action_MenuFragment_to_profileFragment"
+            app:destination="@id/ProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SceduleFragment"
+        android:name="com.ui.innoguestapplication.fragments.SceduleFragment"
+        android:label="fragment_schedule"
+        tools:layout="@layout/fragment_schedule" >
+        <action
+            android:id="@+id/action_SceduleFragment_to_Menuragment"
+            app:destination="@id/MenuFragment"
+            app:enterAnim="@anim/fragment_fade_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/MapFragment"
+        android:name="com.ui.innoguestapplication.fragments.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_Menuragment"
+            app:destination="@id/MenuFragment"
+            app:enterAnim="@anim/fragment_fade_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/FAQFragment"
+        android:name="com.ui.innoguestapplication.fragments.FAQFragment"
+        android:label="fragment_faq"
+        tools:layout="@layout/fragment_faq" >
+        <action
+            android:id="@+id/action_FAQFragment_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ProfileFragment"
+        android:name="com.ui.innoguestapplication.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
+    </fragment>
+</navigation>
