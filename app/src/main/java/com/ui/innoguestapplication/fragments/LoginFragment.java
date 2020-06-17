@@ -24,7 +24,12 @@ public class LoginFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        view.findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_LoginFragment_to_MenuFragment);
+            }
+        });
 
     }
 }
