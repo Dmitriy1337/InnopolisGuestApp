@@ -28,7 +28,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity  {
     LoginLocalDatabase loginLocalDatabase;
     String text = "";
     @Override
@@ -36,10 +36,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-//getting bottom navigation view and attaching the listener
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(this);
 
         testSQLite();
 
@@ -57,51 +53,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         startActivity(intent);
     }
 
-    @Override
-    public void onBackPressed() {
-        // disable going back to the MainActivity
-        moveTaskToBack(true);
 
-    }
 
-    public void loadFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
 
-    }
+
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment fragment = null;
-
-
-        switch (item.getItemId()) {
-            case R.id.navigation_schedule:
-                fragment = new SceduleFragment();
-                break;
-            case R.id.navigation_faq:
-                fragment = new FAQFragment();
-                break;
-            case R.id.navigation_home:
-                fragment = new MenuFragment();
-                break;
-            case R.id.navigation_map:
-                fragment = new MapFragment();
-                break;
-            case R.id.navigation_settings:
-                fragment = new SettingsFragment();
-                break;
-        }
-
-        loadFragment(fragment);
-        return false;
-    }
-
-
-
-   /* @Override
     protected void onDestroy() {
         loginLocalDatabase.getDbHelper().close();
         super.onDestroy();
-    }*/
+    }
 
 }

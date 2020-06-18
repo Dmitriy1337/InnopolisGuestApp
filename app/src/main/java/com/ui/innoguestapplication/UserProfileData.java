@@ -2,6 +2,7 @@ package com.ui.innoguestapplication;
 
 import com.ui.innoguestapplication.backend.APIRequests;
 import com.ui.innoguestapplication.exceptions.IllegalPasswordException;
+import com.ui.innoguestapplication.sqlite_database.LoginData;
 
 public class UserProfileData {
 
@@ -33,7 +34,7 @@ public class UserProfileData {
 
     public static UserProfileData getuserFrofileData(String email, String password) throws IllegalPasswordException {
         //TODO
-        if (APIRequests.checkValidityOfUser(email, password)) {
+        if (APIRequests.checkValidityOfUser(new LoginData(email, password))) {
             return null;
 
         } else {
