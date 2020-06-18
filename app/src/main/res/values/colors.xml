@@ -5,5 +5,7 @@
     <color name="colorAccent">#ff5c35</color>
     <color name="colorNavIcon">#dae9f6</color>
     <color name="colorNavText">#01294b</color>
+    <color name="textPrimary">#000000</color>
+    <color name="textSecondary">#061826</color>
 
 </resources>

@@ -25,4 +25,8 @@
     <string name="home_title">Home</string>
 
 
+    <string name="upcoming_event">Upcoming event</string>
+    <string name="barcode_help">Your personal barcode for using in the canteen</string>
+
+
 </resources>
