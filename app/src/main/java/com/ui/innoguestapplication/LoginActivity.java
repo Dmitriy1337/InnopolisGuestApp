@@ -1,6 +1,8 @@
 package com.ui.innoguestapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,24 +10,26 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Patterns;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ui.innoguestapplication.backend.APIRequests;
+import com.ui.innoguestapplication.fragments.FAQFragment;
+import com.ui.innoguestapplication.fragments.MapFragment;
+import com.ui.innoguestapplication.fragments.MenuFragment;
+import com.ui.innoguestapplication.fragments.SceduleFragment;
+import com.ui.innoguestapplication.fragments.SettingsFragment;
+import com.ui.innoguestapplication.sqlite_database.LoginData;
 
 import java.util.regex.Pattern;
 
-public class LoginActivity extends AppCompatActivity {
-    @Override
-    public void onBackPressed() {
-        // disable going back to the MainActivity
-        moveTaskToBack(true);
-
-    }
+public class LoginActivity extends AppCompatActivity  {
 
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
@@ -48,17 +52,20 @@ public class LoginActivity extends AppCompatActivity {
 
         til_email = findViewById(R.id.text_input_layout_email);
         til_password = findViewById(R.id.text_input_layout_password);
-        EditText text_email = findViewById(R.id.login_email_et);
-        EditText text_password = findViewById(R.id.login_password_et);
+        final EditText text_email = findViewById(R.id.login_email_et);
+        final EditText text_password = findViewById(R.id.login_password_et);
         ImageView image = findViewById(R.id.picture_login);
         Button login_button = findViewById(R.id.login_button);
 
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login();
+                login(new LoginData(text_email.getText().toString(),text_password.getText().toString()));
             }
         });
+
+
+
 
 
         text_email.addTextChangedListener(new TextWatcher() {
@@ -120,16 +127,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void login() {
+    private void login(LoginData loginData) {
 
         if (validateEmail() && validatePassword()) {
-            //login method
+            if(APIRequests.checkValidityOfUser(loginData)){
+                //this is temporary
+                Intent intent = new Intent(this, BottomNavigatorControllerActivity.class);
+                startActivity(intent);
+            }
         }
 
 
-        //this is temporary
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+
 
     }
 
@@ -170,6 +179,8 @@ public class LoginActivity extends AppCompatActivity {
             return true;
         }
     }
+
+
 
 
 }

@@ -28,7 +28,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity  {
     LoginLocalDatabase loginLocalDatabase;
     String text = "";
     @Override
@@ -37,66 +37,31 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_main);
 
 
-        //getting bottom navigation view and attaching the listener
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(this);
-
         testSQLite();
 
     }
 
     public void testSQLite(){
-        loginLocalDatabase = new LoginLocalDatabase(getBaseContext());
-        loginLocalDatabase.setLoginData(new LoginData("test@email.com", "123456sgfdsfg"));
-        text = loginLocalDatabase.getLoginDataOrNull().toString();
-        Log.e("get ", text);
+         loginLocalDatabase = new LoginLocalDatabase(getBaseContext());
+       loginLocalDatabase.setLoginData(new LoginData("test@email.com","123456sgfdsfg"));
+       text = loginLocalDatabase.getLoginDataOrNull().toString();
+        Log.e("get ",text);
 
 
         //Going to Login screen
-        // Intent intent = new Intent(this, LoginActivity.class);
-        // startActivity(intent);
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
 
 
-    public void loadFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
 
-    }
+
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment fragment = null;
-
-
-        switch (item.getItemId()) {
-            case R.id.navigation_schedule:
-                fragment = new SceduleFragment();
-                break;
-            case R.id.navigation_faq:
-                fragment = new FAQFragment();
-                break;
-            case R.id.navigation_home:
-                fragment = new MenuFragment();
-                break;
-            case R.id.navigation_map:
-                fragment = new MapFragment();
-                break;
-            case R.id.navigation_settings:
-                fragment = new SettingsFragment();
-                break;
-        }
-
-        loadFragment(fragment);
-        return false;
-    }
-
-
-
-   /* @Override
     protected void onDestroy() {
         loginLocalDatabase.getDbHelper().close();
         super.onDestroy();
-    }*/
+    }
 
 }
