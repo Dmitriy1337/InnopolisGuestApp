@@ -57,5 +57,8 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
         loadFragment(fragment);
         return false;
     }
-
+    @Override
+    public void onBackPressed() {
+        // do nothing
+    }
 }
