@@ -1,15 +1,16 @@
 package com.ui.innoguestapplication.backend;
 
 import com.ui.innoguestapplication.UserProfileData;
+import com.ui.innoguestapplication.sqlite_database.LoginData;
 
 public class APIRequests {
 
 
-    public static boolean checkValidityOfUser(String email,String password){
+    public static boolean checkValidityOfUser(LoginData loginData){
         //Hashes password and gets hashed password using email as key. Compares two hashes.
         //Returns true if they're equal, false otherwise
         //TODO
-        return false;
+        return true;
 
     }
     public static UserProfileData getUserData(String email){
