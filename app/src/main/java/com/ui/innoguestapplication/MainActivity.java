@@ -46,15 +46,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public void testSQLite(){
-         loginLocalDatabase = new LoginLocalDatabase(getBaseContext());
-       loginLocalDatabase.setLoginData(new LoginData("test@email.com","123456sgfdsfg"));
-       text = loginLocalDatabase.getLoginDataOrNull().toString();
-        Log.e("get ",text);
+        loginLocalDatabase = new LoginLocalDatabase(getBaseContext());
+        loginLocalDatabase.setLoginData(new LoginData("test@email.com", "123456sgfdsfg"));
+        text = loginLocalDatabase.getLoginDataOrNull().toString();
+        Log.e("get ", text);
 
 
         //Going to Login screen
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        // Intent intent = new Intent(this, LoginActivity.class);
+        // startActivity(intent);
     }
 
 
