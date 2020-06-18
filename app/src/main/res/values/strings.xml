@@ -6,12 +6,22 @@
     <string name="menu_fragment_label">Menu Fragment</string>
 
 
-
-
     <string name="title_schedule">Schedule</string>
     <string name="title_faq">FAQ</string>
     <string name="title_home">Home</string>
     <string name="title_map">Map</string>
     <string name="title_profile">Profile</string>
+    <string name="title_settings">Settings</string>
+
+
+    <string name="login_button">Login</string>
+    <string name="email_hint_login">Email</string>
+    <string name="hint_login_password">Password</string>
+
+    <string name="email_error">Invalid email</string>
+    <string name="password_error">Invalid password</string>
+    <string name="empty_field">Field can not be empty</string>
+    <string name="logo">logo</string>
+
 
 </resources>

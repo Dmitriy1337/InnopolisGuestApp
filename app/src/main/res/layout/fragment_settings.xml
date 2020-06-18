@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ProfileFragment">
+    tools:context=".fragments.SettingsFragment">
 
     <TextView
         android:id="@+id/textView3"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="168dp"
         android:layout_marginTop="376dp"
-        android:text="@string/title_profile"
+        android:text="@string/title_settings"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

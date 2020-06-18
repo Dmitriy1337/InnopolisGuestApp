@@ -5,9 +5,9 @@ import com.ui.innoguestapplication.exceptions.IllegalPasswordException;
 
 public class UserProfileData {
 
-    private String name,surname,telegramAlias,email;
+    private String name, surname, telegramAlias, email;
 
-    private UserProfileData(String name, String surname, String telegramAlias,String email){
+    private UserProfileData(String name, String surname, String telegramAlias, String email) {
         this.name = name;
         this.surname = surname;
         this.telegramAlias = telegramAlias;
@@ -32,11 +32,11 @@ public class UserProfileData {
     }
 
     public static UserProfileData getuserFrofileData(String email, String password) throws IllegalPasswordException {
-       //TODO
-        if(APIRequests.checkValidityOfUser(email,password)){
+        //TODO
+        if (APIRequests.checkValidityOfUser(email, password)) {
             return null;
 
-        }else{
+        } else {
             throw new IllegalPasswordException();
         }
     }
