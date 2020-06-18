@@ -7,32 +7,57 @@
     android:layout_height="match_parent"
     tools:context="com.ui.innoguestapplication.BottomNavigatorControllerActivity">
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintEnd_toEndOf="parent"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+
+        android:fontFamily="sans-serif-black"
+        android:text="@string/home_title"
+        android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20sp"
+        android:background="@null"
+        android:scaleX="1"
+
+        android:scaleY="1"
+        android:src="@drawable/ic_notifications_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_container"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_editor_absoluteX="0dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+
+
         android:background="@color/colorPrimary"
 
-
+        app:itemHorizontalTranslationEnabled="false"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
-
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:itemHorizontalTranslationEnabled="false"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintStart_toStartOf="@+id/fragment_container"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_container"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
