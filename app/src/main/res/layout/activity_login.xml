@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.ui.innoguestapplication.LoginActivity">
+
+
+    <!--  Email Label -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="40sp">
+
+        <ImageView
+            android:id="@+id/picture_login"
+            android:layout_width="wrap_content"
+            android:layout_height="200sp"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentBottom="false"
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30sp"
+            android:contentDescription="@string/logo"
+            android:src="@drawable/logo" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/picture_login"
+            android:layout_marginLeft="30sp"
+            android:layout_marginRight="30sp">
+
+            <EditText
+                android:id="@+id/login_email_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/picture_login"
+
+                android:autofillHints="email"
+                android:hint="@string/email_hint_login"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_input_layout_email"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="10sp"
+            android:layout_marginRight="30sp"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/login_password_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:autofillHints="password"
+                android:hint="@string/hint_login_password"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_input_layout_password"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="25sp"
+            android:layout_marginRight="30sp"
+            android:background="@drawable/button_back"
+            android:text="@string/login_button"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+
+    <!--  Password Label -->
+
+
+</RelativeLayout>
+
+
+
+

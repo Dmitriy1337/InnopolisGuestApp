@@ -66,9 +66,9 @@
     </fragment>
     <fragment
         android:id="@+id/ProfileFragment"
-        android:name="com.ui.innoguestapplication.fragments.ProfileFragment"
+        android:name="com.ui.innoguestapplication.fragments.SettingsFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_profileFragment_to_MenuFragment"
             app:destination="@id/MenuFragment" />
