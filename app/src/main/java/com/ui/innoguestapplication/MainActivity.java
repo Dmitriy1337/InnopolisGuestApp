@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_main);
 
 
-//getting bottom navigation view and attaching the listener
+        //getting bottom navigation view and attaching the listener
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
 
@@ -57,12 +57,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         startActivity(intent);
     }
 
-    @Override
-    public void onBackPressed() {
-        // disable going back to the MainActivity
-        moveTaskToBack(true);
 
-    }
 
     public void loadFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();

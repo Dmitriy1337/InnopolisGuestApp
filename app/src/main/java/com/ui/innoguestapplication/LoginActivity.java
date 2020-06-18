@@ -20,6 +20,12 @@ import com.ui.innoguestapplication.backend.APIRequests;
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
+    @Override
+    public void onBackPressed() {
+        // disable going back to the MainActivity
+        moveTaskToBack(true);
+
+    }
 
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
