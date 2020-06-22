@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,11 +27,12 @@ import com.ui.innoguestapplication.fragments.MenuFragment;
 import com.ui.innoguestapplication.fragments.SceduleFragment;
 import com.ui.innoguestapplication.fragments.SettingsFragment;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
+import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity  {
-
+    LoginLocalDatabase loginLocalDatabase;
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
                     //"(?=.*[0-9])" +         //at least 1 digit
@@ -57,16 +59,29 @@ public class LoginActivity extends AppCompatActivity  {
         ImageView image = findViewById(R.id.picture_login);
         Button login_button = findViewById(R.id.login_button);
 
+
+
+
+
+        loginLocalDatabase = new LoginLocalDatabase(getBaseContext());
+
+        LoginData preloadedData = loginLocalDatabase.getLoginDataOrNull();
+
+        if(preloadedData!=null){
+
+            loginWithPreloaded(preloadedData);
+
+        }
+
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login(new LoginData(text_email.getText().toString(),text_password.getText().toString()));
+               LoginData loadedLoginData = new LoginData(text_email.getText().toString(),text_password.getText().toString());
+
+                loginLocalDatabase.setLoginData(loadedLoginData);
+                login(loadedLoginData);
             }
         });
-
-
-
-
 
         text_email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -132,15 +147,26 @@ public class LoginActivity extends AppCompatActivity  {
         if (validateEmail() && validatePassword()) {
             if(APIRequests.checkValidityOfUser(loginData)){
                 //this is temporary
+
                 Intent intent = new Intent(this, BottomNavigatorControllerActivity.class);
                 startActivity(intent);
             }
         }
 
+    }
+    private void loginWithPreloaded(LoginData loginData) {
 
+
+            if(APIRequests.checkValidityOfUser(loginData)){
+                //this is temporary
+
+                Intent intent = new Intent(this, BottomNavigatorControllerActivity.class);
+                startActivity(intent);
+            }
 
 
     }
+
 
     private boolean validateEmail() {
         String emailInput = til_email.getEditText().getText().toString().trim();
@@ -184,6 +210,11 @@ public class LoginActivity extends AppCompatActivity  {
     public void onBackPressed() {
         // do nothing
     }
+    @Override
+    protected void onDestroy() {
+        loginLocalDatabase.getDbHelper().close();
 
+        super.onDestroy();
+    }
 
 }

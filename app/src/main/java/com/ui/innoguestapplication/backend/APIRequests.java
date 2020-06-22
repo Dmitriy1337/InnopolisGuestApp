@@ -1,5 +1,6 @@
 package com.ui.innoguestapplication.backend;
 
+import com.ui.innoguestapplication.EventList;
 import com.ui.innoguestapplication.UserProfileData;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
 
@@ -17,6 +18,10 @@ public class APIRequests {
         //TODO
         return null;
 
+    }
+    public static EventList getEventListData(){
+        //TODO
+        return null;
     }
 
 

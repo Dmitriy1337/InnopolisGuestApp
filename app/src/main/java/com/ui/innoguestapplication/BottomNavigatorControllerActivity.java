@@ -19,7 +19,9 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         loadFragment(new SceduleFragment());
+
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
 
