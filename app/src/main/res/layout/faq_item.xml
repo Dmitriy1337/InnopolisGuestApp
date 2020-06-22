@@ -43,7 +43,7 @@
         android:id="@+id/faq_expand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:el_duration="300"
+        app:el_duration="400"
         app:el_expanded="false"
         app:el_parallax="0.5"
         app:layout_constraintTop_toBottomOf="@id/faq_question">
