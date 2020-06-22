@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 
+
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
     defaultConfig {
@@ -36,7 +37,13 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    implementation 'com.bogdwellers:pinchtozoom:0.1'
+    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
 
-//    implementation 'com.jakewharton:butterknife:10.2.1'
-//    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+
+
+
+
 }
+
+
