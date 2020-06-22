@@ -38,6 +38,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'com.bogdwellers:pinchtozoom:0.1'
+    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+
 
 
 
