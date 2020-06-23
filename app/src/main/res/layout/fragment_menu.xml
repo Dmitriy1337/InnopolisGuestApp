@@ -27,7 +27,7 @@
         android:id="@+id/event_dates"
         style="@style/TextDefault"
         android:layout_width="wrap_content"
-        android:layout_height="19dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="January 1st 1970 - December 31st 2020"
         app:layout_constraintEnd_toEndOf="parent"

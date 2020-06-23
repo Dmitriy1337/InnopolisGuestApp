@@ -63,6 +63,7 @@
             android:background="@drawable/settings_bg"
             android:elevation="10sp"
             android:padding="10sp"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="10dp">
 

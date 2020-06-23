@@ -34,13 +34,22 @@ public class SettingsFragment extends Fragment {
         logout_view = thisView.findViewById(R.id.logout_card);
 
 
+        boolean alertsActive = !true;
+        //access databese here
+        boolean force_Dark_Theme = false;
+        //access databese here
+
+        force_dark_mode.setActivated(force_Dark_Theme);
+        alerts.setActivated(alertsActive);
+
+
         language.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(boolean isChecked) {
-
-                //check current language, switch in the database, restart
+                //decided to mirror phone locale
             }
         });
+
         force_dark_mode.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(boolean isChecked) {
@@ -48,14 +57,16 @@ public class SettingsFragment extends Fragment {
 
                     ((BottomNavigatorControllerActivity) getActivity()).setDark();
                 } else
+
                     ((BottomNavigatorControllerActivity) getActivity()).setLight();
                 //write to database
-                //check if theme is different, restart app if needed
+
             }
         });
         alerts.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(boolean isChecked) {
+                isChecked = !isChecked;
                 //write to database
                 //check if alert status is different, restart app if needed
             }
