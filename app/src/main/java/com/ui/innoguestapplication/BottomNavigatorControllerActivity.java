@@ -18,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ui.innoguestapplication.fragments.FAQFragment;
 import com.ui.innoguestapplication.fragments.MapFragment;
 import com.ui.innoguestapplication.fragments.MenuFragment;
+import com.ui.innoguestapplication.fragments.NotificationsFragment;
 import com.ui.innoguestapplication.fragments.ScheduleFragment;
 import com.ui.innoguestapplication.fragments.SettingsFragment;
 
@@ -69,8 +70,9 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
         notifications_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), NotificationsActivity.class);
-                startActivity(intent);
+                labelTop.setText(R.string.title_notifications);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotificationsFragment()).commit();
+
             }
         });
 
