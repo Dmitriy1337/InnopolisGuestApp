@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +29,7 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
     private static final String START_LOCATION = "com.ui.innoguestapplication.START_LOCATION";
 
     TextView labelTop;
+    ImageButton notifications_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,15 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
         labelTop = findViewById(R.id.label_top);
+        notifications_button = findViewById(R.id.notifications_button);
+
+        notifications_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), NotificationsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         try {
             switch (getIntent().getAction()) {
