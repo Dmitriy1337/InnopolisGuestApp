@@ -6,6 +6,7 @@
 
     android:layout_height="wrap_content"
     android:layout_margin="5sp"
+    android:elevation="4sp"
 
     android:background="@drawable/schedulebg"
     android:orientation="vertical"
