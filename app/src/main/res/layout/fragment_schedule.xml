@@ -6,20 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ScheduleFragment">
 
+    <TextView
+        android:id="@+id/schedule_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/Group"
+        android:textColor="@color/textPrimary"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/scheduleTabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/tab_spacing_half"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/schedule_group"
+        app:tabBackground="@drawable/tab_bg"
         app:tabGravity="center"
         app:tabIndicatorColor="@color/colorPrimaryDark"
         app:tabIndicatorFullWidth="false"
         app:tabIndicatorGravity="bottom"
-
+        app:tabIndicatorHeight="0dp"
         app:tabMode="auto"
         app:tabRippleColor="@color/colorPrimaryDark"
+        app:tabSelectedTextColor="#FFFFFF"
+        app:tabTextColor="@color/colorPrimaryDark"
         app:tabUnboundedRipple="true">
 
         <!--        <com.google.android.material.tabs.TabItem-->
@@ -47,12 +63,12 @@
         <!--            android:text="@string/_4th_and_5th_floor" />-->
     </com.google.android.material.tabs.TabLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/schedule_list"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/schedule_viewpager2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapTabs" />
+        app:layout_constraintTop_toBottomOf="@+id/scheduleTabs" />
 </androidx.constraintlayout.widget.ConstraintLayout>

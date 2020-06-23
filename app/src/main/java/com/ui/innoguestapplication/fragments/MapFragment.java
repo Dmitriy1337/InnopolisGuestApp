@@ -27,7 +27,7 @@ public class MapFragment extends Fragment {
         // Inflate the layout for this fragment
         View thisView = inflater.inflate(R.layout.fragment_map, container, false);
         mapPic = thisView.findViewById(R.id.mapImage);
-        tabs = thisView.findViewById(R.id.mapTabs);
+        tabs = thisView.findViewById(R.id.map_tabs);
         return thisView;
     }
 

@@ -11,26 +11,30 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/map_of_innopolis_university"
-        android:textColor="@color/textPrimary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/mapTabs"
+        app:layout_constraintBottom_toTopOf="@+id/map_tabs"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/scheduleTabs"
+        android:id="@+id/map_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabIndicatorGravity="bottom"
         app:tabMode="fixed"
         app:tabUnboundedRipple="true"
         app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"
+        app:tabSelectedTextColor="#FFFFFF"
+        app:tabTextColor="@color/colorPrimaryDark"
         app:tabIndicatorFullWidth="false"
+        app:tabBackground="@drawable/tab_bg"
         app:tabIndicatorColor="@color/colorPrimaryDark"
         app:tabRippleColor="@color/colorPrimaryDark"
 
@@ -65,13 +69,13 @@
         android:id="@+id/mapImage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:contentDescription="map_image"
+        android:contentDescription="@string/map_image"
         android:src="@drawable/icon"
         app:layout_constraintBottom_toTopOf="@+id/map_bottom_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapTabs"
+        app:layout_constraintTop_toBottomOf="@+id/map_tabs"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -99,6 +103,7 @@
         android:src="@drawable/lower_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/image_below_map" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
