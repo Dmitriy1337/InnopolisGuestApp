@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">InnoGuestApplication</string>
+    <string name="app_name">InnoGuest</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="login_fragment_label">Login Fragment</string>
