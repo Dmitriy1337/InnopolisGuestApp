@@ -7,12 +7,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ui.innoguestapplication.R;
-import com.ui.innoguestapplication.adapters.FAQ_adapter;
+import com.ui.innoguestapplication.adapters.FAQList_adapter;
 
 public class FAQFragment extends Fragment {
 
@@ -32,7 +31,7 @@ public class FAQFragment extends Fragment {
 
         String[] testListQ = {"In April 2018, Russia’s telecom regulator Roskomnadzor blocked Telegram on the country’s territory.", "The first week of the ban was challenging, and many of our users in Russia had connection issues."};
         String[] testListA = {"We knew it was coming, so by the time the block went live, we had already upgraded the Telegram apps with support for rotating proxy servers, ways to hide traffic and other anti-censorship tools. We were joined by thousands of Russian engineers that set up their own proxies for Telegram users, forming a decentralised movement called Digital Resistance.", "In an attempt to prevent users from accessing Telegram, Roskomnadzor blacklisted millions of IP addresses. However, thanks to Digital Resistance, after May 2018 Telegram became largely accessible in Russia."};
-        FAQ_adapter adapter = new FAQ_adapter(testListQ, testListA, recycler_list);
+        FAQList_adapter adapter = new FAQList_adapter(testListQ, testListA, recycler_list);
         recycler_list.setAdapter(adapter);
 
 

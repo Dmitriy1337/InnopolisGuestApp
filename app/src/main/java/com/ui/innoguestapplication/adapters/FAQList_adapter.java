@@ -1,12 +1,10 @@
 package com.ui.innoguestapplication.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,9 +14,7 @@ import com.ui.innoguestapplication.R;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
-import java.util.Arrays;
-
-public class FAQ_adapter extends RecyclerView.Adapter<FAQ_adapter.ViewHolder> {
+public class FAQList_adapter extends RecyclerView.Adapter<FAQList_adapter.ViewHolder> {
 
     private String[] questions, answers;
     RecyclerView rv;
@@ -29,13 +25,13 @@ public class FAQ_adapter extends RecyclerView.Adapter<FAQ_adapter.ViewHolder> {
 
     @NonNull
     @Override
-    public FAQ_adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FAQList_adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.faq_item, parent, false);
-        return new FAQ_adapter.ViewHolder(view);
+        return new FAQList_adapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final FAQ_adapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final FAQList_adapter.ViewHolder holder, final int position) {
 
         holder.question.setText(questions[position]);
         holder.answer.setText(answers[position]);
@@ -53,7 +49,7 @@ public class FAQ_adapter extends RecyclerView.Adapter<FAQ_adapter.ViewHolder> {
     }
 
 
-    public FAQ_adapter(String[] questions, String[] answers, RecyclerView rv) {
+    public FAQList_adapter(String[] questions, String[] answers, RecyclerView rv) {
         this.questions = questions;
         this.answers = answers;
         this.rv = rv;
