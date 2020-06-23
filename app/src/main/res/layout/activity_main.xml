@@ -7,33 +7,44 @@
     android:layout_height="match_parent"
     tools:context="com.ui.innoguestapplication.BottomNavigatorControllerActivity">
 
-    <TextView
-        android:id="@+id/label_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-
-        android:fontFamily="sans-serif-black"
-        android:text="@string/home_title"
-        android:textColor="@color/textSecondary"
-        android:textSize="36sp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="432dp"
+        android:layout_height="52dp"
+        android:background="@color/design_default_color_background"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_container"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageButton
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20sp"
-        android:background="@null"
-        android:scaleX="1"
+        <ImageButton
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
 
-        android:scaleY="1"
-        android:src="@drawable/ic_notifications_black_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/label_top"
-        app:layout_constraintEnd_toEndOf="@+id/fragment_container"
-        app:layout_constraintTop_toTopOf="@+id/label_top" />
+            android:background="@null"
+            android:scaleX="1"
+            android:scaleY="1"
+            android:src="@drawable/ic_notifications_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/label_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="24dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/home_title"
+            android:textColor="@color/textSecondary"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.533" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <FrameLayout
@@ -61,7 +72,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
