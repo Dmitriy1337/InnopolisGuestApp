@@ -4,16 +4,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".fragments.MapFragment">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="150dp"
-        android:layout_height="123dp"
-        android:layout_marginStart="152dp"
-        android:layout_marginBottom="388dp"
-        android:text="@string/title_map"
-        android:textSize="30sp"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/map_of_innopolis_university"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/map_tabs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/map_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorGravity="bottom"
+        app:tabMode="fixed"
+        app:tabUnboundedRipple="true"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"
+        app:tabSelectedTextColor="#FFFFFF"
+        app:tabTextColor="@color/colorPrimaryDark"
+        app:tabIndicatorFullWidth="false"
+        app:tabBackground="@drawable/tab_bg"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabRippleColor="@color/colorPrimaryDark"
+
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/floor1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_1st_floor" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/floor2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_2nd_floor" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/floor3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_3rd_floor" />
+
+        <!--        <com.google.android.material.tabs.TabItem-->
+        <!--            android:id="@+id/floor45"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@string/_4th_and_5th_floor" />-->
+    </com.google.android.material.tabs.TabLayout>
+
+    <ImageView
+        android:id="@+id/mapImage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:contentDescription="@string/map_image"
+        android:src="@drawable/icon"
+        app:layout_constraintBottom_toTopOf="@+id/map_bottom_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/map_tabs"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/map_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/zoom_in_using_two_fingers"
+        android:textColor="@color/textSecondary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/mapImage"
+        app:layout_constraintEnd_toEndOf="@+id/mapImage"
+        app:layout_constraintStart_toStartOf="@+id/mapImage"
+        app:layout_constraintTop_toTopOf="@+id/map_bottom_image" />
+
+    <ImageView
+        android:id="@+id/map_bottom_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:adjustViewBounds="true"
+
+        android:cropToPadding="false"
+        android:src="@drawable/lower_image"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/image_below_map" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

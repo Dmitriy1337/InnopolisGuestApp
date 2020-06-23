@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content"
+    android:layout_margin="5sp"
+
+    android:background="@drawable/schedulebg"
+    android:orientation="vertical"
+    android:padding="16sp">
+
+
+    <TextView
+        android:id="@+id/faq_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Default Q"
+        android:textColor="@color/textPrimary"
+        android:textSize="18sp"
+
+        />
+
+    <ImageButton
+        android:id="@+id/faq_arrow"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/arrow_down"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/faq_question"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/faq_question"
+        app:layout_constraintTop_toTopOf="@+id/faq_question"
+        tools:visibility="gone" />
+
+    <net.cachapa.expandablelayout.ExpandableLayout
+        android:id="@+id/faq_expand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:el_duration="400"
+        app:el_expanded="false"
+        app:el_parallax="0.5"
+        app:layout_constraintTop_toBottomOf="@id/faq_question">
+
+
+        <TextView
+            android:id="@+id/faq_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="Default A"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="16sp"
+
+
+            />
+    </net.cachapa.expandablelayout.ExpandableLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

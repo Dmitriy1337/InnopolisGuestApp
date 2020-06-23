@@ -1,3 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="default_size">4dp</dimen>
+    <dimen name="bottom_margin">6dp</dimen>
+    <dimen name="tab_spacing_half">5dp</dimen>
 </resources>

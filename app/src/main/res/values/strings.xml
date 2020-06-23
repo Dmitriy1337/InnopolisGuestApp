@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">InnoGuestApplication</string>
+    <string name="app_name">InnoGuest</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="login_fragment_label">Login Fragment</string>
@@ -22,6 +22,28 @@
     <string name="password_error">Invalid password</string>
     <string name="empty_field">Field can not be empty</string>
     <string name="logo">logo</string>
+    <string name="home_title">Home</string>
+
+
+    <string name="upcoming_event">Upcoming event</string>
+    <string name="barcode_help">Your personal barcode for using in the canteen</string>
+    <string name="_1st_floor">1st floor</string>
+    <string name="_2nd_floor">2nd floor</string>
+    <string name="_3rd_floor">3rd floor</string>
+    <string name="_4th_and_5th_floor">4th and 5th floor</string>
+    <string name="map_of_innopolis_university">Innopolis University</string>
+    <string name="zoom_in_using_two_fingers">zoom in using two fingers</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="rate_this_event">Rate this event</string>
+    <string name="Group">Group</string>
+    <string name="example_time">09:00 – 10:30</string>
+    <string name="example_event_name">Test event in schedule</string>
+    <string name="location_icon_description">location_icon</string>
+    <string name="location">location</string>
+    <string name="arrow_icon">arrow</string>
+    <string name="map_image">map_image</string>
+    <string name="image_below_map">map picture</string>
 
 
 </resources>
