@@ -2,25 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_schedule"
-        android:icon="@drawable/ic_menu_black_24dp"
+        android:icon="@drawable/ic_schedule_24px"
         android:title="@string/title_schedule" />
 
     <item
         android:id="@+id/navigation_faq"
-        android:icon="@drawable/ic_forum_black_24dp"
+        android:icon="@drawable/ic_question_answer_24px"
         android:title="@string/title_faq" />
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/ic_home_24px"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_map"
-        android:icon="@drawable/ic_map_black_24dp"
+        android:icon="@drawable/ic_location_on_24px"
         android:title="@string/title_map" />
     <item
         android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_person_black_24dp"
+        android:icon="@drawable/ic_settings_24px"
         android:title="@string/title_settings" />
 </menu>

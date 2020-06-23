@@ -1,31 +1,21 @@
 package com.ui.innoguestapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ui.innoguestapplication.backend.APIRequests;
-import com.ui.innoguestapplication.fragments.FAQFragment;
-import com.ui.innoguestapplication.fragments.MapFragment;
-import com.ui.innoguestapplication.fragments.MenuFragment;
-import com.ui.innoguestapplication.fragments.SceduleFragment;
-import com.ui.innoguestapplication.fragments.SettingsFragment;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
 import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
