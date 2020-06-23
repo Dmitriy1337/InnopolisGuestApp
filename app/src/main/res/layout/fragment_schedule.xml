@@ -4,15 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SceduleFragment">
+    tools:context=".fragments.ScheduleFragment">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/scheduleTabs"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="304dp"
-        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabGravity="center"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorGravity="bottom"
+
+        app:tabMode="auto"
+        app:tabRippleColor="@color/colorPrimaryDark"
+        app:tabUnboundedRipple="true">
+
+        <!--        <com.google.android.material.tabs.TabItem-->
+        <!--            android:id="@+id/floor1"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@string/_1st_floor" />-->
+
+        <!--        <com.google.android.material.tabs.TabItem-->
+        <!--            android:id="@+id/floor2"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@string/_2nd_floor" />-->
+
+        <!--        <com.google.android.material.tabs.TabItem-->
+        <!--            android:id="@+id/floor3"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@string/_3rd_floor" />-->
+
+        <!--        <com.google.android.material.tabs.TabItem-->
+        <!--            android:id="@+id/floor45"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@string/_4th_and_5th_floor" />-->
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/schedule_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mapTabs" />
 </androidx.constraintlayout.widget.ConstraintLayout>

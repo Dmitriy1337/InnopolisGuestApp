@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/SceduleFragment"
-        android:name="com.ui.innoguestapplication.fragments.SceduleFragment"
+        android:name="com.ui.innoguestapplication.fragments.ScheduleFragment"
         android:label="fragment_schedule"
         tools:layout="@layout/fragment_schedule" >
         <action

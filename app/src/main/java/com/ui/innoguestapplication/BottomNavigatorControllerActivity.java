@@ -12,7 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ui.innoguestapplication.fragments.FAQFragment;
 import com.ui.innoguestapplication.fragments.MapFragment;
 import com.ui.innoguestapplication.fragments.MenuFragment;
-import com.ui.innoguestapplication.fragments.SceduleFragment;
+import com.ui.innoguestapplication.fragments.ScheduleFragment;
 import com.ui.innoguestapplication.fragments.SettingsFragment;
 
 public class BottomNavigatorControllerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -43,7 +43,7 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
         switch (item.getItemId()) {
             case R.id.navigation_schedule:
-                fragment = new SceduleFragment();
+                fragment = new ScheduleFragment();
                 labelTop.setText(R.string.title_schedule);
                 break;
             case R.id.navigation_faq:

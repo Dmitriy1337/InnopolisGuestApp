@@ -23,10 +23,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/mapTabs"
+        android:id="@+id/scheduleTabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabIndicatorGravity="bottom"
+        app:tabMode="fixed"
+        app:tabUnboundedRipple="true"
+        app:tabGravity="center"
         app:tabIndicatorFullWidth="false"
         app:tabIndicatorColor="@color/colorPrimaryDark"
         app:tabRippleColor="@color/colorPrimaryDark"
@@ -51,11 +54,11 @@
             android:layout_height="wrap_content"
             android:text="@string/_3rd_floor" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/floor45"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/_4th_and_5th_floor" />
+        <!--        <com.google.android.material.tabs.TabItem-->
+        <!--            android:id="@+id/floor45"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@string/_4th_and_5th_floor" />-->
     </com.google.android.material.tabs.TabLayout>
 
     <ImageView
