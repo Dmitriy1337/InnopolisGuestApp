@@ -40,6 +40,8 @@ dependencies {
     implementation 'com.bogdwellers:pinchtozoom:0.1'
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
 
+    implementation 'com.github.kmenager:material-animated-switch:1.2.2'
+
 
 
 

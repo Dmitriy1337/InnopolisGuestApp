@@ -6,7 +6,7 @@
 
         >
         <shape>
-            <solid android:color="@color/colorPrimary" />
+            <solid android:color="?attr/colorPrimary" />
 
             <corners android:radius="100dp" />
             <stroke android:width="3dp" android:color="@android:color/transparent" />
@@ -20,7 +20,7 @@
 
 
             <corners android:radius="100dp" />
-            <stroke android:width="3dp" android:color="@color/colorPrimaryDark" />
+            <stroke android:width="3dp" android:color="?attr/colorPrimaryDark" />
             <stroke android:width="3dp" android:color="@android:color/transparent" />
 
         </shape>

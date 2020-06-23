@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_schedule_24px"
+
+        android:shortcutId="sh1"
+        android:shortcutShortLabel="@string/title_schedule"
+        android:shortcutLongLabel="@string/title_schedule"
+        android:shortcutDisabledMessage="@string/title_schedule">
+        <intent
+            android:action="com.ui.innoguestapplication.START_SCHEDULE"
+            android:targetPackage="com.ui.innoguestapplication"
+            android:targetClass="com.ui.innoguestapplication.MainActivity" />
+
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_question_answer_24px"
+
+        android:shortcutId="sh2"
+        android:shortcutShortLabel="@string/title_faq"
+        android:shortcutLongLabel="@string/title_faq"
+        android:shortcutDisabledMessage="@string/title_faq">
+        <intent
+            android:action="com.ui.innoguestapplication.START_FAQ"
+            android:targetPackage="com.ui.innoguestapplication"
+            android:targetClass="com.ui.innoguestapplication.MainActivity" />
+
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_home_24px"
+
+        android:shortcutId="sh3"
+        android:shortcutShortLabel="@string/title_home"
+        android:shortcutLongLabel="@string/title_home"
+        android:shortcutDisabledMessage="@string/title_home">
+        <intent
+            android:action="com.ui.innoguestapplication.START_HOME"
+            android:targetPackage="com.ui.innoguestapplication"
+            android:targetClass="com.ui.innoguestapplication.MainActivity" />
+
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_location_on_24px"
+
+        android:shortcutId="sh4"
+        android:shortcutShortLabel="@string/title_map"
+        android:shortcutLongLabel="@string/title_map"
+        android:shortcutDisabledMessage="@string/title_map">
+        <intent
+            android:action="com.ui.innoguestapplication.START_LOCATION"
+            android:targetPackage="com.ui.innoguestapplication"
+            android:targetClass="com.ui.innoguestapplication.MainActivity" />
+
+    </shortcut>
+
+</shortcuts>

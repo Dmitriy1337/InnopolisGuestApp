@@ -12,14 +12,11 @@
 
     <TextView
         android:id="@+id/schedule_time"
+        style="@style/TextDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="sans-serif-medium"
         android:text="@string/example_time"
-        android:textColor="@color/textSecondary"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,13 +24,11 @@
 
     <TextView
         android:id="@+id/schedule_name"
+        style="@style/TextDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:fontFamily="sans-serif-medium"
         android:text="@string/example_event_name"
-        android:textColor="@color/textPrimary"
-        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,16 +44,17 @@
         app:layout_constraintBottom_toBottomOf="@+id/schedule_time"
         app:layout_constraintStart_toEndOf="@+id/schedule_time"
         app:layout_constraintTop_toTopOf="@+id/schedule_time"
+        android:tint="?attr/textPrimary"
+
         app:srcCompat="@drawable/ic_location_on_black_24dp"
         android:contentDescription="@string/location_icon_description" />
 
     <TextView
         android:id="@+id/schedule_location"
+        style="@style/TextSecondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
         android:text="@string/location"
-        android:textColor="@color/textSecondary"
         app:layout_constraintBottom_toBottomOf="@+id/schedule_location_icon"
         app:layout_constraintStart_toEndOf="@+id/schedule_location_icon"
         app:layout_constraintTop_toTopOf="@+id/schedule_location_icon" />
@@ -95,15 +91,13 @@
 
             <TextView
                 android:id="@+id/schedule_rating_text"
+                style="@style/TextSecondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:fontFamily="sans-serif-medium"
                 android:text="@string/rate_this_event"
-                android:textColor="@color/textSecondary"
-                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -5,19 +5,21 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/bgColor"
+
     tools:context="com.ui.innoguestapplication.BottomNavigatorControllerActivity">
 
     <TextView
         android:id="@+id/label_top"
+        style="@style/TextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+
+
         android:layout_marginTop="10dp"
 
-        android:fontFamily="sans-serif-black"
         android:text="@string/home_title"
-        android:textColor="@color/textSecondary"
-        android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,6 +30,7 @@
         android:layout_marginEnd="20sp"
         android:background="@null"
         android:scaleX="1"
+        android:tint="?attr/textPrimary"
 
         android:scaleY="1"
         android:src="@drawable/ic_notifications_black_24dp"
@@ -51,7 +54,7 @@
         android:layout_height="wrap_content"
 
 
-        android:background="@color/colorPrimary"
+        android:background="?attr/colorPrimary"
 
         app:itemHorizontalTranslationEnabled="false"
         app:itemIconTint="@drawable/selector"

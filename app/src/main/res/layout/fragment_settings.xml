@@ -4,15 +4,223 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/bgColor"
     tools:context=".fragments.SettingsFragment">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profile_box"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="376dp"
-        android:text="@string/title_settings"
+        android:layout_margin="10sp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/settings_bg2"
+        android:elevation="10sp"
+        android:padding="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/user_name"
+            style="@style/TextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name Surname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/user_email"
+            style="@style/TextBig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:text="email@server.domain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toggles_box"
+        style="@style/TextSettings"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_box"
+        app:layout_constraintVertical_bias="0.51">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/language_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10sp"
+            android:background="@drawable/settings_bg"
+            android:elevation="10sp"
+            android:padding="10sp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="10dp">
+
+            <TextView
+                android:id="@+id/language_text"
+                style="@style/TextDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Language"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.github.kmenager.materialanimatedswitch.MaterialAnimatedSwitch
+                android:id="@+id/language_switch"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:ball_press_color="@color/rus"
+                app:ball_radius="15dp"
+                app:ball_release_color="@color/brit"
+                app:base_press_color="@color/rus"
+                app:base_release_color="@color/brit"
+                app:icon_press="@drawable/flag_rus"
+
+                app:icon_release="@drawable/flag_brit"
+                app:icon_size="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:margin="17dp"
+                app:switch_height="35dp"
+                app:switch_width="65dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dark_theme_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10sp"
+            android:background="@drawable/settings_bg"
+            android:elevation="10sp"
+            android:padding="10sp"
+            app:layout_constraintTop_toBottomOf="@id/language_card"
+            tools:layout_editor_absoluteX="10dp">
+
+            <TextView
+                android:id="@+id/dark_theme_text"
+                style="@style/TextDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Force Dark Theme"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.github.kmenager.materialanimatedswitch.MaterialAnimatedSwitch
+                android:id="@+id/dark_theme_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+
+                app:ball_press_color="@android:color/tertiary_text_dark"
+                app:ball_radius="15dp"
+                app:ball_release_color="@android:color/white"
+                app:base_press_color="@color/dark_mode"
+                app:base_release_color="@color/auto_mode"
+                app:icon_press="@drawable/dark_mode"
+
+                app:icon_release="@drawable/auto_mode"
+                app:icon_size="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:margin="17dp"
+                app:switch_height="35dp"
+                app:switch_width="65dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/notifications_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10sp"
+            android:background="@drawable/settings_bg"
+            android:elevation="10sp"
+            android:padding="10sp"
+            app:layout_constraintTop_toBottomOf="@id/dark_theme_card"
+            tools:layout_editor_absoluteX="10dp">
+
+            <TextView
+                android:id="@+id/notifications_text"
+                style="@style/TextDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send notifications"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.github.kmenager.materialanimatedswitch.MaterialAnimatedSwitch
+                android:id="@+id/notifications_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+
+                app:ball_press_color="@color/no_dark"
+                app:ball_radius="15dp"
+                app:ball_release_color="@color/yes_dark"
+                app:base_press_color="@color/no"
+                app:base_release_color="@color/yes"
+                app:icon_press="@drawable/alert_off"
+
+                app:icon_release="@drawable/alert_on"
+                app:icon_size="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:margin="17dp"
+                app:switch_height="35dp"
+                app:switch_width="65dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/logout_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10sp"
+            android:background="@drawable/settings_bg"
+            android:elevation="10sp"
+            android:padding="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/notifications_card">
+
+            <TextView
+                android:id="@+id/logout_text"
+                style="@style/TextDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Logout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/logout_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_cancel_24px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:tint="?attr/textPrimary"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

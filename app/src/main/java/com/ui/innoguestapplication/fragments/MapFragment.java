@@ -24,7 +24,7 @@ public class MapFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        // Inflate the layout for this fragment
+        // Inflate the settings_bg for this fragment
         View thisView = inflater.inflate(R.layout.fragment_map, container, false);
         mapPic = thisView.findViewById(R.id.mapImage);
         tabs = thisView.findViewById(R.id.map_tabs);

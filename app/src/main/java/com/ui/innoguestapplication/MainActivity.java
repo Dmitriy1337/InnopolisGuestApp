@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_splash);
 
 
@@ -24,15 +25,19 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-    public void testSQLite(){
-         loginLocalDatabase = new LoginLocalDatabase(getBaseContext());
-       loginLocalDatabase.setLoginData(new LoginData("test@email.com","123456sgfdsfg"));
-       text = loginLocalDatabase.getLoginDataOrNull().toString();
-        Log.e("get ",text);
+    public void testSQLite() {
+        loginLocalDatabase = new LoginLocalDatabase(getBaseContext());
+        loginLocalDatabase.setLoginData(new LoginData("test@email.com", "123456sgfdsfg"));
+        text = loginLocalDatabase.getLoginDataOrNull().toString();
+        Log.e("get ", text);
 
 
         //Going to Login screen
         Intent intent = new Intent(this, LoginActivity.class);
+        String intentAction = getIntent().getAction();
+
+
+        intent.setAction(intentAction);
         startActivity(intent);
     }
 

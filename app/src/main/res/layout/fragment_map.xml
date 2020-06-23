@@ -4,19 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="?attr/bgColor"
     tools:context=".fragments.MapFragment">
 
     <TextView
         android:id="@+id/textView"
+        style="@style/TextBig"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:fontFamily="sans-serif-medium"
         android:text="@string/map_of_innopolis_university"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/map_tabs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,17 +79,16 @@
 
     <TextView
         android:id="@+id/map_hint"
+        style="@style/TextSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:fontFamily="sans-serif-medium"
         android:text="@string/zoom_in_using_two_fingers"
-        android:textColor="@color/textSecondary"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/mapImage"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/mapImage"
         app:layout_constraintStart_toStartOf="@+id/mapImage"
-        app:layout_constraintTop_toTopOf="@+id/map_bottom_image" />
+        app:layout_constraintTop_toTopOf="@id/mapImage"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/map_bottom_image"
@@ -100,11 +97,12 @@
 
         android:adjustViewBounds="true"
 
+        android:contentDescription="@string/image_below_map"
         android:cropToPadding="false"
         android:src="@drawable/lower_image"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="@string/image_below_map" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
