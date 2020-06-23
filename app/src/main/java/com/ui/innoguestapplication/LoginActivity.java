@@ -139,6 +139,10 @@ public class LoginActivity extends AppCompatActivity  {
                 //this is temporary
 
                 Intent intent = new Intent(this, BottomNavigatorControllerActivity.class);
+                String intentAction = getIntent().getAction();
+
+
+                intent.setAction(intentAction);
                 startActivity(intent);
             }
         }

@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/bgColor"
     tools:context=".fragments.MenuFragment">
 
 
     <TextView
         android:id="@+id/event_name"
+        style="@style/TextBig"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-medium"
+
+        android:layout_marginTop="48dp"
         android:text="Default Event Name"
         android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="30sp"
         android:textStyle="bold"
         android:typeface="normal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,67 +25,60 @@
 
     <TextView
         android:id="@+id/event_dates"
-        android:layout_width="392dp"
-        android:layout_height="49dp"
+        style="@style/TextDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif-medium"
         android:text="January 1st 1970 - December 31st 2020"
-        android:textAlignment="center"
-        android:textColor="@color/textSecondary"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_name" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/upcoming_box"
-
         android:layout_width="match_parent"
+
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/upcoming_bg"
+        android:elevation="4sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_dates">
 
         <TextView
             android:id="@+id/upcoming"
+            style="@style/TextBig"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-black"
             android:text="@string/upcoming_event"
-            android:textColor="@color/textSecondary"
-            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/upcoming_time"
+            style="@style/TextSecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:fontFamily="sans-serif-medium"
             android:text="09:00 - 12:00"
-            android:textColor="@color/textSecondary"
-            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/upcoming" />
 
         <TextView
             android:id="@+id/upcoming_name"
+            style="@style/TextBig"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginBottom="16dp"
-            android:fontFamily="sans-serif-black"
             android:text="Breakfast in the canteen"
-            android:textColor="@color/textPrimary"
-            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/upcoming_time" />
@@ -96,23 +89,22 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-
         android:layout_marginEnd="16dp"
+
         android:layout_marginBottom="16dp"
         android:background="@drawable/upcoming_bg"
+        android:elevation="4sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/barcode_help"
+            style="@style/TextSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-medium"
             android:text="@string/barcode_help"
-            android:textColor="@color/textSecondary"
-            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

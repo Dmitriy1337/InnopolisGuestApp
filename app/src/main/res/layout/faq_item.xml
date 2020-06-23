@@ -6,6 +6,7 @@
 
     android:layout_height="wrap_content"
     android:layout_margin="5sp"
+    android:elevation="4sp"
 
     android:background="@drawable/schedulebg"
     android:orientation="vertical"
@@ -14,15 +15,13 @@
 
     <TextView
         android:id="@+id/faq_question"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="Default Q"
-        android:textColor="@color/textPrimary"
-        android:textSize="18sp"
+        style="@style/TextDefault"
 
-        />
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:text="Default Q" />
 
     <ImageButton
         android:id="@+id/faq_arrow"
@@ -53,15 +52,12 @@
 
         <TextView
             android:id="@+id/faq_answer"
+            style="@style/TextSecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:text="Default A"
-            android:textColor="@android:color/secondary_text_light"
-            android:textSize="16sp"
 
 
-            />
+            android:text="Default A" />
     </net.cachapa.expandablelayout.ExpandableLayout>
 
 

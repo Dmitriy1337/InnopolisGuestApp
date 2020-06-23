@@ -33,7 +33,7 @@ public class ScheduleFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        // Inflate the layout for this fragment
+        // Inflate the settings_bg for this fragment
         View thisView = inflater.inflate(R.layout.fragment_schedule, container, false);
         tabs = thisView.findViewById(R.id.scheduleTabs);
         vp = thisView.findViewById(R.id.schedule_viewpager2);
