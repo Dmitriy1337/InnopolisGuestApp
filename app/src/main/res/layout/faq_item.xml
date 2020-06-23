@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="5sp"
 
-    android:background="@drawable/upcoming_bg"
+    android:background="@drawable/schedulebg"
     android:orientation="vertical"
     android:padding="16sp">
 
@@ -33,11 +33,13 @@
         android:layout_marginStart="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/arrow_down"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/faq_question"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@id/faq_question"
-        app:layout_constraintTop_toTopOf="@+id/faq_question" />
+        app:layout_constraintTop_toTopOf="@+id/faq_question"
+        tools:visibility="gone" />
 
     <net.cachapa.expandablelayout.ExpandableLayout
         android:id="@+id/faq_expand"

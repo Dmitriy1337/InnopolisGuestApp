@@ -66,7 +66,7 @@ public class FAQList_adapter extends RecyclerView.Adapter<FAQList_adapter.ViewHo
 
         public TextView question;
         public TextView answer;
-        public ImageButton arrow;
+       // public ImageButton arrow;
         ExpandableLayout layoutExpand;
 
         public ViewHolder(@NonNull View itemView) {
@@ -74,11 +74,11 @@ public class FAQList_adapter extends RecyclerView.Adapter<FAQList_adapter.ViewHo
             super(itemView);
             question = itemView.findViewById(R.id.faq_question);
             answer = itemView.findViewById(R.id.faq_answer);
-            arrow = itemView.findViewById(R.id.faq_arrow);
+            // arrow = itemView.findViewById(R.id.faq_arrow);
             layoutExpand = itemView.findViewById(R.id.faq_expand);
             layoutExpand.setInterpolator(new OvershootInterpolator());
             layoutExpand.setOnExpansionUpdateListener(this);
-            arrow.setOnClickListener(this);
+            itemView.setOnClickListener(this);
 
         }
 
@@ -90,8 +90,8 @@ public class FAQList_adapter extends RecyclerView.Adapter<FAQList_adapter.ViewHo
         public void onClick(View view) {
             ViewHolder holder = (ViewHolder) rv.findViewHolderForAdapterPosition(selectedItem);
             if (holder != null) {
-                holder.arrow.setSelected(false);
-                holder.arrow.animate().setDuration(200).rotation(0);
+                //  holder.arrow.setSelected(false);
+                //  holder.arrow.animate().setDuration(200).rotation(0);
                 holder.layoutExpand.collapse();
             }
 
@@ -99,8 +99,8 @@ public class FAQList_adapter extends RecyclerView.Adapter<FAQList_adapter.ViewHo
             if (position == selectedItem) {
                 selectedItem = UNSELECTED;
             } else {
-                arrow.setSelected(true);
-                view.animate().setDuration(200).rotation(180);
+                //  arrow.setSelected(true);
+                //  arrow.animate().setDuration(200).rotation(180);
 
 
                 layoutExpand.expand();
