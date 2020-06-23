@@ -36,7 +36,7 @@ public class NotificationsFragment extends Fragment {
         list.add(test);
         list.add(test);
 
-        Log.d("notifications", list.get(0).getText());
+        //Log.d("notifications", list.get(0).getText());
 
         Notifications_adapter adapter = new Notifications_adapter(list);
         rv.setAdapter(adapter);

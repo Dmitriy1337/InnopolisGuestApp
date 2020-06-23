@@ -19,7 +19,7 @@ public class Notifications_adapter extends RecyclerView.Adapter<Notifications_ad
 
     public Notifications_adapter(ArrayList<Notification> data) {
         this.data = data;
-        Log.d("notifications", "constructor works");
+        //Log.d("notifications", "constructor works");
 
     }
 
@@ -32,7 +32,7 @@ public class Notifications_adapter extends RecyclerView.Adapter<Notifications_ad
 
     @Override
     public void onBindViewHolder(@NonNull Notifications_adapter.ViewHolder holder, int position) {
-        Log.d("notifications", data.get(position).getText());
+        //Log.d("notifications", data.get(position).getText());
 
         holder.text.setText(data.get(position).getText());
         holder.date_time.setText(data.get(position).getDate_or_time());
