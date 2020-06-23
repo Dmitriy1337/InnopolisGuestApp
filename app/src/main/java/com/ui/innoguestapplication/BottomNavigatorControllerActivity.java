@@ -1,6 +1,8 @@
 package com.ui.innoguestapplication;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -8,12 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ui.innoguestapplication.fragments.FAQFragment;
 import com.ui.innoguestapplication.fragments.MapFragment;
 import com.ui.innoguestapplication.fragments.MenuFragment;
 import com.ui.innoguestapplication.fragments.SceduleFragment;
 import com.ui.innoguestapplication.fragments.SettingsFragment;
+
+import java.lang.reflect.Field;
 
 public class BottomNavigatorControllerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -25,6 +31,7 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
         setContentView(R.layout.activity_main);
         loadFragment(new MenuFragment());
         BottomNavigationView navigation = findViewById(R.id.navigation);
+
         navigation.setOnNavigationItemSelectedListener(this);
         labelTop = findViewById(R.id.label_top);
 
@@ -65,8 +72,11 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
         }
 
         loadFragment(fragment);
-        return false;
+        return true;
     }
+
+
+
     @Override
     public void onBackPressed() {
         // do nothing
