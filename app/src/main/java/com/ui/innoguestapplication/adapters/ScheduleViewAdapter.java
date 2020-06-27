@@ -1,5 +1,7 @@
 package com.ui.innoguestapplication.adapters;
 
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -37,5 +39,9 @@ public class ScheduleViewAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return list.get(position).getDate();
+    }
+    @Override
+    public Parcelable saveState() {
+        return null;
     }
 }

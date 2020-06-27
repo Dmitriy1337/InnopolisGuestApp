@@ -45,6 +45,7 @@
     <string name="arrow_icon">arrow</string>
     <string name="map_image">map_image</string>
     <string name="image_below_map">map picture</string>
+    <string name="language">Language</string>
 
 
 </resources>

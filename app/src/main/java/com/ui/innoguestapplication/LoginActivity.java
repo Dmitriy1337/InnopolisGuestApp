@@ -16,6 +16,7 @@ import android.widget.ImageView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.ui.innoguestapplication.backend.APIRequests;
+import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
 import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
@@ -53,7 +54,8 @@ public class LoginActivity extends AppCompatActivity  {
 
 
 
-        loginLocalDatabase = new LoginLocalDatabase(getBaseContext());
+        loginLocalDatabase =  LoginLocalDatabase.getLoginLocalDatabase(getBaseContext());
+
 
         LoginData preloadedData = loginLocalDatabase.getLoginDataOrNull();
 
@@ -72,6 +74,11 @@ public class LoginActivity extends AppCompatActivity  {
                 login(loadedLoginData);
             }
         });
+
+
+
+
+
 
         text_email.addTextChangedListener(new TextWatcher() {
             @Override

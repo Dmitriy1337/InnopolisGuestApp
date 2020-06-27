@@ -1,26 +1,39 @@
 package com.ui.innoguestapplication;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
+import com.ui.innoguestapplication.sqlite_database.Notification;
 import com.ui.innoguestapplication.fragments.FAQFragment;
 import com.ui.innoguestapplication.fragments.MapFragment;
 import com.ui.innoguestapplication.fragments.MenuFragment;
 import com.ui.innoguestapplication.fragments.NotificationsFragment;
 import com.ui.innoguestapplication.fragments.ScheduleFragment;
 import com.ui.innoguestapplication.fragments.SettingsFragment;
+import com.ui.innoguestapplication.sqlite_database.NotificationStorage;
+import com.ui.innoguestapplication.sqlite_database.NotifySound;
+import com.ui.innoguestapplication.sqlite_database.Theme;
 
 public class BottomNavigatorControllerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private static final String START_SETTINGS = "com.ui.innoguestapplication.START_SETTINGS";
@@ -28,10 +41,18 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
     private static final String START_FAQ = "com.ui.innoguestapplication.START_FAQ";
     private static final String START_HOME = "com.ui.innoguestapplication.START_HOME";
     private static final String START_LOCATION = "com.ui.innoguestapplication.START_LOCATION";
+    private static final String CHANNEL_ID = "CHANNEL_ID";
 
     TextView labelTop;
     ImageButton notifications_button;
 
+    static ScheduleFragment scheduleFragment = new ScheduleFragment();
+    static FAQFragment faqFragment = new FAQFragment();
+    static MenuFragment menuFragment = new MenuFragment();
+    static MapFragment mapFragment = new MapFragment();
+    static SettingsFragment settingsFragment = new SettingsFragment();
+
+    static Fragment current = menuFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,22 +77,34 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
                 break;
         }
+        Log.d("notific",LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme().toString());
+        if(LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme()== Theme.DARK){
+
+            setTheme(R.style.DarkTheme);
+        }else{
+            setTheme(R.style.LightTheme);
+        }
 
 
         setContentView(R.layout.activity_main);
 
 
-        loadFragment(new MenuFragment());
+
+
+        loadFragment(menuFragment);
+        labelTop = findViewById(R.id.label_top);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
-        labelTop = findViewById(R.id.label_top);
+        navigation.setSelectedItemId(R.id.navigation_home);
+
         notifications_button = findViewById(R.id.notifications_button);
 
         notifications_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 labelTop.setText(R.string.title_notifications);
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotificationsFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new NotificationsFragment()).commit();
 
             }
         });
@@ -101,10 +134,45 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
                     break;
 
             }
+
+
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
 
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "My channel",
+                    NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription("My channel description");
+            channel.enableLights(true);
+            channel.setLightColor(Color.RED);
+            channel.enableVibration(false);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+
+    }
+
+    public  void addNotification(Notification notification, Context context) {
+        if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getSound() == NotifySound.ON){
+            NotificationStorage.getNotificationStorage(context).addNotification(notification);
+
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
+                        R.mipmap.ic_launcher_round))
+                .setContentTitle(notification.getText())
+                .setContentText(notification.getText())
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT).setAutoCancel(true);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+// notificationId is a unique int for each notification that you must define
+        notificationManager.notify(13, builder.build());
+    }
     }
 
 
@@ -113,29 +181,7 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
     }
 
-    public boolean setDark() {
-        Toast.makeText(getApplicationContext(), "dark_active", Toast.LENGTH_SHORT).show();
 
-        setTheme(R.style.DarkTheme);
-        finish();
-        Intent intent = new Intent();
-        intent.setAction(START_SETTINGS);
-        startActivity(intent);
-        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
-        return true;
-    }
-
-    public boolean setLight() {
-        Toast.makeText(getApplicationContext(), "light_active", Toast.LENGTH_SHORT).show();
-        setTheme(R.style.LightTheme);
-        finish();
-        Intent intent = new Intent();
-        intent.setAction(START_SETTINGS);
-        startActivity(intent);
-        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
-
-        return true;
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -144,32 +190,34 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
         switch (item.getItemId()) {
             case R.id.navigation_schedule:
-                fragment = new ScheduleFragment();
+                fragment = scheduleFragment;
                 labelTop.setText(R.string.title_schedule);
                 break;
             case R.id.navigation_faq:
-                fragment = new FAQFragment();
+                fragment = faqFragment;
                 labelTop.setText(R.string.title_faq);
                 break;
             case R.id.navigation_home:
-                fragment = new MenuFragment();
+                fragment =menuFragment;
                 labelTop.setText(R.string.title_home);
                 break;
             case R.id.navigation_map:
-                fragment = new MapFragment();
+                fragment = mapFragment;
                 labelTop.setText(R.string.title_map);
                 break;
             case R.id.navigation_settings:
-                fragment = new SettingsFragment();
+                fragment = settingsFragment;
                 labelTop.setText(R.string.title_settings);
                 break;
         }
 
+        current = fragment;
         loadFragment(fragment);
-        return false;
+        return true;
     }
     @Override
     public void onBackPressed() {
+        loadFragment(current);
         // do nothing
     }
 }

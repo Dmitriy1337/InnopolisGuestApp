@@ -1,6 +1,6 @@
-package com.ui.innoguestapplication.adapters;
+package com.ui.innoguestapplication.sqlite_database;
 
-public class Notification {
+public class Notification   {
     private String text;
     private String date_or_time;
 
