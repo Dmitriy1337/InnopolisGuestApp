@@ -23,7 +23,7 @@ public class FAQFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        // Inflate the layout for this fragment
+        // Inflate the settings_bg for this fragment
         View thisView = inflater.inflate(R.layout.fragment_faq, container, false);
 
         recycler_list = thisView.findViewById(R.id.faq_list);

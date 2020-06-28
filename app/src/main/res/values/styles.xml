@@ -20,13 +20,50 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
+    
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splashscreen</item>
         <item name="android:colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="TextSettings">
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+
+    </style>
+
+    <style name="TextDefault">
+        <item name="android:textColor">?attr/textPrimary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextSecondary">
+        <item name="android:textColor">?attr/textSecondary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextTitle">
+        <item name="android:textColor">?attr/textPrimary</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+    </style>
+
+    <style name="TextBig">
+        <item name="android:textColor">?attr/textPrimary</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextSmall">
+        <item name="android:textColor">?attr/textPrimary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -43,5 +80,28 @@
     <!--        <item name="colorControlActivated">@color/colorPrimaryDark</item>-->
     <!--        <item name="colorControlHighlight">@color/colorPrimaryDark</item>-->
     <!--    </style>-->
+
+
+    <style name="DarkTheme" parent="AppTheme">
+        <item name="colorPrimary">#013220</item>
+        <item name="colorSecondary">#011910</item>
+        <item name="textPrimary">#ffffff</item>
+        <item name="textSecondary">#fafafa</item>
+        <item name="card_bg">#222831</item>
+        <item name="outlineColor">#ffffff</item>
+        <item name="bgColor">#000000</item>
+    </style>
+
+    <style name="LightTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/colorPrimaryDark</item>
+        <item name="textPrimary">#000000</item>
+        <item name="textSecondary">@color/design_default_color_on_secondary</item>
+
+        <item name="card_bg">#ffffff</item>
+        <item name="outlineColor">@color/colorPrimary</item>
+        <item name="bgColor">#ffffff</item>
+
+    </style>
 
 </resources>

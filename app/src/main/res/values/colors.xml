@@ -8,6 +8,17 @@
     <color name="textPrimary">#000000</color>
     <color name="textSecondary">#061826</color>
     <color name="light">#C7F9CC</color>
+    <color name="brit">#012169</color>
+    <color name="rus">#d52b1e</color>
+    <color name="auto_mode">#1E90FF</color>
+    <color name="dark_mode">#808080</color>
+    <color name="yes">#32CD32</color>
+    <color name="yes_dark">#FFFFFF</color>
+    <color name="almost_white">#FAFAFA</color>
+
+
+    <color name="no">#C0C0C0</color>
+    <color name="no_dark">#FFFFFF</color>
 
 
 </resources>
