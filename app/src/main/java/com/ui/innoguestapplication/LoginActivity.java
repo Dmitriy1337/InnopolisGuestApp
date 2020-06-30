@@ -16,13 +16,19 @@ import android.widget.ImageView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.ui.innoguestapplication.backend.APIRequests;
+import com.ui.innoguestapplication.backend.RespUser;
+import com.ui.innoguestapplication.backend.ResponseRest;
 import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
 import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
 import java.util.regex.Pattern;
 
-public class LoginActivity extends AppCompatActivity  {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class LoginActivity extends AppCompatActivity {
     LoginLocalDatabase loginLocalDatabase;
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
@@ -30,7 +36,7 @@ public class LoginActivity extends AppCompatActivity  {
                     //"(?=.*[a-z])" +         //at least 1 lower case letter
                     //"(?=.*[A-Z])" +         //at least 1 upper case letter
                     "(?=.*[a-zA-Z])" +      //any letter
-                    "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                    //"(?=.*[@#$%^&+=])" +    //at least 1 special character (no need to use it)
                     "(?=\\S+$)" +           //no white spaces
                     ".{4,}" +               //at least 4 characters
                     "$");
@@ -51,15 +57,12 @@ public class LoginActivity extends AppCompatActivity  {
         Button login_button = findViewById(R.id.login_button);
 
 
-
-
-
-        loginLocalDatabase =  LoginLocalDatabase.getLoginLocalDatabase(getBaseContext());
+        loginLocalDatabase = LoginLocalDatabase.getLoginLocalDatabase(getBaseContext());
 
 
         LoginData preloadedData = loginLocalDatabase.getLoginDataOrNull();
 
-        if(preloadedData!=null){
+        if (preloadedData != null) {
 
             loginWithPreloaded(preloadedData);
 
@@ -68,16 +71,12 @@ public class LoginActivity extends AppCompatActivity  {
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               LoginData loadedLoginData = new LoginData(text_email.getText().toString(),text_password.getText().toString());
+                LoginData loadedLoginData = new LoginData(text_email.getText().toString(), text_password.getText().toString());
 
                 loginLocalDatabase.setLoginData(loadedLoginData);
                 login(loadedLoginData);
             }
         });
-
-
-
-
 
 
         text_email.addTextChangedListener(new TextWatcher() {
@@ -142,30 +141,89 @@ public class LoginActivity extends AppCompatActivity  {
     private void login(LoginData loginData) {
 
         if (validateEmail() && validatePassword()) {
-            if(APIRequests.checkValidityOfUser(loginData)){
-                //this is temporary
+            APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
+                @Override
+                public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
+                    //this is temporary
+                    if (checkValidity(response.body())) {
+                        Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
+                        String intentAction = getIntent().getAction();
 
-                Intent intent = new Intent(this, BottomNavigatorControllerActivity.class);
-                String intentAction = getIntent().getAction();
 
+                        intent.setAction(intentAction);
+                        startActivity(intent);
+                    }
+                }
 
-                intent.setAction(intentAction);
-                startActivity(intent);
-            }
+                @Override
+                public void onFailure(Call<ResponseRest> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
         }
 
     }
+
     private void loginWithPreloaded(LoginData loginData) {
-
-
-            if(APIRequests.checkValidityOfUser(loginData)){
+        APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
+            @Override
+            public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
                 //this is temporary
 
-                Intent intent = new Intent(this, BottomNavigatorControllerActivity.class);
+                Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
                 startActivity(intent);
             }
 
+            @Override
+            public void onFailure(Call<ResponseRest> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
 
+    // some shitty method to validate auth response ¯\_(ツ)_/¯
+    private boolean checkValidity(ResponseRest response) {
+        if (response != null) {
+            try {
+                if (response.getError_request() == 1) { // bad request
+                    Log.d("LOGVAL", "bad request");
+                    return false;
+                } else {
+                    switch (response.getBody().getSuccess()) {
+                        case 0: {  //onError
+                            switch (response.getBody().getError()) {
+                                case 1: { // email not found
+                                    Log.d("LOGVAL", "email nnot found");
+                                    return false;
+                                }
+                                case 2: { // incorrect password
+                                    Log.d("LOGVAL", "incorrect pass");
+                                    return false;
+                                }
+                            }
+                        }
+                        case 1: { //onSuccess
+                            String token = response.getBody().getData().getToken();
+                            RespUser user = response.getBody().getData().getUser();
+                            //save token & userData
+                            Log.d("LOGVAL", "Ok");
+                            return true;
+                        }
+                    }
+                }
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                Log.d("LOGVAL", "exception & ");
+                return false;
+            }
+        } else {
+            // network error
+            Log.d("LOGVAL", "network err");
+            return false;
+        }
+
+        Log.d("LOGVAL", "nothing");
+        return false;
     }
 
 
@@ -211,6 +269,7 @@ public class LoginActivity extends AppCompatActivity  {
     public void onBackPressed() {
         // do nothing
     }
+
     @Override
     protected void onDestroy() {
         loginLocalDatabase.getDbHelper().close();
