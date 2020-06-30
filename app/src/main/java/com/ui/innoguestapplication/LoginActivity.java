@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -169,7 +170,7 @@ public class LoginActivity extends AppCompatActivity {
                         case NO_ERRORS:{
                             Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
                             String intentAction = getIntent().getAction();
-
+                            Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
                             intent.setAction(intentAction);
                             startActivity(intent);
                         }
