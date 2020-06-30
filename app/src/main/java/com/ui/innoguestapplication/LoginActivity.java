@@ -18,6 +18,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.ui.innoguestapplication.backend.APIRequests;
 import com.ui.innoguestapplication.backend.RespUser;
 import com.ui.innoguestapplication.backend.ResponseRest;
+import com.ui.innoguestapplication.exceptions.IllegalPasswordException;
 import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
 import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
@@ -149,50 +150,64 @@ public class LoginActivity extends AppCompatActivity {
 
         if (validateEmail() && validatePassword()) {
 
-            try{
-                UserProfileData.getUserFrofileData(loginData);
-                Intent intent = new Intent(this, BottomNavigatorControllerActivity.class);
-                String intentAction = getIntent().getAction();
+            APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
+                @Override
+                public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
+                    switch (APIRequests.checkValidity(response.body())){
+                        case ERROR:{
+                            //TODO
+                            //connection problem of smth else
+                        }
+                        case WRONG_LOGIN: {
+                            til_email.setError(getString(R.string.email_wrong));
+                            til_email.setErrorEnabled(true);
+                        }
+                        case WRONG_PASSWORD:{
+                            til_email.setError(getString(R.string.password_error));
+                            til_email.setErrorEnabled(true);
+                        }
+                        case NO_ERRORS:{
+                            Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
+                            String intentAction = getIntent().getAction();
 
-
-                intent.setAction(intentAction);
-                startActivity(intent);
-            }catch (IllegalPasswordException exception){
-
-
-                if(APIRequests.LoginState.valueOf(exception.getMessage()) == APIRequests.LoginState.WRONG_LOGIN){
-                    til_email.setError(getString(R.string.email_wrong));
-                    til_email.setErrorEnabled(true);
-
-                }else if(APIRequests.LoginState.valueOf(exception.getMessage()) == APIRequests.LoginState.WRONG_PASSWORD){
-                    til_email.setError(getString(R.string.password_error));
-                    til_email.setErrorEnabled(true);
+                            intent.setAction(intentAction);
+                            startActivity(intent);
+                        }
+                    }
                 }
 
+                @Override
+                public void onFailure(Call<ResponseRest> call, Throwable t) {
+                    t.printStackTrace();
+                    //also error
+                }
+            });
 
-            }
-
-
-            if(APIRequests.checkValidityOfUser(loginData)== APIRequests.LoginState.NO_ERRORS){
-                //this is temporary
-
-
-            }
         }
 
     }
     private void loginWithPreloaded(LoginData loginData) {
 
+            APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
+                @Override
+                public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
+                    if (APIRequests.checkValidity(response.body()) == APIRequests.LoginState.NO_ERRORS){
+                        //this is temporary
 
-            if(APIRequests.checkValidityOfUser(loginData)== APIRequests.LoginState.NO_ERRORS){
-                //this is temporary
+                        Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
+                        startActivity(intent);
+                    }
+                }
 
-                Intent intent = new Intent(this, BottomNavigatorControllerActivity.class);
-                startActivity(intent);
-            }
+                @Override
+                public void onFailure(Call<ResponseRest> call, Throwable t) {
 
+                }
+            });
 
     }
+
+
 
 
     private boolean validateEmail() {
