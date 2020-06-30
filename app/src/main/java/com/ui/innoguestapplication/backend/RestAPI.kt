@@ -8,7 +8,6 @@ import retrofit2.http.POST
 
 
 interface API {
-
     @FormUrlEncoded
     @POST("/api/auth/")
     fun auth(@Field("login") login: String, @Field("password") password: String): Call<ResponseRest>
@@ -38,7 +37,3 @@ data class RespUser(
         @SerializedName("barcode") val barcode: String?
 )
 
-data class ReqBody(
-        @SerializedName("login") val login: String?,
-        @SerializedName("password") val password: String?
-)
