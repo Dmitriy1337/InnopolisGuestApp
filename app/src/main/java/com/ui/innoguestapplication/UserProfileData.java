@@ -8,7 +8,8 @@ public class UserProfileData {
 
     private String name, surname, telegramAlias, email;
 
-    private UserProfileData(String name, String surname, String telegramAlias, String email) {
+
+    private UserProfileData(String name, String surname,  String email) {
         this.name = name;
         this.surname = surname;
         this.telegramAlias = telegramAlias;
@@ -32,13 +33,18 @@ public class UserProfileData {
         return email;
     }
 
-    public static UserProfileData getuserFrofileData(String email, String password) throws IllegalPasswordException {
-        //TODO
-        if (APIRequests.checkValidityOfUser(new LoginData(email, password))) {
+    public static UserProfileData getUserFrofileData(LoginData loginData) throws IllegalPasswordException {
+
+        APIRequests.LoginState state =APIRequests.checkValidityOfUser(loginData);
+        if (state== APIRequests.LoginState.NO_ERRORS) {
+            //TODO
+           //Return new UserProfileData object using json from api
+
+
             return null;
 
         } else {
-            throw new IllegalPasswordException();
+            throw new IllegalPasswordException(state);
         }
     }
 }

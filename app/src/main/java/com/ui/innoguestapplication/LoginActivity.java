@@ -16,6 +16,7 @@ import android.widget.ImageView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.ui.innoguestapplication.backend.APIRequests;
+import com.ui.innoguestapplication.exceptions.IllegalPasswordException;
 import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
 import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
@@ -142,15 +143,35 @@ public class LoginActivity extends AppCompatActivity  {
     private void login(LoginData loginData) {
 
         if (validateEmail() && validatePassword()) {
-            if(APIRequests.checkValidityOfUser(loginData)){
-                //this is temporary
 
+            try{
+                UserProfileData.getUserFrofileData(loginData);
                 Intent intent = new Intent(this, BottomNavigatorControllerActivity.class);
                 String intentAction = getIntent().getAction();
 
 
                 intent.setAction(intentAction);
                 startActivity(intent);
+            }catch (IllegalPasswordException exception){
+
+
+                if(APIRequests.LoginState.valueOf(exception.getMessage()) == APIRequests.LoginState.WRONG_LOGIN){
+                    til_email.setError(getString(R.string.email_wrong));
+                    til_email.setErrorEnabled(true);
+
+                }else if(APIRequests.LoginState.valueOf(exception.getMessage()) == APIRequests.LoginState.WRONG_PASSWORD){
+                    til_email.setError(getString(R.string.password_error));
+                    til_email.setErrorEnabled(true);
+                }
+
+
+            }
+
+
+            if(APIRequests.checkValidityOfUser(loginData)== APIRequests.LoginState.NO_ERRORS){
+                //this is temporary
+
+
             }
         }
 
@@ -158,7 +179,7 @@ public class LoginActivity extends AppCompatActivity  {
     private void loginWithPreloaded(LoginData loginData) {
 
 
-            if(APIRequests.checkValidityOfUser(loginData)){
+            if(APIRequests.checkValidityOfUser(loginData)== APIRequests.LoginState.NO_ERRORS){
                 //this is temporary
 
                 Intent intent = new Intent(this, BottomNavigatorControllerActivity.class);

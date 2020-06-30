@@ -21,6 +21,8 @@
 
     <string name="email_error">Invalid email</string>
     <string name="password_error">Invalid password</string>
+    <string name="email_wrong">Wrong email</string>
+    <string name="password_wrong">Wrong password</string>
     <string name="empty_field">Field can not be empty</string>
     <string name="logo">logo</string>
     <string name="home_title">Home</string>
