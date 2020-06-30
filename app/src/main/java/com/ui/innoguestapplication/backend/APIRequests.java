@@ -1,27 +1,31 @@
 package com.ui.innoguestapplication.backend;
 
+import android.util.Log;
+
+import com.ui.innoguestapplication.Event;
 import com.ui.innoguestapplication.EventList;
 import com.ui.innoguestapplication.UserProfileData;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
 
+import java.util.List;
+
+import retrofit2.Callback;
+
+/*
+* All methods will be void & asynchronous*/
 public class APIRequests {
 
 
-    public static boolean checkValidityOfUser(LoginData loginData){
-        //Hashes password and gets hashed password using email as key. Compares two hashes.
-        //Returns true if they're equal, false otherwise
-        //TODO
-        return true;
+    public static void checkValidityOfUser(LoginData loginData, Callback<ResponseRest> callback){
+        Backend.INSTANCE.auth(loginData, callback);
 
     }
-    public static UserProfileData getUserData(String email){
-        //TODO
-        return null;
 
-    }
-    public static EventList getEventListData(){
+    public static void getUserData(String email, Callback<UserProfileData> callback){
         //TODO
-        return null;
+    }
+    public static void getEventListData(Callback<List<Event>> callback){
+        //TODO
     }
 
 
