@@ -9,7 +9,7 @@ public class UserProfileData {
     private String name, surname, telegramAlias, email;
 
 
-    private UserProfileData(String name, String surname,  String email) {
+    public UserProfileData(String name, String surname,  String email) {
         this.name = name;
         this.surname = surname;
         this.telegramAlias = telegramAlias;
@@ -32,8 +32,8 @@ public class UserProfileData {
     public String getEmail() {
         return email;
     }
-
-    public static UserProfileData getUserFrofileData(LoginData loginData) throws IllegalPasswordException {
+    //has been moved into APIRequests
+    /*public static UserProfileData getUserFrofileData(LoginData loginData) throws IllegalPasswordException {
 
         APIRequests.LoginState state =APIRequests.checkValidityOfUser(loginData);
         if (state== APIRequests.LoginState.NO_ERRORS) {
@@ -46,5 +46,5 @@ public class UserProfileData {
         } else {
             throw new IllegalPasswordException(state);
         }
-    }
+    }*/
 }

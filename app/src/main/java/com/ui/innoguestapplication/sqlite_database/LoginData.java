@@ -5,26 +5,26 @@ import androidx.annotation.NonNull;
 public class LoginData {
 
     private String email = "";
-    private String passwordHash = "";
+    private String password = "";
 
 
-    public LoginData(String email, String passwordHash) {
+    public LoginData(String email, String password) {
         this.email = email;
-        this.passwordHash = ""+passwordHash.hashCode();
+        this.password = password;
     }
 
 
     @NonNull
     @Override
     public String toString() {
-        return email+"\n"+passwordHash;
+        return email+"\n"+ password;
     }
 
     @Override
     public boolean equals(Object o){
         if(o instanceof LoginData){
             LoginData loginData = (LoginData)o;
-            if(email.equals(loginData.email)&&passwordHash.equals(loginData.passwordHash)){
+            if(email.equals(loginData.email)&& password.equals(loginData.password)){
                 return true;
             }
             return false;
@@ -39,8 +39,8 @@ public class LoginData {
         return email;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getPassword() {
+        return password;
     }
 
 

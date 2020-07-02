@@ -12,10 +12,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.ui.innoguestapplication.backend.APIRequests;
+import com.ui.innoguestapplication.backend.RespUser;
+import com.ui.innoguestapplication.backend.ResponseRest;
 import com.ui.innoguestapplication.exceptions.IllegalPasswordException;
 import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
@@ -23,7 +26,11 @@ import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
 import java.util.regex.Pattern;
 
-public class LoginActivity extends AppCompatActivity  {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class LoginActivity extends AppCompatActivity {
     LoginLocalDatabase loginLocalDatabase;
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
@@ -31,7 +38,7 @@ public class LoginActivity extends AppCompatActivity  {
                     //"(?=.*[a-z])" +         //at least 1 lower case letter
                     //"(?=.*[A-Z])" +         //at least 1 upper case letter
                     "(?=.*[a-zA-Z])" +      //any letter
-                    "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                    //"(?=.*[@#$%^&+=])" +    //at least 1 special character (no need to use it)
                     "(?=\\S+$)" +           //no white spaces
                     ".{4,}" +               //at least 4 characters
                     "$");
@@ -144,50 +151,64 @@ public class LoginActivity extends AppCompatActivity  {
 
         if (validateEmail() && validatePassword()) {
 
-            try{
-                UserProfileData.getUserFrofileData(loginData);
-                Intent intent = new Intent(this, BottomNavigatorControllerActivity.class);
-                String intentAction = getIntent().getAction();
-
-
-                intent.setAction(intentAction);
-                startActivity(intent);
-            }catch (IllegalPasswordException exception){
-
-
-                if(APIRequests.LoginState.valueOf(exception.getMessage()) == APIRequests.LoginState.WRONG_LOGIN){
-                    til_email.setError(getString(R.string.email_wrong));
-                    til_email.setErrorEnabled(true);
-
-                }else if(APIRequests.LoginState.valueOf(exception.getMessage()) == APIRequests.LoginState.WRONG_PASSWORD){
-                    til_email.setError(getString(R.string.password_error));
-                    til_email.setErrorEnabled(true);
+            APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
+                @Override
+                public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
+                    switch (APIRequests.checkValidity(response.body())){
+                        case ERROR:{
+                            //TODO
+                            //connection problem of smth else
+                        }
+                        case WRONG_LOGIN: {
+                            til_email.setError(getString(R.string.email_wrong));
+                            til_email.setErrorEnabled(true);
+                        }
+                        case WRONG_PASSWORD:{
+                            til_email.setError(getString(R.string.password_error));
+                            til_email.setErrorEnabled(true);
+                        }
+                        case NO_ERRORS:{
+                            Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
+                            String intentAction = getIntent().getAction();
+                            Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
+                            intent.setAction(intentAction);
+                            startActivity(intent);
+                        }
+                    }
                 }
 
+                @Override
+                public void onFailure(Call<ResponseRest> call, Throwable t) {
+                    t.printStackTrace();
+                    //also error
+                }
+            });
 
-            }
-
-
-            if(APIRequests.checkValidityOfUser(loginData)== APIRequests.LoginState.NO_ERRORS){
-                //this is temporary
-
-
-            }
         }
 
     }
     private void loginWithPreloaded(LoginData loginData) {
 
+            APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
+                @Override
+                public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
+                    if (APIRequests.checkValidity(response.body()) == APIRequests.LoginState.NO_ERRORS){
+                        //this is temporary
 
-            if(APIRequests.checkValidityOfUser(loginData)== APIRequests.LoginState.NO_ERRORS){
-                //this is temporary
+                        Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
+                        startActivity(intent);
+                    }
+                }
 
-                Intent intent = new Intent(this, BottomNavigatorControllerActivity.class);
-                startActivity(intent);
-            }
+                @Override
+                public void onFailure(Call<ResponseRest> call, Throwable t) {
 
+                }
+            });
 
     }
+
+
 
 
     private boolean validateEmail() {
