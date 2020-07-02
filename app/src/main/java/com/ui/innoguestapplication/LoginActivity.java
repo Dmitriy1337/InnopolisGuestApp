@@ -162,10 +162,12 @@ public class LoginActivity extends AppCompatActivity {
                         case WRONG_LOGIN: {
                             til_email.setError(getString(R.string.email_wrong));
                             til_email.setErrorEnabled(true);
+                            break;
                         }
                         case WRONG_PASSWORD:{
                             til_email.setError(getString(R.string.password_error));
                             til_email.setErrorEnabled(true);
+                            break;
                         }
                         case NO_ERRORS:{
                             Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
@@ -173,6 +175,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
                             intent.setAction(intentAction);
                             startActivity(intent);
+                            break;
                         }
                     }
                 }

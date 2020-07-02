@@ -2,6 +2,7 @@ package com.ui.innoguestapplication;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -35,6 +36,8 @@ import com.ui.innoguestapplication.sqlite_database.NotificationStorage;
 import com.ui.innoguestapplication.sqlite_database.NotifySound;
 import com.ui.innoguestapplication.sqlite_database.Theme;
 
+import java.util.Objects;
+
 public class BottomNavigatorControllerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private static final String START_SETTINGS = "com.ui.innoguestapplication.START_SETTINGS";
     private static final String START_SCHEDULE = "com.ui.innoguestapplication.START_SCHEDULE";
@@ -65,6 +68,14 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
          *
          * */
 
+
+
+        if(LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme()== Theme.DARK){
+
+            setTheme(R.style.DarkTheme);
+        }else{
+            setTheme(R.style.LightTheme);
+        }
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES:
                 //Toast.makeText(getApplicationContext(),"light_active",Toast.LENGTH_SHORT).show();
@@ -77,21 +88,13 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
                 break;
         }
-        Log.d("notific",LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme().toString());
-        if(LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme()== Theme.DARK){
-
-            setTheme(R.style.DarkTheme);
-        }else{
-            setTheme(R.style.LightTheme);
-        }
-
 
         setContentView(R.layout.activity_main);
 
 
 
 
-        loadFragment(menuFragment);
+
         labelTop = findViewById(R.id.label_top);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
@@ -110,7 +113,7 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
         });
 
         try {
-            switch (getIntent().getAction()) {
+            switch (Objects.requireNonNull(getIntent().getAction())) {
                 case START_SETTINGS:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
                     navigation.setSelectedItemId(R.id.navigation_settings);
@@ -121,8 +124,9 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
                     navigation.setSelectedItemId(R.id.navigation_schedule);
                     break;
                 case START_FAQ:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FAQFragment()).commit();
-                    navigation.setSelectedItemId(R.id.navigation_faq);
+                    current = faqFragment;
+                    loadFragment(faqFragment);
+
                     break;
                 case START_HOME:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MenuFragment()).commit();
@@ -137,18 +141,27 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
 
         } catch (NullPointerException e) {
+
             e.printStackTrace();
         }
+
+        loadFragment(menuFragment);
+
+
+
+
+        //**add this line**
+
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "My channel",
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Notifications",
                     NotificationManager.IMPORTANCE_HIGH);
-            channel.setDescription("My channel description");
+            channel.setDescription("Notifications of an app");
             channel.enableLights(true);
-            channel.setLightColor(Color.RED);
+            channel.setLightColor(Color.BLACK);
             channel.enableVibration(false);
             notificationManager.createNotificationChannel(channel);
         }
@@ -160,11 +173,15 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
         if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getSound() == NotifySound.ON){
             NotificationStorage.getNotificationStorage(context).addNotification(notification);
 
-
+            int requestID = (int) System.currentTimeMillis();
+            Intent notificationIntent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
+            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            PendingIntent contentIntent = PendingIntent.getActivity(this, requestID,notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                        R.mipmap.ic_launcher_round))
+                        R.mipmap.ic_launcher))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(contentIntent)
                 .setContentTitle(notification.getText())
                 .setContentText(notification.getText())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT).setAutoCancel(true);
