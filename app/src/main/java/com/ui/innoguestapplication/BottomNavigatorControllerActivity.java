@@ -65,6 +65,14 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
          *
          * */
 
+
+
+        if(LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme()== Theme.DARK){
+
+            setTheme(R.style.DarkTheme);
+        }else{
+            setTheme(R.style.LightTheme);
+        }
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES:
                 //Toast.makeText(getApplicationContext(),"light_active",Toast.LENGTH_SHORT).show();
@@ -77,21 +85,13 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
                 break;
         }
-        Log.d("notific",LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme().toString());
-        if(LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme()== Theme.DARK){
-
-            setTheme(R.style.DarkTheme);
-        }else{
-            setTheme(R.style.LightTheme);
-        }
-
 
         setContentView(R.layout.activity_main);
 
 
 
 
-        loadFragment(menuFragment);
+
         labelTop = findViewById(R.id.label_top);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
@@ -121,8 +121,9 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
                     navigation.setSelectedItemId(R.id.navigation_schedule);
                     break;
                 case START_FAQ:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FAQFragment()).commit();
-                    navigation.setSelectedItemId(R.id.navigation_faq);
+                    current = faqFragment;
+                    loadFragment(faqFragment);
+
                     break;
                 case START_HOME:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MenuFragment()).commit();
@@ -137,8 +138,12 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
 
         } catch (NullPointerException e) {
+
+            loadFragment(menuFragment);
             e.printStackTrace();
         }
+
+
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
