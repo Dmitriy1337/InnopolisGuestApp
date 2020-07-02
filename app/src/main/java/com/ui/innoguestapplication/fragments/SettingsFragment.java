@@ -59,7 +59,20 @@ public class SettingsFragment extends Fragment {
          notifySound = LocalSettingsStorage.getLocalSettingsStorage(getContext()).getSound();
 
 
+        if (languageS == Language.RU){
+            Log.d("lanCheck",languageS.toString());
 
+            language.setActivated(true);
+
+            language.setEnabled(true);
+        }
+        if(theme ==Theme.DARK){
+            force_dark_mode.setEnabled(true);
+        }
+        if(notifySound ==NotifySound.OFF){
+
+            alerts.setEnabled(true);
+        }
 
 
 
@@ -132,19 +145,6 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (languageS == Language.RU){
-            Log.d("lanCheck",languageS.toString());
 
-            language.setActivated(true);
-
-            language.setEnabled(true);
-        }
-        if(theme ==Theme.DARK){
-            force_dark_mode.setEnabled(true);
-        }
-        if(notifySound ==NotifySound.OFF){
-
-            alerts.setEnabled(true);
-        }
     }
 }

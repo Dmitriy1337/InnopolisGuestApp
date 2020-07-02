@@ -2,6 +2,7 @@ package com.ui.innoguestapplication;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -34,6 +35,8 @@ import com.ui.innoguestapplication.fragments.SettingsFragment;
 import com.ui.innoguestapplication.sqlite_database.NotificationStorage;
 import com.ui.innoguestapplication.sqlite_database.NotifySound;
 import com.ui.innoguestapplication.sqlite_database.Theme;
+
+import java.util.Objects;
 
 public class BottomNavigatorControllerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private static final String START_SETTINGS = "com.ui.innoguestapplication.START_SETTINGS";
@@ -110,7 +113,7 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
         });
 
         try {
-            switch (getIntent().getAction()) {
+            switch (Objects.requireNonNull(getIntent().getAction())) {
                 case START_SETTINGS:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
                     navigation.setSelectedItemId(R.id.navigation_settings);
@@ -139,21 +142,26 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
         } catch (NullPointerException e) {
 
-            loadFragment(menuFragment);
             e.printStackTrace();
         }
 
+        loadFragment(menuFragment);
+
+
+
+
+        //**add this line**
 
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "My channel",
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Notifications",
                     NotificationManager.IMPORTANCE_HIGH);
-            channel.setDescription("My channel description");
+            channel.setDescription("Notifications of an app");
             channel.enableLights(true);
-            channel.setLightColor(Color.RED);
+            channel.setLightColor(Color.BLACK);
             channel.enableVibration(false);
             notificationManager.createNotificationChannel(channel);
         }
@@ -165,11 +173,15 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
         if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getSound() == NotifySound.ON){
             NotificationStorage.getNotificationStorage(context).addNotification(notification);
 
-
+            int requestID = (int) System.currentTimeMillis();
+            Intent notificationIntent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
+            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            PendingIntent contentIntent = PendingIntent.getActivity(this, requestID,notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                        R.mipmap.ic_launcher_round))
+                        R.mipmap.ic_launcher))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(contentIntent)
                 .setContentTitle(notification.getText())
                 .setContentText(notification.getText())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT).setAutoCancel(true);
