@@ -12,25 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 
 public class MainActivity extends AppCompatActivity  {
-    LoginLocalDatabase loginLocalDatabase;
-    String text = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
-
-
-        testSQLite();
-
-    }
-
-    public void testSQLite() {
-        loginLocalDatabase = new LoginLocalDatabase(getBaseContext());
-        loginLocalDatabase.setLoginData(new LoginData("test@email.com", "123456sgfdsfg"));
-        text = loginLocalDatabase.getLoginDataOrNull().toString();
-        Log.e("get ", text);
-
 
         //Going to Login screen
         Intent intent = new Intent(this, LoginActivity.class);
@@ -39,7 +26,11 @@ public class MainActivity extends AppCompatActivity  {
 
         intent.setAction(intentAction);
         startActivity(intent);
+
+
     }
+
+
 
 
 
@@ -48,7 +39,7 @@ public class MainActivity extends AppCompatActivity  {
 
     @Override
     protected void onDestroy() {
-        loginLocalDatabase.getDbHelper().close();
+
         super.onDestroy();
     }
 

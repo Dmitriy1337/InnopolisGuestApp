@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ui.innoguestapplication.R;
+import com.ui.innoguestapplication.sqlite_database.Notification;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,10 @@ public class Notifications_adapter extends RecyclerView.Adapter<Notifications_ad
         this.data = data;
         //Log.d("notifications", "constructor works");
 
+    }
+
+    public void addNotification(Notification newNotification){
+        data.add(newNotification);
     }
 
     @NonNull

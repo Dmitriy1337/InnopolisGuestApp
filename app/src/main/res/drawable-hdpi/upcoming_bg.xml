@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="?attr/colorPrimary" />
-    <!--    <stroke-->
-    <!--        android:width="3dp"-->
-    <!--        android:color="@color/colorPrimaryDark" />-->
-    <corners android:radius="30dp" />
+    <solid android:color="@color/colorPrimary" />
+   <!-- <stroke
+        android:width="3dp"
+        android:color="@color/colorPrimaryDark" />-->
+    <corners android:radius="20dp" />
     <padding
         android:left="0dp"
         android:top="0dp"
         android:right="0dp"
         android:bottom="0dp" />
+    <item android:name="android:shadowColor">#000000</item>
+    <item android:name="android:shadowRadius">7</item>
+    <item android:name="android:shadowDy">4</item>
 </shape>

@@ -6,22 +6,22 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-public class LoginDatabaseHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 6;
-    public static final String DATABASE_NAME = "LoginData.db";
+public class NotificationDataHelper extends SQLiteOpenHelper {
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "NotificationData.db";
 
-    LoginDatabaseHelper(@Nullable Context context) {
+    NotificationDataHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
     }
 
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(LoginDataContract.SQL_CREATE_ENTRIES);
+        db.execSQL(NotificationDatabaseContract.SQL_CREATE_ENTRIES);
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
-        db.execSQL(LoginDataContract.SQL_DELETE_ENTRIES);
+        db.execSQL(NotificationDatabaseContract.SQL_DELETE_ENTRIES);
         onCreate(db);
     }
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {

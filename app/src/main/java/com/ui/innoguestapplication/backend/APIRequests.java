@@ -1,22 +1,34 @@
 package com.ui.innoguestapplication.backend;
 
+import com.ui.innoguestapplication.EventList;
 import com.ui.innoguestapplication.UserProfileData;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
+
+import java.util.ArrayList;
 
 public class APIRequests {
 
 
-    public static boolean checkValidityOfUser(LoginData loginData){
-        //Hashes password and gets hashed password using email as key. Compares two hashes.
-        //Returns true if they're equal, false otherwise
+
+    public enum LoginState{
+        NO_ERRORS,WRONG_LOGIN,WRONG_PASSWORD
+    }
+
+    public static LoginState checkValidityOfUser(LoginData loginData){
+
+        //Returns true if password from loginData equals to correct password taken from api
         //TODO
-        return true;
+        return LoginState.NO_ERRORS;
 
     }
-    public static UserProfileData getUserData(String email){
+
+
+
+
+    public static ArrayList<EventList> getEventListData(){
+        //Return list eventlists of events
         //TODO
         return null;
-
     }
 
 
