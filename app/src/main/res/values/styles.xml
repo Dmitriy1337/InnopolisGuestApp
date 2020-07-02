@@ -83,25 +83,31 @@
 
 
     <style name="DarkTheme" parent="AppTheme">
-        <item name="colorPrimary">#013220</item>
-        <item name="colorSecondary">#011910</item>
-        <item name="textPrimary">#ffffff</item>
-        <item name="textSecondary">#fafafa</item>
-        <item name="card_bg">#222831</item>
-        <item name="outlineColor">#ffffff</item>
-        <item name="bgColor">#000000</item>
+        <item name="colorPrimary">#003B36</item>
+        <item name="colorSecondary">#012622</item>
+        <item name="textPrimary">#f0f4f8</item>
+        <item name="textSecondary">#e4e7eb</item>
+        <item name="card_bg">#424242</item>
+        <item name="outlineColor">#f5f5f5</item>
+        <item name="bgColor">#121212</item>
     </style>
 
     <style name="LightTheme" parent="AppTheme">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorSecondary">@color/colorPrimaryDark</item>
-        <item name="textPrimary">#000000</item>
-        <item name="textSecondary">@color/design_default_color_on_secondary</item>
+        <item name="textPrimary">@color/textPrimary</item>
+        <item name="textSecondary">@color/textSecondary</item>
 
         <item name="card_bg">#ffffff</item>
         <item name="outlineColor">@color/colorPrimary</item>
-        <item name="bgColor">#ffffff</item>
+        <item name="bgColor">@color/colorNavIcon</item>
 
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2sp</item>
+        <item name="android:background">?attr/colorPrimaryDark</item>
     </style>
 
 </resources>

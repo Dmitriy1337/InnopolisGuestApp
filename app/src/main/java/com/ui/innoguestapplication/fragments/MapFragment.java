@@ -61,10 +61,6 @@ public class MapFragment extends Fragment {
                         mapPic.setImageResource(R.drawable.thirdf);
                         break;
                     }
-                    case 3: {
-                        mapPic.setImageResource(R.drawable.firstf);
-                        break;
-                    }
                     default: {
                         mapPic.setImageResource(R.drawable.icon);
                         break;
