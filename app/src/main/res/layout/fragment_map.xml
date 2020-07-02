@@ -36,7 +36,7 @@
         app:tabMode="fixed"
         app:tabRippleColor="@color/colorPrimaryDark"
         app:tabSelectedTextColor="#FFFFFF"
-        app:tabTextColor="@color/colorPrimaryDark"
+        app:tabTextColor="?attr/textSecondary"
 
         app:tabUnboundedRipple="true">
 
