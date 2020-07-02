@@ -40,7 +40,7 @@ public class LoginLocalDatabase {
             // Create a new map of values, where column names are the keys
             ContentValues values = new ContentValues();
             values.put(LoginDataContract.LoginEntry.COLUMN_NAME_EMAIL, loginData.getEmail());
-            values.put(LoginDataContract.LoginEntry.COLUMN_NAME_PASSWORD, loginData.getPasswordHash());
+            values.put(LoginDataContract.LoginEntry.COLUMN_NAME_PASSWORD, loginData.getPassword());
             values.put(LoginDataContract.LoginEntry.COLUMN_NAME_LAN,"EN");
             values.put(LoginDataContract.LoginEntry.COLUMN_NAME_THEME, "LIGHT");
             values.put(LoginDataContract.LoginEntry.COLUMN_NAME_NOTIFICATIONS, "OFF");
@@ -50,7 +50,7 @@ public class LoginLocalDatabase {
         else{
             // New value for one column
             String email = loginData.getEmail();
-            String password = loginData.getPasswordHash();
+            String password = loginData.getPassword();
             ContentValues values = new ContentValues();
             values.put(LoginDataContract.LoginEntry.COLUMN_NAME_EMAIL, email);
             values.put(LoginDataContract.LoginEntry.COLUMN_NAME_PASSWORD, password);
@@ -59,7 +59,7 @@ public class LoginLocalDatabase {
             String selectionMail = LoginDataContract.LoginEntry.COLUMN_NAME_EMAIL + " LIKE ?";
             String[] selectionArgsMail = { currentLoginData.getEmail() };
             String selectionPass = LoginDataContract.LoginEntry.COLUMN_NAME_PASSWORD + " LIKE ?";
-            String[] selectionArgsPass = { currentLoginData.getPasswordHash() };
+            String[] selectionArgsPass = { currentLoginData.getPassword() };
 
              db.update(
                     LoginDataContract.LoginEntry.TABLE_NAME,
