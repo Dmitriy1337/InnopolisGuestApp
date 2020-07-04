@@ -2,12 +2,14 @@ package com.ui.innoguestapplication.backend;
 
 import android.util.Log;
 
+import com.ui.innoguestapplication.Event;
 import com.ui.innoguestapplication.EventList;
+import com.ui.innoguestapplication.MainEvent;
 import com.ui.innoguestapplication.UserProfileData;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
 
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 
 import retrofit2.Callback;
 
@@ -18,31 +20,43 @@ import retrofit2.Callback;
  * */
 public class APIRequests {
 
-    public enum LoginState{
-        NO_ERRORS,WRONG_LOGIN,WRONG_PASSWORD,ERROR
+    public enum LoginState {
+        NO_ERRORS, WRONG_LOGIN, WRONG_PASSWORD, ERROR
     }
 
     public static void checkValidityOfUser(LoginData loginData, Callback<ResponseRest> callback) {
         //Returns ResponseRest(token & userdata) on Response
         Backend.INSTANCE.auth(loginData, callback);
     }
-
-
-    public static void getEventListData(Callback<ArrayList<EventList>> callback) {
-        //Returns list of EventList on Response
+    public static void getData(String token, Callback<ResponseRest> callback) {
+        //Returns ResponseRest(userdata & event & schedule[]) on Response
+        Backend.INSTANCE.getData(token, callback);
     }
 
-    public static UserProfileData getUserProfileData(ResponseRest response){
+
+    public static MainEvent getMainEvent(ResponseRest response) {
+        if (true) {
+            return response.getBody().getData().getEvent();
+        } return null;
+    }
+
+    public static EventList getEventList(ResponseRest response){
+        if (true){
+            ArrayList<Event> list = response.getBody().getData().getSchedule();
+            return new EventList(getMainEvent(response), list, null);
+        } return null;
+    }
+
+    public static UserProfileData getUserProfileData(ResponseRest response) {
         //not implemented yet
-        if (checkValidity(response) == LoginState.NO_ERRORS){
+        if (validateAuth(response) == LoginState.NO_ERRORS) {
             RespUser user = response.getBody().getData().getUser();
-            return new UserProfileData(null,null,null);
-        }
-        return null;
+            return new UserProfileData(null, null, null);
+        } return null;
     }
 
     //checks auth response
-    public static LoginState checkValidity(ResponseRest response) {
+    public static LoginState validateAuth(ResponseRest response) {
         if (response != null) {
             try {
                 if (response.getError_request() == 1) { // bad request
