@@ -2,16 +2,29 @@ package com.ui.innoguestapplication;
 
 import android.util.Log;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class Event implements Comparable<Event> {
+    @SerializedName("title")
     private String eventName;
+    @SerializedName("location")
     private String eventLocation;
+    @SerializedName("must_visit")
+    private boolean eventMustVisit;
+    @SerializedName("group_id")
+    private String eventGroupId;
+    @SerializedName("lang")
+    private String eventLang;
     //Date in format of "dd.mm.yy"
     //Time in format of "hours:minutes"
 
+    @SerializedName("date_time")
     private String eventDate;
+    @SerializedName("start_time")
     private String eventTimeStart;
+    @SerializedName("end_time")
     private String eventTimeEnd;
 
     private int month = 0;
@@ -28,7 +41,16 @@ public class Event implements Comparable<Event> {
         this.eventDate = eventDate;
         this.eventTimeStart = eventTimeStart;
         this.eventTimeEnd = eventTimeEnd;
-
+    }
+    public Event(String title, String dateTime, String startTime, String endTime, String location, boolean mustVisit, String groupId, String lang) {
+        this.eventName = title;
+        this.eventLocation = location;
+        this.eventDate = dateTime;
+        this.eventTimeStart = startTime;
+        this.eventTimeEnd = endTime;
+        eventMustVisit = mustVisit;
+        eventGroupId = groupId;
+        eventLang = lang;
     }
 
     private void parseIntValuesFromInputStrings() {
