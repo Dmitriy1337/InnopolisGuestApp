@@ -59,7 +59,7 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        settingsFragment = new SettingsFragment();
 
         //check database for theme mode
         /*
@@ -69,13 +69,11 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
          * */
 
 
-
-        if(LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme()== Theme.DARK){
+        if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme() == Theme.DARK) {
 
             setTheme(R.style.DarkTheme);
-        }else{
-            setTheme(R.style.LightTheme);
         }
+        else{
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES:
                 //Toast.makeText(getApplicationContext(),"light_active",Toast.LENGTH_SHORT).show();
@@ -88,6 +86,8 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
                 break;
         }
+
+    }
 
         setContentView(R.layout.activity_main);
 

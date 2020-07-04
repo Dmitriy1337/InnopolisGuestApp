@@ -20,6 +20,7 @@ import com.ui.innoguestapplication.backend.APIRequests;
 import com.ui.innoguestapplication.backend.RespUser;
 import com.ui.innoguestapplication.backend.ResponseRest;
 import com.ui.innoguestapplication.exceptions.IllegalPasswordException;
+import com.ui.innoguestapplication.sqlite_database.LocalLoginStorage;
 import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
 import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
@@ -170,6 +171,7 @@ public class LoginActivity extends AppCompatActivity {
                             break;
                         }
                         case NO_ERRORS:{
+                            LocalLoginStorage.getInstance(loginData.getEmail());
                             Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
                             String intentAction = getIntent().getAction();
                             Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();

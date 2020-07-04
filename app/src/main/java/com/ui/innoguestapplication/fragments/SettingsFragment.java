@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -15,7 +16,9 @@ import com.github.kmenager.materialanimatedswitch.MaterialAnimatedSwitch;
 import com.ui.innoguestapplication.BottomNavigatorControllerActivity;
 import com.ui.innoguestapplication.LoginActivity;
 import com.ui.innoguestapplication.R;
+import com.ui.innoguestapplication.UserProfileData;
 import com.ui.innoguestapplication.sqlite_database.Language;
+import com.ui.innoguestapplication.sqlite_database.LocalLoginStorage;
 import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
 import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
@@ -33,6 +36,8 @@ public class SettingsFragment extends Fragment {
     MaterialAnimatedSwitch force_dark_mode;
     MaterialAnimatedSwitch alerts;
     ConstraintLayout logout_view;
+    TextView userName;
+    TextView userEmail;
     Language languageS;
     Theme theme;
     NotifySound notifySound;
@@ -47,33 +52,15 @@ public class SettingsFragment extends Fragment {
         force_dark_mode = thisView.findViewById(R.id.dark_theme_switch);
         alerts = thisView.findViewById(R.id.notifications_switch);
         logout_view = thisView.findViewById(R.id.logout_card);
+        userEmail = thisView.findViewById(R.id.user_email);
 
-
-        boolean alertsActive = false;
-        //access databese here
-        boolean force_Dark_Theme = false;
-        //access databese here
 
          languageS = LocalSettingsStorage.getLocalSettingsStorage(getContext()).getLanguage();
          theme = LocalSettingsStorage.getLocalSettingsStorage(getContext()).getTheme();
          notifySound = LocalSettingsStorage.getLocalSettingsStorage(getContext()).getSound();
 
 
-        if (languageS == Language.RU){
-            Log.d("lanCheck",languageS.toString());
-
-            language.setActivated(true);
-
-            language.setEnabled(true);
-        }
-        if(theme ==Theme.DARK){
-            force_dark_mode.setEnabled(true);
-        }
-        if(notifySound ==NotifySound.OFF){
-
-            alerts.setEnabled(true);
-        }
-
+        userEmail.setText(LocalLoginStorage.getInstance().getEmail());
 
 
         language.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
@@ -99,13 +86,13 @@ public class SettingsFragment extends Fragment {
 
                     LocalSettingsStorage.getLocalSettingsStorage(getContext()).setTheme(Theme.DARK);
 
-                    Intent logout = new Intent((BottomNavigatorControllerActivity)getActivity(), LoginActivity.class);
+                    Intent logout = new Intent(getContext(), BottomNavigatorControllerActivity.class);
                     startActivity(logout);
 
                 } else
                     LocalSettingsStorage.getLocalSettingsStorage(getContext()).setTheme(Theme.LIGHT);
 
-               Intent logout = new Intent(getContext(), LoginActivity.class);
+               Intent logout = new Intent(getContext(), BottomNavigatorControllerActivity.class);
                startActivity(logout);
 
             }
@@ -139,12 +126,13 @@ public class SettingsFragment extends Fragment {
         });
 
 
+        Log.d("onCreateView",thisView.toString());
         return thisView;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Log.d("onViewCreated",view.toString());
 
     }
 }
