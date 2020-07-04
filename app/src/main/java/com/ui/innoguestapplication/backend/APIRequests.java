@@ -54,6 +54,11 @@ public class APIRequests {
             return new UserProfileData(null, null, null);
         } return null;
     }
+    public static String getToken(ResponseRest response){
+        if (validateAuth(response) == LoginState.NO_ERRORS) {
+            return response.getBody().getData().getToken();
+        } return null;
+    }
 
     //checks auth response
     public static LoginState validateAuth(ResponseRest response) {
