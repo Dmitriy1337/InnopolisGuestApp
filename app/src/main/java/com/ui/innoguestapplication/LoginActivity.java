@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -17,10 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.ui.innoguestapplication.backend.APIRequests;
-import com.ui.innoguestapplication.backend.RespUser;
 import com.ui.innoguestapplication.backend.ResponseRest;
-import com.ui.innoguestapplication.exceptions.IllegalPasswordException;
-import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
 import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
@@ -154,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
             APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
                 @Override
                 public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
-                    switch (APIRequests.checkValidity(response.body())){
+                    switch (APIRequests.validateAuth(response.body())){
                         case ERROR:{
                             //TODO
                             //connection problem of smth else
@@ -192,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
             APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
                 @Override
                 public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
-                    if (APIRequests.checkValidity(response.body()) == APIRequests.LoginState.NO_ERRORS){
+                    if (APIRequests.validateAuth(response.body()) == APIRequests.LoginState.NO_ERRORS){
                         //this is temporary
 
                         Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
