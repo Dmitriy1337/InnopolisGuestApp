@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.ui.innoguestapplication.LoginActivity">
+    tools:context="com.ui.innoguestapplication.activities.LoginActivity">
 
 
     <!--  Email Label -->

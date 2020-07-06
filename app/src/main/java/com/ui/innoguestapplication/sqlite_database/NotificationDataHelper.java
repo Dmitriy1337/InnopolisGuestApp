@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class NotificationDataHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION =3;
     public static final String DATABASE_NAME = "NotificationData.db";
 
     NotificationDataHelper(@Nullable Context context) {

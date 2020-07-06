@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="?attr/bgColor"
 
-    tools:context="com.ui.innoguestapplication.BottomNavigatorControllerActivity">
+    tools:context="com.ui.innoguestapplication.activities.BottomNavigatorControllerActivity">
 
     <TextView
         android:id="@+id/label_top"

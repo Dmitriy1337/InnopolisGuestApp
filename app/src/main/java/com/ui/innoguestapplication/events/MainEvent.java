@@ -1,4 +1,4 @@
-package com.ui.innoguestapplication;
+package com.ui.innoguestapplication.events;
 
 import com.google.gson.annotations.SerializedName;
 

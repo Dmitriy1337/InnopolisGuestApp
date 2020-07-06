@@ -13,10 +13,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.github.kmenager.materialanimatedswitch.MaterialAnimatedSwitch;
-import com.ui.innoguestapplication.BottomNavigatorControllerActivity;
-import com.ui.innoguestapplication.LoginActivity;
+import com.ui.innoguestapplication.activities.BottomNavigatorControllerActivity;
+import com.ui.innoguestapplication.activities.LoginActivity;
 import com.ui.innoguestapplication.R;
-import com.ui.innoguestapplication.UserProfileData;
 import com.ui.innoguestapplication.sqlite_database.Language;
 import com.ui.innoguestapplication.sqlite_database.LocalLoginStorage;
 import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
@@ -109,7 +108,7 @@ public class SettingsFragment extends Fragment {
 
 
                 String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
-                ((BottomNavigatorControllerActivity)getActivity()).addNotification(new Notification("New notofication",currentTime),getContext());
+                ((BottomNavigatorControllerActivity)getActivity()).addNotification(new Notification("New notofication",currentTime,"Descr"),getContext());
 
                 //write to database
                 //check if alert status is different, restart app if needed

@@ -8,11 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.ui.innoguestapplication.Event;
-import com.ui.innoguestapplication.EventList;
-import com.ui.innoguestapplication.EventListStorage;
+import com.ui.innoguestapplication.events.Event;
+import com.ui.innoguestapplication.events.EventListStorage;
 import com.ui.innoguestapplication.R;
 
 public class MenuFragment extends Fragment {

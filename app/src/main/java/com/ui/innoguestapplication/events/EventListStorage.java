@@ -1,4 +1,4 @@
-package com.ui.innoguestapplication;
+package com.ui.innoguestapplication.events;
 
 public class EventListStorage {
 

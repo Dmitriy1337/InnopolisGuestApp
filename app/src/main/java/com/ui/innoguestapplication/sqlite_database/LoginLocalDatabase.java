@@ -44,7 +44,7 @@ public class LoginLocalDatabase {
             values.put(LoginDataContract.LoginEntry.COLUMN_NAME_LAN,"EN");
             values.put(LoginDataContract.LoginEntry.COLUMN_NAME_THEME, "LIGHT");
             values.put(LoginDataContract.LoginEntry.COLUMN_NAME_NOTIFICATIONS, "OFF");
-            values.put(LoginDataContract.LoginEntry.COLUMN_NAME_TOKEN, "null");
+            values.put(LoginDataContract.LoginEntry.COLUMN_NAME_TOKEN, "token");
             // Insert the new row, returning the primary key value of the new row
             long newRowId = db.insert(LoginDataContract.LoginEntry.TABLE_NAME, null, values);
         }
@@ -279,7 +279,8 @@ public class LoginLocalDatabase {
                 LoginDataContract.LoginEntry.COLUMN_NAME_PASSWORD,
                 LoginDataContract.LoginEntry.COLUMN_NAME_LAN,
                 LoginDataContract.LoginEntry.COLUMN_NAME_THEME,
-                LoginDataContract.LoginEntry.COLUMN_NAME_NOTIFICATIONS
+                LoginDataContract.LoginEntry.COLUMN_NAME_NOTIFICATIONS,
+                LoginDataContract.LoginEntry.COLUMN_NAME_TOKEN
         };
 
 

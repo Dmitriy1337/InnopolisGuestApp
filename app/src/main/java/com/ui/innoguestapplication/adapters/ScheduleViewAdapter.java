@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
-import com.ui.innoguestapplication.EventList;
+import com.ui.innoguestapplication.events.EventList;
 import com.ui.innoguestapplication.fragments.ScheduleListFragment;
 
 import java.util.ArrayList;

@@ -1,8 +1,8 @@
 package com.ui.innoguestapplication.backend
 
 import com.google.gson.annotations.SerializedName
-import com.ui.innoguestapplication.Event
-import com.ui.innoguestapplication.MainEvent
+import com.ui.innoguestapplication.events.Event
+import com.ui.innoguestapplication.events.MainEvent
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

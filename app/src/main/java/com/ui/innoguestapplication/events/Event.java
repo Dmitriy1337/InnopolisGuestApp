@@ -1,10 +1,8 @@
-package com.ui.innoguestapplication;
+package com.ui.innoguestapplication.events;
 
 import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
-
-import java.util.Date;
 
 public class Event implements Comparable<Event> {
     @SerializedName("title")

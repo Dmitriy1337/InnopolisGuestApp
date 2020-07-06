@@ -1,6 +1,4 @@
-package com.ui.innoguestapplication;
-
-import android.util.Log;
+package com.ui.innoguestapplication.events;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,24 +24,27 @@ public class EventList {
         int now =convertDateToInt(getCurrentTimeFormat());
         Event e = eventList.get(i);
         while (now>=convertDateToInt(e.getEventTimeStart())){
-            Log.d("EventList",now+"/"+convertDateToInt(e.getEventTimeStart()));
-            i++;
-            if(i<eventList.size()){
-                e = eventList.get(i);
-            }else{
 
-                return  new Event("There is no other events for today","","","-/-","-/-");
+            if(i==eventList.size()){
+                break;
             }
+            e = eventList.get(i);
+            i++;
+        }
+            if(i>=eventList.size()){
+                return  new Event("There is no other events for today",""
+                        ,"","-/-","-/-");
+
         }
         return e;
     }
 
-    public int convertDateToInt(String date){
+    public static int convertDateToInt(String date){
         String[] current = date.split(":");
         return Integer.parseInt(current[0])*60+Integer.parseInt(current[1]);
     }
 
-    private String getCurrentTimeFormat(){
+    public static String getCurrentTimeFormat(){
         SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
         String time = localDateFormat.format(new Date());
         return  time;

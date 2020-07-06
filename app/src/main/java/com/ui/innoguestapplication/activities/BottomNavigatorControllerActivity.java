@@ -1,4 +1,4 @@
-package com.ui.innoguestapplication;
+package com.ui.innoguestapplication.activities;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -6,16 +6,13 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,26 +21,21 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.ui.innoguestapplication.backend.APIRequests;
-import com.ui.innoguestapplication.backend.ResponseRest;
-import com.ui.innoguestapplication.sqlite_database.LocalLoginStorage;
-import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
-import com.ui.innoguestapplication.sqlite_database.Notification;
+import com.ui.innoguestapplication.R;
 import com.ui.innoguestapplication.fragments.FAQFragment;
 import com.ui.innoguestapplication.fragments.MapFragment;
 import com.ui.innoguestapplication.fragments.MenuFragment;
 import com.ui.innoguestapplication.fragments.NotificationsFragment;
 import com.ui.innoguestapplication.fragments.ScheduleFragment;
 import com.ui.innoguestapplication.fragments.SettingsFragment;
+import com.ui.innoguestapplication.services.BackgroundRunner;
+import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
+import com.ui.innoguestapplication.sqlite_database.Notification;
 import com.ui.innoguestapplication.sqlite_database.NotificationStorage;
 import com.ui.innoguestapplication.sqlite_database.NotifySound;
 import com.ui.innoguestapplication.sqlite_database.Theme;
 
 import java.util.Objects;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class BottomNavigatorControllerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private static final String START_SETTINGS = "com.ui.innoguestapplication.START_SETTINGS";
@@ -76,7 +68,7 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
          *
          * */
 
-
+        BackgroundRunner.scheduleJob(getBaseContext());
         if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme() == Theme.DARK) {
 
             setTheme(R.style.DarkTheme);
@@ -185,7 +177,7 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
 
 
-    public  void addNotification(Notification notification, Context context) {
+    public    void addNotification(Notification notification, Context context) {
         if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getSound() == NotifySound.ON){
             NotificationStorage.getNotificationStorage(context).addNotification(notification);
 
@@ -199,7 +191,7 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(contentIntent)
                 .setContentTitle(notification.getText())
-                .setContentText(notification.getText())
+                .setContentText(notification.getDescription())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT).setAutoCancel(true);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
@@ -255,6 +247,21 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
     }
     @Override
     public void onBackPressed() {
+        if(current instanceof ScheduleFragment){
+            labelTop.setText(R.string.title_schedule);
+        }
+        if(current instanceof FAQFragment){
+            labelTop.setText(R.string.title_map);
+        }
+        if(current instanceof MenuFragment){
+            labelTop.setText(R.string.title_home);
+        }
+        if(current instanceof MapFragment){
+            labelTop.setText(R.string.title_map);
+        }
+        if(current instanceof SettingsFragment){
+            labelTop.setText(R.string.title_settings);
+        }
         loadFragment(current);
         // do nothing
     }

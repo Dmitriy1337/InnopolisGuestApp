@@ -3,12 +3,12 @@ package com.ui.innoguestapplication.backend;
 import android.content.Context;
 import android.util.Log;
 
-import com.ui.innoguestapplication.Event;
-import com.ui.innoguestapplication.EventList;
-import com.ui.innoguestapplication.MainEvent;
-import com.ui.innoguestapplication.UserProfileData;
+import com.ui.innoguestapplication.events.Event;
+import com.ui.innoguestapplication.events.EventList;
+import com.ui.innoguestapplication.events.MainEvent;
 import com.ui.innoguestapplication.sqlite_database.LocalLoginStorage;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
+import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
 
 import java.util.ArrayList;
@@ -48,13 +48,7 @@ public class APIRequests {
         return new EventList(getMainEvent(response), list);
     }
 
-    public static UserProfileData getUserProfileData(ResponseRest response,Context context) {
-        //not implemented yet
-        if (validateAuth(response,context) == LoginState.NO_ERRORS) {
-            RespUser user = response.getBody().getData().getUser();
-            return new UserProfileData(null, null, null);
-        } return null;
-    }
+
 
     //checks auth response
     public static LoginState validateAuth(ResponseRest response,Context context) {
@@ -81,11 +75,12 @@ public class APIRequests {
                         case 1: { //onSuccess
                             String token = response.getBody().getData().getToken();
                             RespUser user = response.getBody().getData().getUser();
+                            LoginLocalDatabase.getLoginLocalDatabase(context).setToken(token);
                             LocalLoginStorage.getInstance(context,user.getEmail(),token);
                             LocalLoginStorage.getInstance(context).setToken(token);
                             //TODO
                             //save token & userData(only if they aren't the same)
-                            Log.d("LOGVAL", "Ok");
+                            Log.d("LOGVAL", token);
                             return LoginState.NO_ERRORS;
                         }
                     }

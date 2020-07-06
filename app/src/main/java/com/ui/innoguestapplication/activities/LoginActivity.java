@@ -1,27 +1,23 @@
-package com.ui.innoguestapplication;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.ui.innoguestapplication.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.ui.innoguestapplication.R;
 import com.ui.innoguestapplication.backend.APIRequests;
-import com.ui.innoguestapplication.backend.RespUser;
 import com.ui.innoguestapplication.backend.ResponseRest;
-import com.ui.innoguestapplication.exceptions.IllegalPasswordException;
-import com.ui.innoguestapplication.sqlite_database.LocalLoginStorage;
-import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
+import com.ui.innoguestapplication.events.EventList;
+import com.ui.innoguestapplication.events.EventListStorage;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
 import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
@@ -66,13 +62,13 @@ public class LoginActivity extends AppCompatActivity {
         loginLocalDatabase =  LoginLocalDatabase.getLoginLocalDatabase(getBaseContext());
 
 
-        LoginData preloadedData = loginLocalDatabase.getLoginDataOrNull();
-
-        if(preloadedData!=null){
-
-            loginWithPreloaded(preloadedData);
-
-        }
+//        LoginData preloadedData = loginLocalDatabase.getLoginDataOrNull();
+//
+//        if(preloadedData!=null){
+//
+//            loginWithPreloaded();
+//
+//        }
 
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,29 +168,14 @@ public class LoginActivity extends AppCompatActivity {
                             break;
                         }
                         case NO_ERRORS:{
+                            enableBackgroundServices();
+                            Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+                            String intentAction = getIntent().getAction();
+                            //Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
+                            intent.setAction(intentAction);
+                            startActivity(intent);
 
-                            APIRequests.getData(LocalLoginStorage.getInstance(getBaseContext()).getToken(), new Callback<ResponseRest>(){
-
-                                @Override
-                                public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
-                                    EventList newEventList = APIRequests.getEventList(response.body());
-                                    EventListStorage.setEventList(newEventList);
-                                    Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
-                                    String intentAction = getIntent().getAction();
-                                    Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
-                                    intent.setAction(intentAction);
-                                    startActivity(intent);
-                                }
-
-                                @Override
-                                public void onFailure(Call<ResponseRest> call, Throwable t) {
-
-                                }
-                            });
-
-
-
-                            break;
+                          break;
                         }
                     }
                 }
@@ -209,17 +190,21 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
-    private void loginWithPreloaded(LoginData loginData) {
 
-            APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
-                @Override
-                public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
-                    if (APIRequests.validateAuth(response.body(),getBaseContext()) == APIRequests.LoginState.NO_ERRORS){
+    private static final String INTENT_ACTION_PATTERN = "%s.SERVICES";
+    public void enableBackgroundServices() {
+        Intent intent = new Intent();
+        String intentAction = String.format(INTENT_ACTION_PATTERN, getBaseContext().getPackageName());
+        intent.setAction(intentAction);
+        getBaseContext().startActivity(intent);
+    }
 
-                        APIRequests.getData(LocalLoginStorage.getInstance(getBaseContext()).getToken(), new Callback<ResponseRest>(){
+    private void loginWithPreloaded() {
 
-                            @Override
-                            public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
+             APIRequests.getData(LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).getToken(), new Callback<ResponseRest>(){
+
+                         @Override
+                          public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
                                 EventList newEventList = APIRequests.getEventList(response.body());
                                 EventListStorage.setEventList(newEventList);
                                 Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
@@ -231,16 +216,6 @@ public class LoginActivity extends AppCompatActivity {
 
                             }
                         });
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseRest> call, Throwable t) {
-
-                }
-            });
-
     }
 
 
@@ -283,6 +258,8 @@ public class LoginActivity extends AppCompatActivity {
             return true;
         }
     }
+
+
 
     @Override
     public void onBackPressed() {

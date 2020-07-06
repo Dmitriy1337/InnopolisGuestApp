@@ -1,7 +1,6 @@
 package com.ui.innoguestapplication.fragments;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-import com.ui.innoguestapplication.BottomNavigatorControllerActivity;
-import com.ui.innoguestapplication.Event;
-import com.ui.innoguestapplication.EventList;
-import com.ui.innoguestapplication.EventListStorage;
-import com.ui.innoguestapplication.MainEvent;
+import com.ui.innoguestapplication.events.Event;
+import com.ui.innoguestapplication.events.EventList;
+import com.ui.innoguestapplication.events.EventListStorage;
 import com.ui.innoguestapplication.R;
 import com.ui.innoguestapplication.adapters.ScheduleViewAdapter;
 import com.ui.innoguestapplication.backend.APIRequests;
@@ -86,7 +83,7 @@ public class ScheduleFragment extends Fragment {
 
         }else{
             EventListStorage.eventList.getEventList().add(new Event("Calculus Lecture",
-                    "108","2020-07-03","23:30:00","23:40:00"));
+                    "108","2020-07-03","01:56:00","23:40:00"));
 
 
             EventListStorage.eventList.getEventList().add(new Event("Calculus Lecture",

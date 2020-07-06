@@ -37,7 +37,7 @@ public class NotificationLocalDatabase  {
             ContentValues values = new ContentValues();
             values.put(NotificationDatabaseContract.NotificartionEntry.COLUMN_NOTIFICATION, notification.getText());
             values.put(NotificationDatabaseContract.NotificartionEntry.COLUMN_TIME, notification.getDate_or_time());
-
+        values.put(NotificationDatabaseContract.NotificartionEntry.COLUMN_DESCR, notification.getDescription());
             // Insert the new row, returning the primary key value of the new row
             long newRowId = db.insert(NotificationDatabaseContract.NotificartionEntry.TABLE_NAME, null, values);
         }
@@ -58,16 +58,17 @@ public class NotificationLocalDatabase  {
         try {
             String notification = "";
             String time = "";
-
+            String descr = "";
             while (cursor.moveToNext()){
 
                 notification = cursor.getString(
                         cursor.getColumnIndexOrThrow(NotificationDatabaseContract.NotificartionEntry.COLUMN_NOTIFICATION));
             time = cursor.getString(
                     cursor.getColumnIndexOrThrow(NotificationDatabaseContract.NotificartionEntry.COLUMN_TIME));
-
+                descr = cursor.getString(
+                        cursor.getColumnIndexOrThrow(NotificationDatabaseContract.NotificartionEntry.COLUMN_DESCR));
             if (!notification.equals("")) {
-                notificationList.add(new Notification(notification, time));
+                notificationList.add(new Notification(notification, time,descr));
             }
 
             }
@@ -90,7 +91,8 @@ public class NotificationLocalDatabase  {
         String[] projection = {
                 BaseColumns._ID,
                 NotificationDatabaseContract.NotificartionEntry.COLUMN_NOTIFICATION,
-                NotificationDatabaseContract.NotificartionEntry.COLUMN_TIME
+                NotificationDatabaseContract.NotificartionEntry.COLUMN_TIME,
+                NotificationDatabaseContract.NotificartionEntry.COLUMN_DESCR
 
         };
 
