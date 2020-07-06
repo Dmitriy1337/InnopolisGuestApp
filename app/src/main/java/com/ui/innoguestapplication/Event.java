@@ -39,18 +39,32 @@ public class Event implements Comparable<Event> {
         this.eventName = eventName;
         this.eventLocation = eventLocation;
         this.eventDate = eventDate;
-        this.eventTimeStart = eventTimeStart;
-        this.eventTimeEnd = eventTimeEnd;
+        this.eventTimeStart = formatTime(eventTimeStart);
+        this.eventTimeEnd = formatTime(eventTimeEnd);
     }
     public Event(String title, String dateTime, String startTime, String endTime, String location, boolean mustVisit, String groupId, String lang) {
         this.eventName = title;
         this.eventLocation = location;
         this.eventDate = dateTime;
-        this.eventTimeStart = startTime;
-        this.eventTimeEnd = endTime;
+        this.eventTimeStart = formatTime(startTime);
+        this.eventTimeEnd = formatTime(endTime);
         eventMustVisit = mustVisit;
         eventGroupId = groupId;
         eventLang = lang;
+    }
+
+    public String formatTime(String time){
+        if(time.length()>5){
+            return time.substring(0,time.length()-3);
+        }else{
+            return time;
+        }
+
+
+    }
+    public void setFormattedTime(){
+        eventTimeEnd = formatTime(eventTimeEnd);
+        eventTimeStart = formatTime(eventTimeStart);
     }
 
     private void parseIntValuesFromInputStrings() {

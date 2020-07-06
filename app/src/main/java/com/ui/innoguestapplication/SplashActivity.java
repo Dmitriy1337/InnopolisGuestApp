@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 
-public class MainActivity extends AppCompatActivity  {
+public class SplashActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity  {
         //Going to Login screen
 
 
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, BottomNavigatorControllerActivity.class);
         String intentAction = getIntent().getAction();
 
 

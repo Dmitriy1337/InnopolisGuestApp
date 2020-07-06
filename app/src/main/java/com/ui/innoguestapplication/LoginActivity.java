@@ -155,10 +155,11 @@ public class LoginActivity extends AppCompatActivity {
             APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
                 @Override
                 public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
-                    switch (APIRequests.checkValidity(response.body())){
+                    switch (APIRequests.validateAuth(response.body(),getBaseContext())){
                         case ERROR:{
                             //TODO
                             //connection problem of smth else
+                            break;
                         }
                         case WRONG_LOGIN: {
                             til_email.setError(getString(R.string.email_wrong));
@@ -166,17 +167,33 @@ public class LoginActivity extends AppCompatActivity {
                             break;
                         }
                         case WRONG_PASSWORD:{
-                            til_email.setError(getString(R.string.password_error));
-                            til_email.setErrorEnabled(true);
+                            til_password.setError(getString(R.string.password_error));
+                            til_password.setErrorEnabled(true);
                             break;
                         }
                         case NO_ERRORS:{
-                            LocalLoginStorage.getInstance(loginData.getEmail());
-                            Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
-                            String intentAction = getIntent().getAction();
-                            Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
-                            intent.setAction(intentAction);
-                            startActivity(intent);
+
+                            APIRequests.getData(LocalLoginStorage.getInstance(getBaseContext()).getToken(), new Callback<ResponseRest>(){
+
+                                @Override
+                                public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
+                                    EventList newEventList = APIRequests.getEventList(response.body());
+                                    EventListStorage.setEventList(newEventList);
+                                    Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+                                    String intentAction = getIntent().getAction();
+                                    Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
+                                    intent.setAction(intentAction);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseRest> call, Throwable t) {
+
+                                }
+                            });
+
+
+
                             break;
                         }
                     }
@@ -197,11 +214,24 @@ public class LoginActivity extends AppCompatActivity {
             APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
                 @Override
                 public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
-                    if (APIRequests.checkValidity(response.body()) == APIRequests.LoginState.NO_ERRORS){
-                        //this is temporary
+                    if (APIRequests.validateAuth(response.body(),getBaseContext()) == APIRequests.LoginState.NO_ERRORS){
 
-                        Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
-                        startActivity(intent);
+                        APIRequests.getData(LocalLoginStorage.getInstance(getBaseContext()).getToken(), new Callback<ResponseRest>(){
+
+                            @Override
+                            public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
+                                EventList newEventList = APIRequests.getEventList(response.body());
+                                EventListStorage.setEventList(newEventList);
+                                Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseRest> call, Throwable t) {
+
+                            }
+                        });
+
                     }
                 }
 

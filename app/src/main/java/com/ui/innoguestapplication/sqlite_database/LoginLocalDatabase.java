@@ -44,6 +44,7 @@ public class LoginLocalDatabase {
             values.put(LoginDataContract.LoginEntry.COLUMN_NAME_LAN,"EN");
             values.put(LoginDataContract.LoginEntry.COLUMN_NAME_THEME, "LIGHT");
             values.put(LoginDataContract.LoginEntry.COLUMN_NAME_NOTIFICATIONS, "OFF");
+            values.put(LoginDataContract.LoginEntry.COLUMN_NAME_TOKEN, "null");
             // Insert the new row, returning the primary key value of the new row
             long newRowId = db.insert(LoginDataContract.LoginEntry.TABLE_NAME, null, values);
         }
@@ -79,6 +80,28 @@ public class LoginLocalDatabase {
 
 
     }
+
+
+    public void setToken(String token){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+
+        ContentValues values = new ContentValues();
+        values.put(LoginDataContract.LoginEntry.COLUMN_NAME_TOKEN, token);
+
+
+        // Which row to update, based on the title
+        String selectionToken = LoginDataContract.LoginEntry.COLUMN_NAME_TOKEN + " LIKE ?";
+        String[] selectionArgsToken = { getToken() };
+
+        db.update(
+                LoginDataContract.LoginEntry.TABLE_NAME,
+                values,
+                selectionToken,
+                selectionArgsToken);
+
+    }
+
 
     private void setLocalData(Language language,Theme theme,NotifySound notifySound) {
 
@@ -219,6 +242,27 @@ public class LoginLocalDatabase {
             }
 
             return  NotifySound.valueOf(sound);
+        } catch (CursorIndexOutOfBoundsException | IllegalArgumentException ex) {
+            return null;
+
+        }
+    }
+    public String getToken(){
+        Cursor cursor = getLoginDataCursor();
+
+        try {
+            String token = "";
+
+            cursor.moveToNext();
+            token = cursor.getString(
+                    cursor.getColumnIndexOrThrow(LoginDataContract.LoginEntry.COLUMN_NAME_TOKEN));
+
+            cursor.close();
+            if(token.equals("")){
+                return  null;
+            }
+
+            return  token;
         } catch (CursorIndexOutOfBoundsException | IllegalArgumentException ex) {
             return null;
 

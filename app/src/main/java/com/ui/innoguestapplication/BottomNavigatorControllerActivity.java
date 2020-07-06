@@ -24,6 +24,9 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.ui.innoguestapplication.backend.APIRequests;
+import com.ui.innoguestapplication.backend.ResponseRest;
+import com.ui.innoguestapplication.sqlite_database.LocalLoginStorage;
 import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
 import com.ui.innoguestapplication.sqlite_database.Notification;
 import com.ui.innoguestapplication.fragments.FAQFragment;
@@ -38,6 +41,10 @@ import com.ui.innoguestapplication.sqlite_database.Theme;
 
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class BottomNavigatorControllerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private static final String START_SETTINGS = "com.ui.innoguestapplication.START_SETTINGS";
     private static final String START_SCHEDULE = "com.ui.innoguestapplication.START_SCHEDULE";
@@ -49,18 +56,19 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
     TextView labelTop;
     ImageButton notifications_button;
 
-    static ScheduleFragment scheduleFragment = new ScheduleFragment();
+    static ScheduleFragment scheduleFragment ;
     static FAQFragment faqFragment = new FAQFragment();
     static MenuFragment menuFragment = new MenuFragment();
     static MapFragment mapFragment = new MapFragment();
-    static SettingsFragment settingsFragment = new SettingsFragment();
+    static SettingsFragment settingsFragment ;
 
     static Fragment current = menuFragment;
+    static Fragment schedule =null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         settingsFragment = new SettingsFragment();
-
+        scheduleFragment = new ScheduleFragment();
         //check database for theme mode
         /*
          * if theme is auto, check system theme and apply
@@ -169,6 +177,14 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
     }
 
+
+
+
+
+
+
+
+
     public  void addNotification(Notification notification, Context context) {
         if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getSound() == NotifySound.ON){
             NotificationStorage.getNotificationStorage(context).addNotification(notification);
@@ -207,7 +223,12 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
         switch (item.getItemId()) {
             case R.id.navigation_schedule:
+                if(schedule==null){
                 fragment = scheduleFragment;
+                schedule = fragment;
+                }else{
+                    fragment = schedule;
+                }
                 labelTop.setText(R.string.title_schedule);
                 break;
             case R.id.navigation_faq:

@@ -38,7 +38,7 @@ public class ScheduleViewAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return list.get(position).getDate();
+        return list.get(position).getEventList().get(0).getEventDate();
     }
     @Override
     public Parcelable saveState() {

@@ -60,7 +60,7 @@ public class SettingsFragment extends Fragment {
          notifySound = LocalSettingsStorage.getLocalSettingsStorage(getContext()).getSound();
 
 
-        userEmail.setText(LocalLoginStorage.getInstance().getEmail());
+        userEmail.setText(LocalLoginStorage.getInstance(getContext()).getEmail());
 
 
         language.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
