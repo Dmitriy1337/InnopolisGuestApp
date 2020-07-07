@@ -7,10 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ui.innoguestapplication.events.Event;
 import com.ui.innoguestapplication.events.EventList;
@@ -27,6 +29,7 @@ public class ScheduleListFragment extends Fragment {
     private RecyclerView recyclerView;
     private ScheduleViewAdapter scheduleViewAdapter;
     private ArrayList<Event> list_of_events;
+    SwipeRefreshLayout refresh;
 
     public ScheduleListFragment(EventList eventList) {
         list_of_events = eventList.getEventList();
@@ -55,5 +58,21 @@ public class ScheduleListFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
+        refresh = view.findViewById(R.id.refresh_schedule);
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(getContext(), "Refresh", Toast.LENGTH_LONG).show();
+                refreshData();
+            }
+        });
+
+
+    }
+
+    private void refreshData() {
+        //update data here, then pass it to recyclerview and call datasetchanged method to the adapter
+
+        refresh.setRefreshing(false);
     }
 }

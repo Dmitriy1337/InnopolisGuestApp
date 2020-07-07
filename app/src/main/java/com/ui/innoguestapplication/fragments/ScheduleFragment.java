@@ -2,10 +2,16 @@ package com.ui.innoguestapplication.fragments;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -34,6 +40,7 @@ public class ScheduleFragment extends Fragment {
     ScheduleViewAdapter adapter;
     ArrayList<EventList> list2;
     TextView group;
+    ImageButton editGroup;
     boolean hasFinished = false;
 
     @Override
@@ -46,6 +53,7 @@ public class ScheduleFragment extends Fragment {
         tabs = thisView.findViewById(R.id.scheduleTabs);
         vp = thisView.findViewById(R.id.schedule_viewpager2);
         group = thisView.findViewById(R.id.schedule_group);
+        editGroup = thisView.findViewById(R.id.edit_group);
         vp.setOffscreenPageLimit(2);
 
         list2 = new ArrayList<>();
@@ -100,15 +108,41 @@ public class ScheduleFragment extends Fragment {
                     "108","2020-07-07","18:01:00","15:40:00"));
 
 
-            splitEventsByDate(list2,EventListStorage.eventList);
+            splitEventsByDate(list2, EventListStorage.eventList);
 
 
-
-            group.setText("Group "+EventListStorage.eventList.getMainEvent().getGroups_amount()+"");
+            group.setText("Group " + EventListStorage.eventList.getMainEvent().getGroups_amount() + "");
 
 
             createTabFragment();
         }
+
+        editGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu menu = new PopupMenu(getContext(), getActivity().findViewById(R.id.edit_group), Gravity.CENTER);
+                menu.getMenu().add(Menu.NONE, 1, 1, "Item 1");
+                menu.getMenu().add(Menu.NONE, 2, 2, "Item 2");
+                menu.setGravity(Gravity.CENTER_VERTICAL);
+                menu.show();
+//                menu.setGravity(Gravity.CENTER);
+
+                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        int i = menuItem.getItemId();
+                        String text = (String) menuItem.getTitle();
+                        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+                        //handle
+
+
+                        return false;
+                    }
+                });
+
+            }
+        });
+
 
         return thisView;
     }
@@ -138,6 +172,7 @@ public class ScheduleFragment extends Fragment {
             eventList.getMainEvent().setStart_date(l.get(0).getEventDate());
             list.add(eventList);
         }
+
 
     }
 

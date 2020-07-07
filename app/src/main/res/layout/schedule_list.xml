@@ -7,8 +7,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragments.ScheduleListFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/schedule_fragment_list"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_schedule"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/schedule_fragment_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </FrameLayout>

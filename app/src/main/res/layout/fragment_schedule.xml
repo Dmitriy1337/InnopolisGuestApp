@@ -71,4 +71,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scheduleTabs" />
+
+    <ImageButton
+        android:id="@+id/edit_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="10sp"
+        android:background="@drawable/upcoming_bg"
+        android:elevation="3sp"
+        android:padding="5sp"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:src="@drawable/ic_edit_24px"
+        android:tint="?attr/textPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/schedule_group"
+        app:layout_constraintStart_toEndOf="@+id/schedule_group"
+        app:layout_constraintTop_toTopOf="@+id/schedule_group" />
 </androidx.constraintlayout.widget.ConstraintLayout>
