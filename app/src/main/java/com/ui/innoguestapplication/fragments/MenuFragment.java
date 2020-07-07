@@ -39,7 +39,7 @@ public class MenuFragment extends Fragment {
         eventDates.setText(EventListStorage.eventList.getMainEvent().getStart_date()+" "
                 +EventListStorage.eventList.getMainEvent().getEnd_date());
         Event currentEvent = EventListStorage.eventList.getFollowingEvent();
-        Log.d("currentEvent",currentEvent.getEventDate()+" "+currentEvent.getEventName());
+        Log.d("currentEvent",currentEvent.getEventDate()+" / "+currentEvent.getEventName());
         upcomingName.setText(currentEvent.getEventName());
         upcomingTime.setText(currentEvent.getEventTimeStart()+" - "+currentEvent.getEventTimeEnd());
     }

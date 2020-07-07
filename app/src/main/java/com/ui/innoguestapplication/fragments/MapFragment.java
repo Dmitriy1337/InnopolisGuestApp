@@ -40,7 +40,7 @@ public class MapFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mapPic.setImageResource(R.drawable.firstf);
         Snackbar snackbar = Snackbar
-                .make(root_l, R.string.zoom_in_using_two_fingers, Snackbar.LENGTH_LONG);
+                .make(mapPic, R.string.zoom_in_using_two_fingers, Snackbar.LENGTH_SHORT);
         snackbar.show();
 
         mapPic.setOnTouchListener(new ImageMatrixTouchHandler(view.getContext()));

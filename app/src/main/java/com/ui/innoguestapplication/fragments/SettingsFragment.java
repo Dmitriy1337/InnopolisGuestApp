@@ -59,8 +59,8 @@ public class SettingsFragment extends Fragment {
          theme = LocalSettingsStorage.getLocalSettingsStorage(getContext()).getTheme();
          notifySound = LocalSettingsStorage.getLocalSettingsStorage(getContext()).getSound();
 
-
-        userEmail.setText(LocalLoginStorage.getInstance(getContext()).getEmail());
+        Log.d("email",LocalLoginStorage.getInstance(getContext()).getEmail());
+        userEmail.setText(LoginLocalDatabase.getLoginLocalDatabase(getContext()).getLoginDataOrNull().getEmail());
 
         if(theme==Theme.DARK){
 

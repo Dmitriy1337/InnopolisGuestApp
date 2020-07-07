@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/bgColor"
+    android:background="@color/almost_white"
     tools:context=".fragments.SettingsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +22,7 @@
 
         <TextView
             android:id="@+id/user_name"
-            style="@style/TextTitle"
+            style="@style/TextBig"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name Surname"
@@ -32,7 +32,7 @@
 
         <TextView
             android:id="@+id/user_email"
-            style="@style/TextBig"
+            style="@style/TextDefault"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
@@ -182,9 +182,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_cancel_24px"
+                android:tint="?attr/textPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:tint="?attr/textPrimary"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

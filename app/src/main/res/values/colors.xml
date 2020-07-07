@@ -15,7 +15,7 @@
     <color name="yes">#32CD32</color>
     <color name="yes_dark">#FFFFFF</color>
     <color name="almost_white">#FAFAFA</color>
-
+    <color name="bgColor">#FAFAFA</color>
 
     <color name="no">#C0C0C0</color>
     <color name="no_dark">#FFFFFF</color>

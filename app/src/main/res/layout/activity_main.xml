@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/bgColor"
+    android:background="@color/almost_white"
 
     tools:context="com.ui.innoguestapplication.activities.BottomNavigatorControllerActivity">
 
@@ -14,12 +14,13 @@
         style="@style/TextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
 
 
         android:layout_marginTop="10dp"
 
         android:text="@string/home_title"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +28,7 @@
         android:id="@+id/notifications_button"
         android:layout_width="43dp"
         android:layout_height="42dp"
-        android:layout_marginEnd="20sp"
+        android:layout_marginEnd="10dp"
         android:background="@null"
         android:scaleX="1"
         android:scaleY="1"

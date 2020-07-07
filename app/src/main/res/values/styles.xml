@@ -39,13 +39,13 @@
     <style name="TextDefault">
         <item name="android:textColor">?attr/textPrimary</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="TextSecondary">
         <item name="android:textColor">?attr/textSecondary</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="TextTitle">
@@ -63,7 +63,7 @@
     <style name="TextSmall">
         <item name="android:textColor">?attr/textPrimary</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

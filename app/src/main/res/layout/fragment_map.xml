@@ -5,7 +5,7 @@
     android:id="@+id/map_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/bgColor"
+    android:background="@color/almost_white"
     tools:context=".fragments.MapFragment">
 
     <TextView
@@ -26,6 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:tabBackground="@drawable/tab_bg"
         app:tabGravity="center"
@@ -34,32 +36,32 @@
         app:tabIndicatorGravity="bottom"
         app:tabIndicatorHeight="0dp"
         app:tabMode="fixed"
-        app:tabRippleColor="@color/colorPrimaryDark"
-        app:tabSelectedTextColor="#FFFFFF"
-        app:tabTextColor="?attr/textSecondary"
+        app:tabRippleColor="@color/almost_white"
 
+        app:tabSelectedTextColor="#FFFFFF"
+        app:tabTextColor="@color/textPrimary"
         app:tabUnboundedRipple="true">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/floor1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:tabRippleColor="@null"
-            android:text="@string/_1st_floor" />
+            android:text="@string/_1st_floor"
+            app:tabRippleColor="@null" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/floor2"
             android:layout_width="wrap_content"
-            app:tabRippleColor="@null"
             android:layout_height="wrap_content"
-            android:text="@string/_2nd_floor" />
+            android:text="@string/_2nd_floor"
+            app:tabRippleColor="@null" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/floor3"
             android:layout_width="wrap_content"
-            app:tabRippleColor="@null"
             android:layout_height="wrap_content"
-            android:text="@string/_3rd_floor" />
+            android:text="@string/_3rd_floor"
+            app:tabRippleColor="@null" />
 
         <!--        <com.google.android.material.tabs.TabItem-->
         <!--            android:id="@+id/floor45"-->
