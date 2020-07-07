@@ -1,13 +1,17 @@
 package com.ui.innoguestapplication.backend;
 
+import android.content.Context;
 import android.util.Log;
 
-import com.ui.innoguestapplication.EventList;
-import com.ui.innoguestapplication.UserProfileData;
+import com.ui.innoguestapplication.events.Event;
+import com.ui.innoguestapplication.events.EventList;
+import com.ui.innoguestapplication.events.MainEvent;
+import com.ui.innoguestapplication.sqlite_database.LocalLoginStorage;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
+import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
+
 
 import java.util.ArrayList;
-
 
 import retrofit2.Callback;
 
@@ -18,31 +22,37 @@ import retrofit2.Callback;
  * */
 public class APIRequests {
 
-    public enum LoginState{
-        NO_ERRORS,WRONG_LOGIN,WRONG_PASSWORD,ERROR
+    public enum LoginState {
+        NO_ERRORS, WRONG_LOGIN, WRONG_PASSWORD, ERROR
     }
 
     public static void checkValidityOfUser(LoginData loginData, Callback<ResponseRest> callback) {
         //Returns ResponseRest(token & userdata) on Response
         Backend.INSTANCE.auth(loginData, callback);
     }
-
-
-    public static void getEventListData(Callback<ArrayList<EventList>> callback) {
-        //Returns list of EventList on Response
+    public static void getData(String token, Callback<ResponseRest> callback) {
+        //Returns ResponseRest(userdata & event & schedule[]) on Response
+        Backend.INSTANCE.getData(token, callback);
     }
 
-    public static UserProfileData getUserProfileData(ResponseRest response){
-        //not implemented yet
-        if (checkValidity(response) == LoginState.NO_ERRORS){
-            RespUser user = response.getBody().getData().getUser();
-            return new UserProfileData(null,null,null);
-        }
-        return null;
+
+    public static MainEvent getMainEvent(ResponseRest response) {
+        if (true) {
+            return response.getBody().getData().getEvent();
+        } return null;
     }
+
+    public static EventList getEventList(ResponseRest response){
+        Log.e("response",response.getBody().toString());
+        ArrayList<Event> list = response.getBody().getData().getSchedule();
+        return new EventList(getMainEvent(response), list);
+    }
+
+
 
     //checks auth response
-    public static LoginState checkValidity(ResponseRest response) {
+    public static LoginState validateAuth(ResponseRest response,Context context) {
+
         if (response != null) {
             try {
                 if (response.getError_request() == 1) { // bad request
@@ -65,9 +75,12 @@ public class APIRequests {
                         case 1: { //onSuccess
                             String token = response.getBody().getData().getToken();
                             RespUser user = response.getBody().getData().getUser();
+                            LoginLocalDatabase.getLoginLocalDatabase(context).setToken(token);
+                            LocalLoginStorage.getInstance(context,user.getEmail(),token);
+                            LocalLoginStorage.getInstance(context).setToken(token);
                             //TODO
                             //save token & userData(only if they aren't the same)
-                            Log.d("LOGVAL", "Ok");
+                            Log.d("LOGVAL", token);
                             return LoginState.NO_ERRORS;
                         }
                     }

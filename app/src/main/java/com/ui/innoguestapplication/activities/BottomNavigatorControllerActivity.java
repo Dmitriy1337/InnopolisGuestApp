@@ -1,4 +1,4 @@
-package com.ui.innoguestapplication;
+package com.ui.innoguestapplication.activities;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -6,16 +6,13 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,14 +21,16 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
-import com.ui.innoguestapplication.sqlite_database.Notification;
+import com.ui.innoguestapplication.R;
 import com.ui.innoguestapplication.fragments.FAQFragment;
 import com.ui.innoguestapplication.fragments.MapFragment;
 import com.ui.innoguestapplication.fragments.MenuFragment;
 import com.ui.innoguestapplication.fragments.NotificationsFragment;
 import com.ui.innoguestapplication.fragments.ScheduleFragment;
 import com.ui.innoguestapplication.fragments.SettingsFragment;
+import com.ui.innoguestapplication.services.BackgroundRunner;
+import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
+import com.ui.innoguestapplication.sqlite_database.Notification;
 import com.ui.innoguestapplication.sqlite_database.NotificationStorage;
 import com.ui.innoguestapplication.sqlite_database.NotifySound;
 import com.ui.innoguestapplication.sqlite_database.Theme;
@@ -49,18 +48,19 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
     TextView labelTop;
     ImageButton notifications_button;
 
-    static ScheduleFragment scheduleFragment = new ScheduleFragment();
+    static ScheduleFragment scheduleFragment ;
     static FAQFragment faqFragment = new FAQFragment();
     static MenuFragment menuFragment = new MenuFragment();
     static MapFragment mapFragment = new MapFragment();
-    static SettingsFragment settingsFragment = new SettingsFragment();
+    static SettingsFragment settingsFragment ;
 
     static Fragment current = menuFragment;
+    static Fragment schedule =null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        settingsFragment = new SettingsFragment();
+        scheduleFragment = new ScheduleFragment();
         //check database for theme mode
         /*
          * if theme is auto, check system theme and apply
@@ -68,14 +68,12 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
          *
          * */
 
-
-
-        if(LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme()== Theme.DARK){
+        BackgroundRunner.scheduleJob(getBaseContext());
+        if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme() == Theme.DARK) {
 
             setTheme(R.style.DarkTheme);
-        }else{
-            setTheme(R.style.LightTheme);
         }
+        else{
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES:
                 //Toast.makeText(getApplicationContext(),"light_active",Toast.LENGTH_SHORT).show();
@@ -89,9 +87,11 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
                 break;
         }
 
+    }
+
         setContentView(R.layout.activity_main);
 
-
+        BackgroundRunner.scheduleJob(getBaseContext());
 
 
 
@@ -169,7 +169,15 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
     }
 
-    public  void addNotification(Notification notification, Context context) {
+
+
+
+
+
+
+
+
+    public    void addNotification(Notification notification, Context context) {
         if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getSound() == NotifySound.ON){
             NotificationStorage.getNotificationStorage(context).addNotification(notification);
 
@@ -183,7 +191,7 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(contentIntent)
                 .setContentTitle(notification.getText())
-                .setContentText(notification.getText())
+                .setContentText(notification.getDescription())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT).setAutoCancel(true);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
@@ -207,7 +215,12 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
         switch (item.getItemId()) {
             case R.id.navigation_schedule:
+                if(schedule==null){
                 fragment = scheduleFragment;
+                schedule = fragment;
+                }else{
+                    fragment = schedule;
+                }
                 labelTop.setText(R.string.title_schedule);
                 break;
             case R.id.navigation_faq:
@@ -232,8 +245,32 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
         loadFragment(fragment);
         return true;
     }
+
+
+    @Override
+    protected void onStop () {
+        super .onStop() ;
+        BackgroundRunner.scheduleJob(getBaseContext());
+
+    }
+
     @Override
     public void onBackPressed() {
+        if(current instanceof ScheduleFragment){
+            labelTop.setText(R.string.title_schedule);
+        }
+        if(current instanceof FAQFragment){
+            labelTop.setText(R.string.title_map);
+        }
+        if(current instanceof MenuFragment){
+            labelTop.setText(R.string.title_home);
+        }
+        if(current instanceof MapFragment){
+            labelTop.setText(R.string.title_map);
+        }
+        if(current instanceof SettingsFragment){
+            labelTop.setText(R.string.title_settings);
+        }
         loadFragment(current);
         // do nothing
     }

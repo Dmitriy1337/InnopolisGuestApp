@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="16dp"
         android:text="Default Event Name"
         android:textAlignment="center"
         android:textStyle="bold"
@@ -54,8 +54,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/upcoming_event"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -74,11 +75,13 @@
         <TextView
             android:id="@+id/upcoming_name"
             style="@style/TextBig"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="315dp"
+            android:layout_height="35dp"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
             android:layout_marginBottom="16dp"
             android:text="Breakfast in the canteen"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/upcoming_time" />

@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/map_of_innopolis_university"
         app:layout_constraintBottom_toTopOf="@+id/map_tabs"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,17 +44,20 @@
             android:id="@+id/floor1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tabRippleColor="@null"
             android:text="@string/_1st_floor" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/floor2"
             android:layout_width="wrap_content"
+            app:tabRippleColor="@null"
             android:layout_height="wrap_content"
             android:text="@string/_2nd_floor" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/floor3"
             android:layout_width="wrap_content"
+            app:tabRippleColor="@null"
             android:layout_height="wrap_content"
             android:text="@string/_3rd_floor" />
 
@@ -69,6 +72,8 @@
         android:id="@+id/mapImage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:contentDescription="@string/map_image"
         android:src="@drawable/icon"
         app:layout_constraintBottom_toTopOf="@+id/map_bottom_image"

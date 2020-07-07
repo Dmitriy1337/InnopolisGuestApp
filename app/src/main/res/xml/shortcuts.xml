@@ -13,7 +13,7 @@
         <intent
             android:action="com.ui.innoguestapplication.START_SCHEDULE"
             android:targetPackage="com.ui.innoguestapplication"
-            android:targetClass="com.ui.innoguestapplication.MainActivity" />
+            android:targetClass="com.ui.innoguestapplication.activities.MainActivity" />
 
     </shortcut>
     <shortcut
@@ -27,7 +27,7 @@
         <intent
             android:action="com.ui.innoguestapplication.START_FAQ"
             android:targetPackage="com.ui.innoguestapplication"
-            android:targetClass="com.ui.innoguestapplication.MainActivity" />
+            android:targetClass="com.ui.innoguestapplication.activities.MainActivity" />
 
     </shortcut>
     <shortcut
@@ -41,7 +41,7 @@
         <intent
             android:action="com.ui.innoguestapplication.START_HOME"
             android:targetPackage="com.ui.innoguestapplication"
-            android:targetClass="com.ui.innoguestapplication.MainActivity" />
+            android:targetClass="com.ui.innoguestapplication.activities.MainActivity" />
 
     </shortcut>
     <shortcut
@@ -55,7 +55,7 @@
         <intent
             android:action="com.ui.innoguestapplication.START_LOCATION"
             android:targetPackage="com.ui.innoguestapplication"
-            android:targetClass="com.ui.innoguestapplication.MainActivity" />
+            android:targetClass="com.ui.innoguestapplication.activities.MainActivity" />
 
     </shortcut>
 

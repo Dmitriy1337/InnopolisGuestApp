@@ -1,5 +1,6 @@
 package com.ui.innoguestapplication.backend
 
+import android.util.JsonToken
 import android.util.Log
 import com.ui.innoguestapplication.sqlite_database.LoginData
 import okhttp3.OkHttpClient
@@ -10,18 +11,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object Backend {
-    fun auth(loginData: LoginData, callback: Callback<ResponseRest>){
-        Log.d("Back", "auth")
+    fun auth(loginData: LoginData, callback: Callback<ResponseRest>) = RestAPIService().auth(loginData, callback)
 
-        RestAPIService().auth(loginData, callback)
-    }
+    fun getData(token: String, callback: Callback<ResponseRest>) = RestAPIService().getData(token, callback)
 
-    private class RestAPIService {
+
+    private class RestAPIService() {
+        val retrofit = RestBuilder.buildService(API::class.java)
+
         fun auth(request: LoginData, callback: Callback<ResponseRest>) {
-            val retrofit = RestBuilder.buildService(API::class.java)
+            //retrofit = RestBuilder.buildService(API::class.java)
             retrofit.auth(request.email, request.password).enqueue(callback)
         }
 
+        fun getData(token: String, callback: Callback<ResponseRest>) {
+            retrofit.getData(token).enqueue(callback)
+        }
     }
 
 
@@ -29,7 +34,7 @@ object Backend {
         internal val logging = HttpLoggingInterceptor()
         private val client = OkHttpClient.Builder()
 
-        fun setupLog(){
+        fun setupLog() {
             logging.level = HttpLoggingInterceptor.Level.BODY
             client.addInterceptor(logging)
         }

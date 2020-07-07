@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
-import com.ui.innoguestapplication.EventList;
+import com.ui.innoguestapplication.events.EventList;
 import com.ui.innoguestapplication.fragments.ScheduleListFragment;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class ScheduleViewAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return list.get(position).getDate();
+        return list.get(position).getEventList().get(0).getEventDate();
     }
     @Override
     public Parcelable saveState() {
