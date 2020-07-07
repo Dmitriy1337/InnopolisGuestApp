@@ -63,7 +63,7 @@
             android:background="@drawable/settings_bg"
             android:elevation="10sp"
             android:padding="10sp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="10dp">
 
@@ -77,27 +77,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.github.kmenager.materialanimatedswitch.MaterialAnimatedSwitch
+            <Switch
                 android:id="@+id/language_switch"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                app:ball_press_color="@color/rus"
-                app:ball_radius="15dp"
-                app:ball_release_color="@color/brit"
-                app:base_press_color="@color/rus"
-                app:base_release_color="@color/brit"
-                app:icon_press="@drawable/flag_rus"
 
-                app:icon_release="@drawable/flag_brit"
-                app:icon_size="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:margin="17dp"
-                app:switch_height="35dp"
-                app:switch_width="65dp" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -122,27 +111,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.github.kmenager.materialanimatedswitch.MaterialAnimatedSwitch
+            <Switch
                 android:id="@+id/dark_theme_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
 
-                app:ball_press_color="@android:color/tertiary_text_dark"
-                app:ball_radius="15dp"
-                app:ball_release_color="@android:color/white"
-                app:base_press_color="@color/dark_mode"
-                app:base_release_color="@color/auto_mode"
-                app:icon_press="@drawable/dark_mode"
-
-                app:icon_release="@drawable/auto_mode"
-                app:icon_size="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:margin="17dp"
-                app:switch_height="35dp"
-                app:switch_width="65dp" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -166,27 +143,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.github.kmenager.materialanimatedswitch.MaterialAnimatedSwitch
+            <Switch
                 android:id="@+id/notifications_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
 
-                app:ball_press_color="@color/no_dark"
-                app:ball_radius="15dp"
-                app:ball_release_color="@color/yes_dark"
-                app:base_press_color="@color/no"
-                app:base_release_color="@color/yes"
-                app:icon_press="@drawable/alert_off"
-
-                app:icon_release="@drawable/alert_on"
-                app:icon_size="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:margin="17dp"
-                app:switch_height="35dp"
-                app:switch_width="65dp" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

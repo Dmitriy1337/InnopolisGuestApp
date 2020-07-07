@@ -21,6 +21,7 @@ import com.ui.innoguestapplication.events.EventListStorage;
 import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
 import com.ui.innoguestapplication.sqlite_database.Notification;
 import com.ui.innoguestapplication.sqlite_database.NotificationStorage;
+import com.ui.innoguestapplication.sqlite_database.NotifySound;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -61,7 +62,7 @@ public class ScheduleNotifyService extends JobService {
     public   void addNotification(Notification notification, Context context) {
 
         Log.d("Notifications", LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getSound().toString());
-        // if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getSound() == NotifySound.ON){
+         if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getSound() == NotifySound.ON){
             NotificationStorage.getNotificationStorage(context).addNotification(notification);
 
             int requestID = (int) System.currentTimeMillis();
@@ -80,6 +81,6 @@ public class ScheduleNotifyService extends JobService {
 
 // notificationId is a unique int for each notification that you must define
             notificationManager.notify(13, builder.build());
-        //}
+        }
     }
 }

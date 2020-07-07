@@ -1,19 +1,17 @@
 package com.ui.innoguestapplication.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ui.innoguestapplication.events.Event;
 import com.ui.innoguestapplication.R;
+import com.ui.innoguestapplication.events.Event;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
@@ -42,7 +40,8 @@ public class EventList_adapter extends RecyclerView.Adapter<EventList_adapter.Vi
         holder.name.setText(current_event.getEventName());
         holder.location.setText(current_event.getEventLocation());
         holder.time.setText(current_event.getEventTimeStart() + " - " + current_event.getEventTimeEnd());
-        Log.d("list2", "holder reached");
+        holder.description.setText(current_event.getEventName());
+
 
 
     }
@@ -60,7 +59,7 @@ public class EventList_adapter extends RecyclerView.Adapter<EventList_adapter.Vi
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ExpandableLayout.OnExpansionUpdateListener {
         public TextView time;
         public TextView name;
-        public RatingBar rating;
+        public TextView description;
         public TextView location;
         ExpandableLayout layoutExpand;
         ImageView arrow;
@@ -69,7 +68,7 @@ public class EventList_adapter extends RecyclerView.Adapter<EventList_adapter.Vi
             super(itemView);
             time = itemView.findViewById(R.id.schedule_time);
             name = itemView.findViewById(R.id.schedule_name);
-            rating = itemView.findViewById(R.id.ratingBar);
+            description = itemView.findViewById(R.id.description_text);
             location = itemView.findViewById(R.id.schedule_location);
             layoutExpand = itemView.findViewById(R.id.schedule_expand);
             arrow = itemView.findViewById(R.id.schedule_arrow);

@@ -6,16 +6,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.github.kmenager.materialanimatedswitch.MaterialAnimatedSwitch;
+import com.ui.innoguestapplication.R;
 import com.ui.innoguestapplication.activities.BottomNavigatorControllerActivity;
 import com.ui.innoguestapplication.activities.LoginActivity;
-import com.ui.innoguestapplication.R;
 import com.ui.innoguestapplication.sqlite_database.Language;
 import com.ui.innoguestapplication.sqlite_database.LocalLoginStorage;
 import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
@@ -31,9 +32,9 @@ import java.util.Locale;
 
 public class SettingsFragment extends Fragment {
 
-    MaterialAnimatedSwitch language;
-    MaterialAnimatedSwitch force_dark_mode;
-    MaterialAnimatedSwitch alerts;
+    Switch language;
+    Switch force_dark_mode;
+    Switch alerts;
     ConstraintLayout logout_view;
     TextView userName;
     TextView userEmail;
@@ -61,26 +62,34 @@ public class SettingsFragment extends Fragment {
 
         userEmail.setText(LocalLoginStorage.getInstance(getContext()).getEmail());
 
+        if(theme==Theme.DARK){
 
-        language.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
+            force_dark_mode.toggle();
+        }
+        if(notifySound==NotifySound.OFF){
+
+            alerts.toggle();
+        }
+
+//        language.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(boolean isChecked) {
+//
+//                if (isChecked) {
+//                    LocalSettingsStorage.getLocalSettingsStorage(getContext()).setLanguage(Language.RU);
+//                    Log.d("lan",LocalSettingsStorage.getLocalSettingsStorage(getContext()).getLanguage().toString());
+//                }else{
+//                    LocalSettingsStorage.getLocalSettingsStorage(getContext()).setLanguage(Language.EN);
+//                    Log.d("lan",LocalSettingsStorage.getLocalSettingsStorage(getContext()).getLanguage().toString());
+//                }
+//                Log.d("language",LocalSettingsStorage.getLocalSettingsStorage(getContext()).getLanguage().toString());
+//
+//            }
+//        });
+
+        force_dark_mode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(boolean isChecked) {
-
-                if (isChecked) {
-                    LocalSettingsStorage.getLocalSettingsStorage(getContext()).setLanguage(Language.RU);
-                    Log.d("lan",LocalSettingsStorage.getLocalSettingsStorage(getContext()).getLanguage().toString());
-                }else{
-                    LocalSettingsStorage.getLocalSettingsStorage(getContext()).setLanguage(Language.EN);
-                    Log.d("lan",LocalSettingsStorage.getLocalSettingsStorage(getContext()).getLanguage().toString());
-                }
-                Log.d("language",LocalSettingsStorage.getLocalSettingsStorage(getContext()).getLanguage().toString());
-
-            }
-        });
-
-        force_dark_mode.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(boolean isChecked) {
+            public void onCheckedChanged(CompoundButton b,boolean isChecked) {
                 if (isChecked) {
 
                     LocalSettingsStorage.getLocalSettingsStorage(getContext()).setTheme(Theme.DARK);
@@ -96,9 +105,9 @@ public class SettingsFragment extends Fragment {
 
             }
         });
-        alerts.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
+        alerts.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(boolean isChecked) {
+            public void onCheckedChanged(CompoundButton b,boolean isChecked) {
                 if (isChecked) {
                     LocalSettingsStorage.getLocalSettingsStorage(getContext()).setSound(NotifySound.ON);
                 }else{
