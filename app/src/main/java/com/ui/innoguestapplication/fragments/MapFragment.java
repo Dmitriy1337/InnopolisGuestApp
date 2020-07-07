@@ -43,6 +43,7 @@ public class MapFragment extends Fragment {
                 .make(mapPic, R.string.zoom_in_using_two_fingers, Snackbar.LENGTH_SHORT);
         snackbar.show();
 
+        
         mapPic.setOnTouchListener(new ImageMatrixTouchHandler(view.getContext()));
 
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
