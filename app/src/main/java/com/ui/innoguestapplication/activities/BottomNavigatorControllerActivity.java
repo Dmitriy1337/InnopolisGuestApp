@@ -119,6 +119,7 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
                 case START_SETTINGS:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
                     navigation.setSelectedItemId(R.id.navigation_settings);
+                    labelTop.setText(R.string.title_settings);
                     Log.d("Intent", "settings");
 
                     break;
@@ -126,23 +127,31 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
                 case START_SCHEDULE:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ScheduleFragment()).commit();
                     navigation.setSelectedItemId(R.id.navigation_schedule);
+                    labelTop.setText(R.string.title_schedule);
+
                     Log.d("Intent", "schedule");
 
                     break;
                 case START_FAQ:
                     current = faqFragment;
                     loadFragment(faqFragment);
+                    labelTop.setText(R.string.title_faq);
+
 
                     break;
                 case START_HOME:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MenuFragment()).commit();
                     navigation.setSelectedItemId(R.id.navigation_home);
+                    labelTop.setText(R.string.home_title);
+
                     Log.d("Intent", "home");
 
                     break;
                 case START_LOCATION:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapFragment()).commit();
                     navigation.setSelectedItemId(R.id.navigation_map);
+                    labelTop.setText(R.string.title_map);
+
                     Log.d("Intent", "location");
 
                     break;
