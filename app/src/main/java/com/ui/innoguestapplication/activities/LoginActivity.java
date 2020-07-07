@@ -168,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
                             break;
                         }
                         case NO_ERRORS:{
-                            enableBackgroundServices();
+
                             Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
                             String intentAction = getIntent().getAction();
                             //Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
@@ -191,13 +191,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private static final String INTENT_ACTION_PATTERN = "%s.SERVICES";
-    public void enableBackgroundServices() {
-        Intent intent = new Intent();
-        String intentAction = String.format(INTENT_ACTION_PATTERN, getBaseContext().getPackageName());
-        intent.setAction(intentAction);
-        getBaseContext().startActivity(intent);
-    }
 
     private void loginWithPreloaded() {
 

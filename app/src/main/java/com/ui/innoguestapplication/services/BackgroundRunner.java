@@ -13,8 +13,8 @@ public class BackgroundRunner {
         JobInfo.Builder builder = new JobInfo.Builder(0, serviceComponent);
         builder.setMinimumLatency(1 * 1000); // Wait at least 30s
         builder.setOverrideDeadline(2 * 1000); // Maximum delay 60s
-
-        JobScheduler jobScheduler = (JobScheduler)context.getSystemService(context.JOB_SCHEDULER_SERVICE);
+        builder.setPersisted(true);
+        JobScheduler jobScheduler = (JobScheduler)context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         jobScheduler.schedule(builder.build());
     }
 }

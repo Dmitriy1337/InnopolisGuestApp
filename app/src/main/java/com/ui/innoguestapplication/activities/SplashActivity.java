@@ -33,13 +33,7 @@ public class SplashActivity extends AppCompatActivity  {
     }
 
 
-    private static final String INTENT_ACTION_PATTERN = "%s.SERVICES";
-    public void enableBackgroundServices() {
-        Intent intent = new Intent();
-        String intentAction = String.format(INTENT_ACTION_PATTERN, getBaseContext().getPackageName());
-        intent.setAction(intentAction);
-        getBaseContext().startActivity(intent);
-    }
+
 
     private  void loginWithNoErrors(){
         APIRequests.getData(LocalLoginStorage.getInstance(getBaseContext()).getToken(), new Callback<ResponseRest>(){
@@ -48,7 +42,7 @@ public class SplashActivity extends AppCompatActivity  {
             public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
                 EventList newEventList = APIRequests.getEventList(response.body());
                 EventListStorage.setEventList(newEventList);
-                enableBackgroundServices();
+
                 Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
                 String intentAction = getIntent().getAction();
                 //Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();

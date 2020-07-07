@@ -91,7 +91,7 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
         setContentView(R.layout.activity_main);
 
-
+        BackgroundRunner.scheduleJob(getBaseContext());
 
 
 
@@ -245,6 +245,15 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
         loadFragment(fragment);
         return true;
     }
+
+
+    @Override
+    protected void onStop () {
+        super .onStop() ;
+        BackgroundRunner.scheduleJob(getBaseContext());
+
+    }
+
     @Override
     public void onBackPressed() {
         if(current instanceof ScheduleFragment){

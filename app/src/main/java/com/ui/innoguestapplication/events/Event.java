@@ -1,10 +1,8 @@
 package com.ui.innoguestapplication.events;
 
-import android.util.Log;
-
 import com.google.gson.annotations.SerializedName;
 
-public class Event implements Comparable<Event> {
+public class Event {
     @SerializedName("title")
     private String eventName;
     @SerializedName("location")
@@ -32,6 +30,18 @@ public class Event implements Comparable<Event> {
     private int hoursEnd = 0;
     private int minutesEnd = 0;
 
+
+    private boolean wasNotified = false;
+
+
+    public Event(String eventName, String eventLocation, String eventDate, String eventTimeStart, String eventTimeEnd,boolean wasChecked) {
+        this.eventName = eventName;
+        this.eventLocation = eventLocation;
+        this.eventDate = eventDate;
+        this.eventTimeStart = formatTime(eventTimeStart);
+        this.eventTimeEnd = formatTime(eventTimeEnd);
+        wasNotified = wasChecked;
+    }
 
     public Event(String eventName, String eventLocation, String eventDate, String eventTimeStart, String eventTimeEnd) {
         this.eventName = eventName;
@@ -65,23 +75,17 @@ public class Event implements Comparable<Event> {
         eventTimeStart = formatTime(eventTimeStart);
     }
 
-    private void parseIntValuesFromInputStrings() {
-        try {
-            String[] monthAndDay = eventDate.split(".");
-            month = Integer.parseInt(monthAndDay[0]);
-            day = Integer.parseInt(monthAndDay[1]);
 
-            String[] hoursAndMinsStart = eventTimeStart.split(":");
-            hoursStart = Integer.parseInt(hoursAndMinsStart[0]);
-            minutesStart = Integer.parseInt(hoursAndMinsStart[1]);
 
-            String[] hoursAndMinsEnd = eventTimeStart.split(":");
-            hoursStart = Integer.parseInt(hoursAndMinsEnd[0]);
-            minutesStart = Integer.parseInt(hoursAndMinsEnd[1]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            Log.e("Event ", "ArrayIndexOutOfBoundsException in Event constructor, wrong parsing");
-        }
+    public boolean isWasNotified() {
+        return wasNotified;
     }
+
+    public void setWasNotified(boolean wasNotified) {
+        this.wasNotified = wasNotified;
+    }
+
+
 
 
     public String getEventName() {
@@ -105,8 +109,5 @@ public class Event implements Comparable<Event> {
     }
 
 
-    @Override
-    public int compareTo(Event otherEvent) {
-        return Integer.compare(this.hoursStart * 60 + minutesStart, otherEvent.hoursStart * 60 + otherEvent.minutesStart);
-    }
+
 }

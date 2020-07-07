@@ -97,7 +97,8 @@ public class ScheduleFragment extends Fragment {
 
 
             EventListStorage.eventList.getEventList().add(new Event("Calculus Lecture",
-                    "108","2020-07-07","14:30:00","15:40:00"));
+                    "108","2020-07-07","18:01:00","15:40:00"));
+
 
             splitEventsByDate(list2,EventListStorage.eventList);
 
@@ -113,6 +114,8 @@ public class ScheduleFragment extends Fragment {
     }
 
     private void splitEventsByDate(ArrayList<EventList> list,EventList newEventList){
+
+
         ArrayList<ArrayList<Event>> listOfSchedules = new ArrayList<>();
         ArrayList<Event> first = new ArrayList<>();
         first.add(newEventList.getEventList().get(0));
