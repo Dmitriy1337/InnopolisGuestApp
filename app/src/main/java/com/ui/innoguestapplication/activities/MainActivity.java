@@ -3,6 +3,8 @@ package com.ui.innoguestapplication.activities;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.ui.innoguestapplication.events.EventList;
 import com.ui.innoguestapplication.events.EventListStorage;
@@ -44,6 +46,8 @@ public class MainActivity extends AppCompatActivity  {
 
 
             intent.setAction(intentAction);
+            Log.d("Intent", "Main caught");
+            //Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_LONG).show();
             startActivity(intent);
         }
 
@@ -62,6 +66,8 @@ public class MainActivity extends AppCompatActivity  {
                 EventList newEventList = APIRequests.getEventList(response.body());
                 EventListStorage.setEventList(newEventList);
                 Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
+                String intentAction = getIntent().getAction();
+                intent.setAction(intentAction);
                 startActivity(intent);
             }
 

@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -114,14 +115,19 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
         try {
             switch (Objects.requireNonNull(getIntent().getAction())) {
+
                 case START_SETTINGS:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
                     navigation.setSelectedItemId(R.id.navigation_settings);
+                    Log.d("Intent", "settings");
+
                     break;
 
                 case START_SCHEDULE:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ScheduleFragment()).commit();
                     navigation.setSelectedItemId(R.id.navigation_schedule);
+                    Log.d("Intent", "schedule");
+
                     break;
                 case START_FAQ:
                     current = faqFragment;
@@ -131,10 +137,14 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
                 case START_HOME:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MenuFragment()).commit();
                     navigation.setSelectedItemId(R.id.navigation_home);
+                    Log.d("Intent", "home");
+
                     break;
                 case START_LOCATION:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapFragment()).commit();
                     navigation.setSelectedItemId(R.id.navigation_map);
+                    Log.d("Intent", "location");
+
                     break;
 
             }

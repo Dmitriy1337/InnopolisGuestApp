@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -167,15 +168,17 @@ public class LoginActivity extends AppCompatActivity {
                             til_password.setErrorEnabled(true);
                             break;
                         }
-                        case NO_ERRORS:{
+                        case NO_ERRORS: {
 
                             Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
                             String intentAction = getIntent().getAction();
                             //Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
                             intent.setAction(intentAction);
+                            Log.d("Intent", "Login caught");
+
                             startActivity(intent);
 
-                          break;
+                            break;
                         }
                     }
                 }
