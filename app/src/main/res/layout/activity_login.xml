@@ -46,6 +46,7 @@
                 android:layout_below="@id/picture_login"
 
                 android:autofillHints="email"
+                android:fontFamily="@font/productsans_regular"
                 android:hint="@string/email_hint_login"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -67,6 +68,7 @@
 
 
                 android:autofillHints="password"
+                android:fontFamily="@font/productsans_regular"
                 android:hint="@string/hint_login_password"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -81,6 +83,7 @@
             android:layout_marginTop="25sp"
             android:layout_marginRight="30sp"
             android:background="@drawable/button_back"
+            android:fontFamily="@font/productsans_medium"
             android:text="@string/login_button"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />

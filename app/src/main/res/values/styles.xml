@@ -32,38 +32,39 @@
     <style name="TextSettings">
         <item name="android:textColor">@color/textPrimary</item>
         <item name="android:textSize">20dp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/productsans_medium</item>
 
     </style>
 
     <style name="TextDefault">
         <item name="android:textColor">?attr/textPrimary</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily">@font/productsans_regular</item>
     </style>
 
     <style name="TextSecondary">
         <item name="android:textColor">?attr/textSecondary</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily">@font/productsans_light</item>
     </style>
 
     <style name="TextTitle">
         <item name="android:textColor">?attr/textPrimary</item>
+        <item name="android:fontFamily">@font/productsans_black</item>
         <item name="android:textSize">36sp</item>
-        <item name="android:fontFamily">sans-serif-black</item>
+
     </style>
 
     <style name="TextBig">
         <item name="android:textColor">?attr/textPrimary</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/productsans_medium</item>
     </style>
 
     <style name="TextSmall">
         <item name="android:textColor">?attr/textPrimary</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily">@font/productsans_light</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -73,6 +74,10 @@
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">?attr/colorSecondary</item>
         <item name="colorControlActivated">?attr/colorPrimary</item>
+    </style>
+
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/productsans_medium</item>
     </style>
 
     <!--    <style name="Theme.App.Base" parent="Theme.AppCompat.Light.DarkActionBar">-->
@@ -92,6 +97,11 @@
         <item name="bgColor">#121212</item>
         <item name="navbar_not_selected">@color/dark_mode</item>
 
+    </style>
+
+
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/productsans_regular</item>
     </style>
 
     <style name="LightTheme" parent="AppTheme">

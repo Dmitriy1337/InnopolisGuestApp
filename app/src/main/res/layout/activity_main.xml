@@ -19,6 +19,7 @@
 
         android:layout_marginTop="10dp"
 
+        android:fontFamily="@font/productsans_black"
         android:text="@string/home_title"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,12 +52,13 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
+        style="@style/Widget.BottomNavigationView"
         android:layout_width="0dp"
+
+
         android:layout_height="wrap_content"
 
-
         android:background="?attr/colorPrimary"
-
         app:itemHorizontalTranslationEnabled="false"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"

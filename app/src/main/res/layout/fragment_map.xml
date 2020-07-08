@@ -39,6 +39,7 @@
         app:tabRippleColor="@color/almost_white"
 
         app:tabSelectedTextColor="#FFFFFF"
+        app:tabTextAppearance="@style/tab_text"
         app:tabTextColor="@color/textPrimary"
         app:tabUnboundedRipple="true">
 
