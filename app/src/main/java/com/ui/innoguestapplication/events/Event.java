@@ -9,6 +9,11 @@ public class Event {
     private String eventLocation;
     @SerializedName("must_visit")
     private boolean eventMustVisit;
+
+    public String getEventGroupId() {
+        return eventGroupId;
+    }
+
     @SerializedName("group_id")
     private String eventGroupId;
     @SerializedName("lang")

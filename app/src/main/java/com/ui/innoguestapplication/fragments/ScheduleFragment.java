@@ -1,7 +1,6 @@
 package com.ui.innoguestapplication.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,21 +10,20 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-import com.ui.innoguestapplication.events.Event;
-import com.ui.innoguestapplication.events.EventList;
-import com.ui.innoguestapplication.events.EventListStorage;
 import com.ui.innoguestapplication.R;
 import com.ui.innoguestapplication.adapters.ScheduleViewAdapter;
 import com.ui.innoguestapplication.backend.APIRequests;
 import com.ui.innoguestapplication.backend.ResponseRest;
-import com.ui.innoguestapplication.sqlite_database.LocalLoginStorage;
+import com.ui.innoguestapplication.events.Event;
+import com.ui.innoguestapplication.events.EventList;
+import com.ui.innoguestapplication.events.EventListStorage;
+import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
 import java.util.ArrayList;
 
@@ -42,7 +40,7 @@ public class ScheduleFragment extends Fragment {
     TextView group;
     ImageButton editGroup;
     boolean hasFinished = false;
-
+    String groupLabel = "1";
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -50,6 +48,7 @@ public class ScheduleFragment extends Fragment {
     ) {
         // Inflate the settings_bg for this fragment
         View thisView = inflater.inflate(R.layout.fragment_schedule, container, false);
+
         tabs = thisView.findViewById(R.id.scheduleTabs);
         vp = thisView.findViewById(R.id.schedule_viewpager2);
         group = thisView.findViewById(R.id.schedule_group);
@@ -60,69 +59,31 @@ public class ScheduleFragment extends Fragment {
 
 
 
-        Log.d("tokenAPI",LocalLoginStorage.getInstance(getContext()).getToken());
         if(EventListStorage.eventList==null){
-        APIRequests.getData(LocalLoginStorage.getInstance(getContext()).getToken(),new Callback<ResponseRest>(){
-
-            @Override
-            public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
-
-
-                EventList newEventList = APIRequests.getEventList(response.body());
-                EventListStorage.setEventList(newEventList);
-                EventListStorage.eventList.getEventList().add(new Event("Calculus Lecture",
-                        "2020-07-04","14:23:00","15:40:00","106",
-                        true,"1","EN"));
-                splitEventsByDate(list2,EventListStorage.eventList);
-
-
-
-                group.setText(EventListStorage.eventList.getMainEvent().getGroups_amount()+"");
-
-
-                createTabFragment();
-            }
-
-            @Override
-            public void onFailure(Call<ResponseRest> call, Throwable t) {
-
-            }
-        });
+                 loadSchedule();
 
         }else{
-            EventListStorage.eventList.getEventList().add(new Event("Calculus Lecture",
-                    "108","2020-07-03","01:56:00","23:40:00"));
-
-
-            EventListStorage.eventList.getEventList().add(new Event("Calculus Lecture",
-                    "108","2020-07-05","14:30:00","15:40:00"));
-
-
-
-            EventListStorage.eventList.getEventList().add(new Event("Calculus Lecture",
-                    "108","2020-07-06","14:30:00","15:40:00"));
-
-
-
-            EventListStorage.eventList.getEventList().add(new Event("Calculus Lecture",
-                    "108","2020-07-07","18:01:00","15:40:00"));
-
-
-            splitEventsByDate(list2, EventListStorage.eventList);
-
-
-            group.setText("Group " + EventListStorage.eventList.getMainEvent().getGroups_amount() + "");
-
-
-            createTabFragment();
+            updateUI();
         }
+
+
+
+
+
+
+
+
 
         editGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PopupMenu menu = new PopupMenu(getContext(), getActivity().findViewById(R.id.edit_group), Gravity.CENTER);
-                menu.getMenu().add(Menu.NONE, 1, 1, "Item 1");
-                menu.getMenu().add(Menu.NONE, 2, 2, "Item 2");
+                int groupAmount = EventListStorage.eventList.getMainEvent().getGroups_amount();
+                for(int i = 1;i<=groupAmount;i++){
+                    menu.getMenu().add(Menu.NONE, i, i, "Group "+i);
+                }
+
+
                 menu.setGravity(Gravity.CENTER_VERTICAL);
                 menu.show();
 //                menu.setGravity(Gravity.CENTER);
@@ -131,11 +92,8 @@ public class ScheduleFragment extends Fragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         int i = menuItem.getItemId();
-                        String text = (String) menuItem.getTitle();
-                        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
-                        //handle
-
-
+                        groupLabel = i+"";
+                        updateUI();
                         return false;
                     }
                 });
@@ -147,7 +105,40 @@ public class ScheduleFragment extends Fragment {
         return thisView;
     }
 
-    private void splitEventsByDate(ArrayList<EventList> list,EventList newEventList){
+
+
+    private void loadSchedule(){
+        APIRequests.getData(LoginLocalDatabase.getLoginLocalDatabase(getContext()).getToken(),new Callback<ResponseRest>(){
+
+            @Override
+            public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
+
+
+                EventList newEventList = APIRequests.getEventList(response.body());
+                EventListStorage.setEventList(newEventList);
+                updateUI();
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseRest> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+    public  void updateUI(){
+        list2.clear();
+        splitEventsByDate(list2,EventListStorage.eventList,groupLabel);
+        group.setText(String.format("Group %s", groupLabel));
+        createTabFragment();
+    }
+    public void updateShcedule(){
+        loadSchedule();
+    }
+
+    private static void splitEventsByDate(ArrayList<EventList> list,EventList newEventList,String group){
 
 
         ArrayList<ArrayList<Event>> listOfSchedules = new ArrayList<>();
@@ -156,11 +147,15 @@ public class ScheduleFragment extends Fragment {
         for(int i = 1;i<newEventList.getEventList().size();i++){
                if(newEventList.getEventList().get(i-1).getEventDate()
                        .equals(newEventList.getEventList().get(i).getEventDate())){
+                   if(newEventList.getEventList().get(i).getEventGroupId().equals(group)){
                    first.add(newEventList.getEventList().get(i));
+                   }
                }else{
+                   if(newEventList.getEventList().get(i).getEventGroupId().equals(group)){
                    listOfSchedules.add(first);
                    first = new ArrayList<>();
                    first.add(newEventList.getEventList().get(i));
+                   }
 
 
                }

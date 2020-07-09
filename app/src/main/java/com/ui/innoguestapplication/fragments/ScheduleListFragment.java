@@ -2,6 +2,10 @@ package com.ui.innoguestapplication.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -9,16 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.ui.innoguestapplication.events.Event;
-import com.ui.innoguestapplication.events.EventList;
 import com.ui.innoguestapplication.R;
 import com.ui.innoguestapplication.adapters.EventList_adapter;
 import com.ui.innoguestapplication.adapters.ScheduleViewAdapter;
+import com.ui.innoguestapplication.events.Event;
+import com.ui.innoguestapplication.events.EventList;
 
 import java.util.ArrayList;
 
@@ -46,6 +45,7 @@ public class ScheduleListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the settings_bg for this fragment
+
         return inflater.inflate(R.layout.schedule_list, container, false);
     }
 
@@ -56,9 +56,8 @@ public class ScheduleListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         EventList_adapter adapter = new EventList_adapter(list_of_events, recyclerView);
         recyclerView.setAdapter(adapter);
-
-
         refresh = view.findViewById(R.id.refresh_schedule);
+
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -69,10 +68,11 @@ public class ScheduleListFragment extends Fragment {
 
 
     }
-
     private void refreshData() {
-        //update data here, then pass it to recyclerview and call datasetchanged method to the adapter
+        ScheduleFragment scheduleFragment = (ScheduleFragment) getParentFragment();
+        scheduleFragment.updateShcedule();
 
+        //update data here, then pass it to recyclerview and call datasetchanged method to the adapter
         refresh.setRefreshing(false);
     }
 }

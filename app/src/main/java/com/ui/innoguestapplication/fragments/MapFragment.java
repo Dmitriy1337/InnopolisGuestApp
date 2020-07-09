@@ -41,9 +41,9 @@ public class MapFragment extends Fragment {
         mapPic.setImageResource(R.drawable.firstf);
         Snackbar snackbar = Snackbar
                 .make(mapPic, R.string.zoom_in_using_two_fingers, Snackbar.LENGTH_SHORT);
-        snackbar.show();
+        //snackbar.show();
 
-        
+
         mapPic.setOnTouchListener(new ImageMatrixTouchHandler(view.getContext()));
 
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

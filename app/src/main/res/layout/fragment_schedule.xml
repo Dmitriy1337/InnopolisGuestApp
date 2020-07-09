@@ -7,6 +7,7 @@
     android:background="@color/almost_white"
     tools:context=".fragments.ScheduleFragment">
 
+
     <TextView
         android:id="@+id/schedule_group"
         style="@style/TextDefault"
@@ -34,7 +35,7 @@
         app:tabIndicatorGravity="bottom"
         app:tabIndicatorHeight="0dp"
         app:tabMode="auto"
-        app:tabRippleColor="@color/colorPrimaryDark"
+        app:tabRippleColor="@color/almost_white"
         app:tabSelectedTextColor="#FFFFFF"
         app:tabTextAppearance="@style/tab_text"
         app:tabTextColor="?attr/textSecondary"
@@ -91,4 +92,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/schedule_group"
         app:layout_constraintStart_toEndOf="@+id/schedule_group"
         app:layout_constraintTop_toTopOf="@+id/schedule_group" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

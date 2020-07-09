@@ -32,12 +32,13 @@ public class EventList {
         int i = 0;
 
         int now =convertDateToInt(getCurrentTimeFormat());
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM");
 
         LocalDateTime currentDate = LocalDateTime.now();
         ArrayList<Event> eventListTemp = (ArrayList<Event>) eventList.stream()
                 .filter(event -> event.getEventDate().equals(dtf.format(currentDate)))
                 .collect(Collectors.toList());
+
         if(eventListTemp.isEmpty()){
             return  new Event("There is no other events for today",""
                     ,"","-/-","-/-",true);
@@ -52,7 +53,7 @@ public class EventList {
             e = eventListTemp.get(i);
             i++;
         }
-            if(i>=eventListTemp.size()){
+            if(i>eventListTemp.size()){
                 return  new Event("There is no other events for today",""
                         ,"","-/-","-/-");
 

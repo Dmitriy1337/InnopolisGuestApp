@@ -22,13 +22,8 @@ import com.ui.innoguestapplication.sqlite_database.LocalLoginStorage;
 import com.ui.innoguestapplication.sqlite_database.LocalSettingsStorage;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
 import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
-import com.ui.innoguestapplication.sqlite_database.Notification;
 import com.ui.innoguestapplication.sqlite_database.NotifySound;
 import com.ui.innoguestapplication.sqlite_database.Theme;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class SettingsFragment extends Fragment {
 
@@ -116,8 +111,8 @@ public class SettingsFragment extends Fragment {
                 }
 
 
-                String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
-                ((BottomNavigatorControllerActivity)getActivity()).addNotification(new Notification("New notofication",currentTime,"Descr"),getContext());
+               // String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
+              //  ((BottomNavigatorControllerActivity)getActivity()).addNotification(new Notification("New notofication",currentTime,"Descr"),getContext());
 
                 //write to database
                 //check if alert status is different, restart app if needed
