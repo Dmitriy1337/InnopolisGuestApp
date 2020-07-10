@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 
 import com.bogdwellers.pinchtozoom.ImageMatrixTouchHandler;
@@ -21,6 +22,7 @@ public class MapFragment extends Fragment {
     ImageView mapPic;
     TabLayout tabs;
     ConstraintLayout root_l;
+    CoordinatorLayout coordinatorLayout;
 
     @Override
     public View onCreateView(
@@ -32,6 +34,7 @@ public class MapFragment extends Fragment {
         mapPic = thisView.findViewById(R.id.mapImage);
         tabs = thisView.findViewById(R.id.map_tabs);
         root_l = thisView.findViewById(R.id.map_root);
+        coordinatorLayout = thisView.findViewById(R.id.coordinator);
 
         return thisView;
     }
@@ -40,8 +43,8 @@ public class MapFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mapPic.setImageResource(R.drawable.firstf);
         Snackbar snackbar = Snackbar
-                .make(mapPic, R.string.zoom_in_using_two_fingers, Snackbar.LENGTH_SHORT);
-        //snackbar.show();
+                .make(coordinatorLayout, R.string.zoom_in_using_two_fingers, Snackbar.LENGTH_SHORT);
+        snackbar.show();
 
 
         mapPic.setOnTouchListener(new ImageMatrixTouchHandler(view.getContext()));

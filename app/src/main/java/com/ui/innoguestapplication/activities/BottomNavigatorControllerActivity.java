@@ -81,7 +81,6 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
         BackgroundRunner.scheduleJob(getBaseContext());
 
 
-
         labelTop = findViewById(R.id.label_top);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
