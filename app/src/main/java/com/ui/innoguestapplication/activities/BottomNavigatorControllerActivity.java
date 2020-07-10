@@ -49,45 +49,31 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
     TextView labelTop;
     ImageButton notifications_button;
 
-    static ScheduleFragment scheduleFragment ;
+    static ScheduleFragment scheduleFragment = new ScheduleFragment();
     static FAQFragment faqFragment = new FAQFragment();
     static MenuFragment menuFragment = new MenuFragment();
     static MapFragment mapFragment = new MapFragment();
-    static SettingsFragment settingsFragment ;
+    static SettingsFragment settingsFragment = new SettingsFragment();
 
     static Fragment current = menuFragment;
     static Fragment schedule =null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        settingsFragment = new SettingsFragment();
-        scheduleFragment = new ScheduleFragment();
-        //check database for theme mode
-        /*
-         * if theme is auto, check system theme and apply
-         *
-         *
-         * */
 
         BackgroundRunner.scheduleJob(getBaseContext());
         if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme() == Theme.DARK) {
-
             setTheme(R.style.DarkTheme);
         }
         else{
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES:
-                //Toast.makeText(getApplicationContext(),"light_active",Toast.LENGTH_SHORT).show();
                 setTheme(R.style.DarkTheme);
-
                 break;
             case Configuration.UI_MODE_NIGHT_NO:
-                //Toast.makeText(getApplicationContext(),"dark_active",Toast.LENGTH_SHORT).show();
                 setTheme(R.style.LightTheme);
-
                 break;
         }
-
     }
 
         setContentView(R.layout.activity_main);
@@ -102,7 +88,6 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
         navigation.setSelectedItemId(R.id.navigation_home);
 
         notifications_button = findViewById(R.id.notifications_button);
-
         notifications_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,49 +100,32 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
         try {
             switch (Objects.requireNonNull(getIntent().getAction())) {
-
                 case START_SETTINGS:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
                     navigation.setSelectedItemId(R.id.navigation_settings);
                     labelTop.setText(R.string.title_settings);
-                    Log.d("Intent", "settings");
-
                     break;
-
                 case START_SCHEDULE:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ScheduleFragment()).commit();
                     navigation.setSelectedItemId(R.id.navigation_schedule);
                     labelTop.setText(R.string.title_schedule);
-
-                    Log.d("Intent", "schedule");
-
                     break;
                 case START_FAQ:
-                    current = faqFragment;
-                    loadFragment(faqFragment);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FAQFragment()).commit();
+                    navigation.setSelectedItemId(R.id.navigation_faq);
                     labelTop.setText(R.string.title_faq);
-
-
                     break;
                 case START_HOME:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MenuFragment()).commit();
                     navigation.setSelectedItemId(R.id.navigation_home);
                     labelTop.setText(R.string.home_title);
-
-                    Log.d("Intent", "home");
-
                     break;
                 case START_LOCATION:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapFragment()).commit();
                     navigation.setSelectedItemId(R.id.navigation_map);
                     labelTop.setText(R.string.title_map);
-
-                    Log.d("Intent", "location");
-
                     break;
-
             }
-
 
         } catch (NullPointerException e) {
 
