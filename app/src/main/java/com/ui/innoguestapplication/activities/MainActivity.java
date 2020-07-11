@@ -4,18 +4,16 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.ui.innoguestapplication.events.EventList;
-import com.ui.innoguestapplication.events.EventListStorage;
-import com.ui.innoguestapplication.R;
-import com.ui.innoguestapplication.backend.APIRequests;
-import com.ui.innoguestapplication.backend.ResponseRest;
-import com.ui.innoguestapplication.sqlite_database.LoginData;
-import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ui.innoguestapplication.R;
+import com.ui.innoguestapplication.backend.APIRequests;
+import com.ui.innoguestapplication.backend.ResponseRest;
+import com.ui.innoguestapplication.events.EventList;
+import com.ui.innoguestapplication.events.EventListStorage;
+import com.ui.innoguestapplication.sqlite_database.LoginData;
+import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,6 +64,9 @@ public class MainActivity extends AppCompatActivity  {
                 EventList newEventList = APIRequests.getEventList(response.body());
                 EventListStorage.setEventList(newEventList);
                 Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
+
+                Log.d("Intent",  response.body().getBody().getData().getUser().getTg()+"check");
+                LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).setName(response.body().getBody().getData().getUser().getTg());
                 String intentAction = getIntent().getAction();
                 intent.setAction(intentAction);
                 startActivity(intent);

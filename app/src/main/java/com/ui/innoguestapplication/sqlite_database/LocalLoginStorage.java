@@ -12,6 +12,10 @@ public class LocalLoginStorage {
 
     private String login;
     private String token;
+
+
+
+    private  String name;
     private static Context context;
     private static LocalLoginStorage localLoginStorage=null;
 
@@ -32,6 +36,16 @@ public class LocalLoginStorage {
         LoginLocalDatabase.getLoginLocalDatabase(context).setToken(token);
         this.token = token;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        LoginLocalDatabase.getLoginLocalDatabase(context).setToken(token);
+        this.name = name;
+    }
+
     public static LocalLoginStorage getInstance(Context context){
         if(localLoginStorage==null){
             localLoginStorage=new LocalLoginStorage("","");

@@ -112,7 +112,7 @@
 
         <item name="card_bg">#ffffff</item>
         <item name="outlineColor">@color/colorPrimary</item>
-        <item name="bgColor">@color/colorNavIcon</item>
+        <item name="bgColor">@color/almost_white</item>
         <item name="navbar_not_selected">@color/colorPrimaryDark</item>
 
     </style>

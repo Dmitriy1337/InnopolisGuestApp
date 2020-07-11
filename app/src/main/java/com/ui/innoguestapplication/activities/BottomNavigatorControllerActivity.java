@@ -9,7 +9,6 @@ import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -49,18 +48,19 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
     TextView labelTop;
     ImageButton notifications_button;
 
-    static ScheduleFragment scheduleFragment = new ScheduleFragment();
+    static ScheduleFragment scheduleFragment;
     static FAQFragment faqFragment = new FAQFragment();
     static MenuFragment menuFragment = new MenuFragment();
     static MapFragment mapFragment = new MapFragment();
-    static SettingsFragment settingsFragment = new SettingsFragment();
+    static SettingsFragment settingsFragment ;
 
     static Fragment current = menuFragment;
     static Fragment schedule =null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        scheduleFragment = new ScheduleFragment();
+        settingsFragment = new SettingsFragment();
         BackgroundRunner.scheduleJob(getBaseContext());
         if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme() == Theme.DARK) {
             setTheme(R.style.DarkTheme);

@@ -48,7 +48,7 @@ public class SettingsFragment extends Fragment {
         alerts = thisView.findViewById(R.id.notifications_switch);
         logout_view = thisView.findViewById(R.id.logout_card);
         userEmail = thisView.findViewById(R.id.user_email);
-
+        userName = thisView.findViewById(R.id.user_name);
 
          languageS = LocalSettingsStorage.getLocalSettingsStorage(getContext()).getLanguage();
          theme = LocalSettingsStorage.getLocalSettingsStorage(getContext()).getTheme();
@@ -56,7 +56,7 @@ public class SettingsFragment extends Fragment {
 
         Log.d("email",LocalLoginStorage.getInstance(getContext()).getEmail());
         userEmail.setText(LoginLocalDatabase.getLoginLocalDatabase(getContext()).getLoginDataOrNull().getEmail());
-
+        userName.setText(LoginLocalDatabase.getLoginLocalDatabase(getContext()).getName());
         if(theme==Theme.DARK){
 
             force_dark_mode.toggle();
@@ -104,9 +104,9 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton b,boolean isChecked) {
                 if (isChecked) {
-                    LocalSettingsStorage.getLocalSettingsStorage(getContext()).setSound(NotifySound.ON);
-                }else{
                     LocalSettingsStorage.getLocalSettingsStorage(getContext()).setSound(NotifySound.OFF);
+                }else{
+                    LocalSettingsStorage.getLocalSettingsStorage(getContext()).setSound(NotifySound.ON);
 
                 }
 

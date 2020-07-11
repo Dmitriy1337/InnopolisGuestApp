@@ -74,13 +74,17 @@ public class APIRequests {
                         }
                         case 1: { //onSuccess
                             String token = response.getBody().getData().getToken();
+
                             RespUser user = response.getBody().getData().getUser();
+
                             LoginLocalDatabase.getLoginLocalDatabase(context).setToken(token);
+
+
                             LocalLoginStorage.getInstance(context,user.getEmail(),token);
                             LocalLoginStorage.getInstance(context).setToken(token);
                             //TODO
                             //save token & userData(only if they aren't the same)
-                            Log.d("LOGVAL", token);
+
                             return LoginState.NO_ERRORS;
                         }
                     }

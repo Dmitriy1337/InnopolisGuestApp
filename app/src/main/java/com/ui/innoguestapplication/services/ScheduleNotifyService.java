@@ -36,10 +36,13 @@ public class ScheduleNotifyService extends JobService {
     public boolean onStartJob(JobParameters jobParameters) {
         Event next = EventListStorage.eventList.getFollowingEvent();
 
+
         if(!next.isWasNotified() && !next.getEventTimeStart().equals("-/-")){
             EventListStorage.eventList.getFollowingEvent().setWasNotified(true);
+            Log.d("test",next.isWasNotified()+"");
             if(Math.abs(EventList.convertDateToInt(next.getEventTimeStart())
                 -EventList.convertDateToInt(EventList.getCurrentTimeFormat()))<10){
+                Log.d("test",next.isWasNotified()+"");
             String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
 
             addNotification(new Notification("Upcoming event",currentTime,next.getEventName()+

@@ -174,8 +174,8 @@ public class LoginActivity extends AppCompatActivity {
                             String intentAction = getIntent().getAction();
                             //Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
                             intent.setAction(intentAction);
-                            Log.d("Intent", "Login caught");
-
+                            Log.d("Intent",  response.body().getBody().getData().getUser().getTg()+"check");
+                            LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).setName(response.body().getBody().getData().getUser().getTg());
                             startActivity(intent);
 
                             break;
