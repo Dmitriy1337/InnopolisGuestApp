@@ -7,6 +7,8 @@ public class EventList {
     ArrayList<Event> eventList;
     String date; //don't know why do we need it :)
 
+    public EventList(){};
+
     public EventList(MainEvent mainEvent, ArrayList<Event> eventList, String date){
         this.mainEvent = mainEvent;
         this.eventList = eventList;

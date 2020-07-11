@@ -2,6 +2,7 @@ package com.ui.innoguestapplication.backend
 
 import com.google.gson.annotations.SerializedName
 import com.ui.innoguestapplication.Event
+import com.ui.innoguestapplication.FaqElem
 import com.ui.innoguestapplication.MainEvent
 import retrofit2.Call
 import retrofit2.http.Field
@@ -35,7 +36,8 @@ data class RespData(
         @SerializedName("token") val token: String?,
         @SerializedName("user") val user: RespUser?,
         @SerializedName("event") val event: MainEvent?,
-        @SerializedName("schedule") val schedule: ArrayList<Event?>?
+        @SerializedName("schedule") val schedule: ArrayList<Event?>?,
+        @SerializedName("faq") val faq: ArrayList<FaqElem?>?
 )
 
 data class RespUser(

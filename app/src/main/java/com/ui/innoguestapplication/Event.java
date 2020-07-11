@@ -92,6 +92,17 @@ public class Event implements Comparable<Event> {
         return eventTimeEnd;
     }
 
+    public boolean isEventMustVisit() {
+        return eventMustVisit;
+    }
+
+    public String getEventGroupId() {
+        return eventGroupId;
+    }
+
+    public String getEventLang() {
+        return eventLang;
+    }
 
     @Override
     public int compareTo(Event otherEvent) {
