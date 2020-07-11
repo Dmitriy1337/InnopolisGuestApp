@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/bgColor"
+    android:background="@color/almost_white"
     tools:context=".fragments.MapFragment">
 
     <TextView
@@ -13,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/map_of_innopolis_university"
         app:layout_constraintBottom_toTopOf="@+id/map_tabs"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,37 +26,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        app:tabIndicatorGravity="bottom"
-        app:tabMode="fixed"
-        app:tabUnboundedRipple="true"
-        app:tabGravity="center"
-        app:tabIndicatorHeight="0dp"
-        app:tabSelectedTextColor="#FFFFFF"
-        app:tabTextColor="@color/colorPrimaryDark"
-        app:tabIndicatorFullWidth="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:tabBackground="@drawable/tab_bg"
+        app:tabGravity="center"
         app:tabIndicatorColor="@color/colorPrimaryDark"
-        app:tabRippleColor="@color/colorPrimaryDark"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorGravity="bottom"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed"
+        app:tabRippleColor="@color/almost_white"
 
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:tabSelectedTextColor="#FFFFFF"
+        app:tabTextAppearance="@style/tab_text"
+        app:tabTextColor="@color/textPrimary"
+        app:tabUnboundedRipple="true">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/floor1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/_1st_floor" />
+            android:text="@string/_1st_floor"
+            app:tabRippleColor="@null" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/floor2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/_2nd_floor" />
+            android:text="@string/_2nd_floor"
+            app:tabRippleColor="@null" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/floor3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/_3rd_floor" />
+            android:text="@string/_3rd_floor"
+            app:tabRippleColor="@null" />
 
         <!--        <com.google.android.material.tabs.TabItem-->
         <!--            android:id="@+id/floor45"-->
@@ -68,6 +75,8 @@
         android:id="@+id/mapImage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:contentDescription="@string/map_image"
         android:src="@drawable/icon"
         app:layout_constraintBottom_toTopOf="@+id/map_bottom_image"
@@ -77,18 +86,19 @@
         app:layout_constraintTop_toBottomOf="@+id/map_tabs"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/map_hint"
-        style="@style/TextSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="@string/zoom_in_using_two_fingers"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/mapImage"
-        app:layout_constraintStart_toStartOf="@+id/mapImage"
-        app:layout_constraintTop_toTopOf="@id/mapImage"
-        app:layout_constraintVertical_bias="1.0" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/map_hint"-->
+    <!--        style="@style/TextSmall"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginBottom="24dp"-->
+    <!--        android:text="@string/zoom_in_using_two_fingers"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/mapImage"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/mapImage"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/mapImage"-->
+    <!--        app:layout_constraintVertical_bias="1.0"-->
+    <!--        tools:visibility="gone" />-->
 
     <ImageView
         android:id="@+id/map_bottom_image"

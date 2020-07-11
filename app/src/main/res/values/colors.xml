@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#79CF85</color>
-    <color name="colorPrimaryDark">#3EA550</color>
-    <color name="colorAccent">#FF5154</color>
-    <color name="colorNavIcon">#dae9f6</color>
-    <color name="colorNavText">#22577A</color>
+    <color name="colorPrimary">#00BB65</color>
+    <color name="colorPrimaryDark">#003B36</color>
+    <color name="colorAccent">#E54B4B</color>
+    <color name="colorNavIcon">#ECE5F0</color>
+    <color name="colorNavText">#012622</color>
     <color name="textPrimary">#000000</color>
-    <color name="textSecondary">#061826</color>
+    <color name="textSecondary">#29282A</color>
     <color name="light">#C7F9CC</color>
     <color name="brit">#012169</color>
     <color name="rus">#d52b1e</color>
     <color name="auto_mode">#1E90FF</color>
-    <color name="dark_mode">#808080</color>
+    <color name="dark_mode">#726E75</color>
     <color name="yes">#32CD32</color>
     <color name="yes_dark">#FFFFFF</color>
     <color name="almost_white">#FAFAFA</color>
-
+    <color name="bgColor">#FAFAFA</color>
 
     <color name="no">#C0C0C0</color>
     <color name="no_dark">#FFFFFF</color>

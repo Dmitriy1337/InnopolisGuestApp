@@ -5,21 +5,23 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/bgColor"
+    android:background="@color/almost_white"
 
-    tools:context="com.ui.innoguestapplication.BottomNavigatorControllerActivity">
+    tools:context="com.ui.innoguestapplication.activities.BottomNavigatorControllerActivity">
 
     <TextView
         android:id="@+id/label_top"
         style="@style/TextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
 
 
         android:layout_marginTop="10dp"
 
+        android:fontFamily="@font/productsans_black"
         android:text="@string/home_title"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +29,7 @@
         android:id="@+id/notifications_button"
         android:layout_width="43dp"
         android:layout_height="42dp"
-        android:layout_marginEnd="20sp"
+        android:layout_marginEnd="10dp"
         android:background="@null"
         android:scaleX="1"
         android:scaleY="1"
@@ -50,12 +52,13 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
+        style="@style/Widget.BottomNavigationView"
         android:layout_width="0dp"
+
+
         android:layout_height="wrap_content"
 
-
         android:background="?attr/colorPrimary"
-
         app:itemHorizontalTranslationEnabled="false"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"

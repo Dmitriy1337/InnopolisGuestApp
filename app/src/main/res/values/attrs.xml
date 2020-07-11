@@ -7,4 +7,5 @@
     <attr name="card_bg" format="color" />
     <attr name="outlineColor" format="color" />
     <attr name="bgColor" format="color" />
+    <attr name="navbar_not_selected" format="color" />
 </resources>

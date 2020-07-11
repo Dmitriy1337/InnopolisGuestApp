@@ -9,6 +9,39 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+import kotlin.NullPointerException
+
+fun validData(resp: ResponseRest): APIRequests.DataState{
+    return try {
+        when(resp.error_request){
+            1 -> APIRequests.DataState.NO_TOKEN
+            else -> when(resp.body!!.error){
+                1 -> APIRequests.DataState.WRONG_TOKEN
+                2 -> APIRequests.DataState.USER_NOT_EXIST
+                else -> APIRequests.DataState.NO_ERROR
+            }
+        }
+    } catch (e: NullPointerException){
+        APIRequests.DataState.ERROR
+    }
+}
+
+fun validAuth(resp: ResponseRest): APIRequests.LoginState{
+    return try {
+        when (resp.error_request) {
+            1 -> APIRequests.LoginState.ERROR
+            else -> when (resp.body!!.success) {
+                0 -> when (resp.body.error) {
+                    1 -> APIRequests.LoginState.WRONG_LOGIN
+                    else -> APIRequests.LoginState.WRONG_PASSWORD
+                }
+                else -> APIRequests.LoginState.NO_ERRORS
+            }
+        }
+    } catch (e: NullPointerException){
+        APIRequests.LoginState.ERROR
+    }
+}
 
 object Backend {
     fun auth(loginData: LoginData, callback: Callback<ResponseRest>) = RestAPIService().auth(loginData, callback)
@@ -28,7 +61,6 @@ object Backend {
             retrofit.getData(token).enqueue(callback)
         }
     }
-
 
     private object RestBuilder {
         internal val logging = HttpLoggingInterceptor()

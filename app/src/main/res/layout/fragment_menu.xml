@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/bgColor"
+    android:background="@color/almost_white"
     tools:context=".fragments.MenuFragment">
 
 
     <TextView
         android:id="@+id/event_name"
-        style="@style/TextBig"
+        style="@style/TextDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/productsans_bold"
         android:text="Default Event Name"
         android:textAlignment="center"
-        android:textStyle="bold"
+        android:textSize="30sp"
         android:typeface="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,10 +26,10 @@
 
     <TextView
         android:id="@+id/event_dates"
-        style="@style/TextDefault"
+        style="@style/TextSecondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:fontFamily="@font/productsans_regular"
         android:text="January 1st 1970 - December 31st 2020"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,13 +51,14 @@
 
         <TextView
             android:id="@+id/upcoming"
-            style="@style/TextBig"
+            style="@style/TextDefault"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/productsans_regular"
             android:text="@string/upcoming_event"
-            android:textStyle="bold"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,23 +67,28 @@
             style="@style/TextSecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/productsans_regular"
             android:text="09:00 - 12:00"
-            android:textStyle="bold"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/upcoming" />
+            app:layout_constraintTop_toBottomOf="@+id/upcoming_name" />
 
         <TextView
             android:id="@+id/upcoming_name"
-            style="@style/TextBig"
+            style="@style/TextDefault"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginBottom="16dp"
-            android:text="Breakfast in the canteen"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/productsans_bold"
+            android:text="Breakfast in the canteen, русский"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/upcoming_time" />
+            app:layout_constraintTop_toBottomOf="@+id/upcoming" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -104,6 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/productsans_light"
             android:text="@string/barcode_help"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

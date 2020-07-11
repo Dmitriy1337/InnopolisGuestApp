@@ -32,38 +32,39 @@
     <style name="TextSettings">
         <item name="android:textColor">@color/textPrimary</item>
         <item name="android:textSize">20dp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/productsans_medium</item>
 
     </style>
 
     <style name="TextDefault">
         <item name="android:textColor">?attr/textPrimary</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/productsans_regular</item>
     </style>
 
     <style name="TextSecondary">
         <item name="android:textColor">?attr/textSecondary</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/productsans_light</item>
     </style>
 
     <style name="TextTitle">
         <item name="android:textColor">?attr/textPrimary</item>
+        <item name="android:fontFamily">@font/productsans_black</item>
         <item name="android:textSize">36sp</item>
-        <item name="android:fontFamily">sans-serif-black</item>
+
     </style>
 
     <style name="TextBig">
         <item name="android:textColor">?attr/textPrimary</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/productsans_medium</item>
     </style>
 
     <style name="TextSmall">
         <item name="android:textColor">?attr/textPrimary</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/productsans_light</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -71,8 +72,12 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">@color/colorPrimaryDark</item>
-        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlNormal">?attr/colorSecondary</item>
+        <item name="colorControlActivated">?attr/colorPrimary</item>
+    </style>
+
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/productsans_medium</item>
     </style>
 
     <!--    <style name="Theme.App.Base" parent="Theme.AppCompat.Light.DarkActionBar">-->
@@ -83,25 +88,39 @@
 
 
     <style name="DarkTheme" parent="AppTheme">
-        <item name="colorPrimary">#013220</item>
-        <item name="colorSecondary">#011910</item>
-        <item name="textPrimary">#ffffff</item>
-        <item name="textSecondary">#fafafa</item>
-        <item name="card_bg">#222831</item>
-        <item name="outlineColor">#ffffff</item>
-        <item name="bgColor">#000000</item>
+        <item name="colorPrimary">#003B36</item>
+        <item name="colorSecondary">#012622</item>
+        <item name="textPrimary">#f0f4f8</item>
+        <item name="textSecondary">#e4e7eb</item>
+        <item name="card_bg">#424242</item>
+        <item name="outlineColor">#f5f5f5</item>
+        <item name="bgColor">#121212</item>
+        <item name="navbar_not_selected">@color/dark_mode</item>
+
+    </style>
+
+
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/productsans_regular</item>
     </style>
 
     <style name="LightTheme" parent="AppTheme">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorSecondary">@color/colorPrimaryDark</item>
-        <item name="textPrimary">#000000</item>
-        <item name="textSecondary">@color/design_default_color_on_secondary</item>
+        <item name="textPrimary">@color/textPrimary</item>
+        <item name="textSecondary">@color/textSecondary</item>
 
         <item name="card_bg">#ffffff</item>
         <item name="outlineColor">@color/colorPrimary</item>
-        <item name="bgColor">#ffffff</item>
+        <item name="bgColor">@color/colorNavIcon</item>
+        <item name="navbar_not_selected">@color/colorPrimaryDark</item>
 
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2sp</item>
+        <item name="android:background">?attr/colorPrimaryDark</item>
     </style>
 
 </resources>

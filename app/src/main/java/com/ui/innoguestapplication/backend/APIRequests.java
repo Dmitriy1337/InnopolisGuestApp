@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.ui.innoguestapplication.Event;
 import com.ui.innoguestapplication.EventList;
+import com.ui.innoguestapplication.FaqElem;
 import com.ui.innoguestapplication.MainEvent;
 import com.ui.innoguestapplication.UserProfileData;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
@@ -24,6 +25,14 @@ public class APIRequests {
         NO_ERRORS, WRONG_LOGIN, WRONG_PASSWORD, ERROR
     }
 
+    public enum DataState {
+        NO_ERROR,
+        WRONG_TOKEN,//error:1
+        USER_NOT_EXIST, //error:2
+        NO_TOKEN, //error_request:1
+        ERROR//just error
+    }
+
     public static void checkValidityOfUser(LoginData loginData, Callback<ResponseRest> callback) {
         //Returns ResponseRest(token & userdata) on Response
         Backend.INSTANCE.auth(loginData, callback);
@@ -34,75 +43,50 @@ public class APIRequests {
     }
 
 
+
     public static MainEvent getMainEvent(ResponseRest response) {
-        if (true) {
+        if (validateData(response) == DataState.NO_ERROR) {
             return response.getBody().getData().getEvent();
         } return null;
     }
 
     public static EventList getEventList(ResponseRest response){
-        if (true){
+        if (validateData(response) == DataState.NO_ERROR){
             ArrayList<Event> list = response.getBody().getData().getSchedule();
             return new EventList(getMainEvent(response), list, null);
         } return null;
     }
 
-    public static UserProfileData getUserProfileData(ResponseRest response) {
-        //not implemented yet
-        if (validateAuth(response) == LoginState.NO_ERRORS) {
-            RespUser user = response.getBody().getData().getUser();
-            return new UserProfileData(null, null, null);
+    public static ArrayList<FaqElem> getFaqList(ResponseRest response){
+        if (validateData(response) == DataState.NO_ERROR) {
+            return response.getBody().getData().getFaq();
         } return null;
     }
+
+    public static UserProfileData getUserProfileData(ResponseRest response) {
+        //not implemented yet
+        if (validateData(response) == DataState.NO_ERROR) {
+            RespUser user = response.getBody().getData().getUser();
+            return new UserProfileData(user.getName(), user.getName(), user.getEmail());
+        } return null;
+    }
+
     public static String getToken(ResponseRest response){
         if (validateAuth(response) == LoginState.NO_ERRORS) {
             return response.getBody().getData().getToken();
         } return null;
     }
 
+    public static DataState validateData(ResponseRest response){
+        if (response != null)
+            return BackendKt.validData(response);
+        else return DataState.ERROR;
+    }
+
     //checks auth response
     public static LoginState validateAuth(ResponseRest response) {
-        if (response != null) {
-            try {
-                if (response.getError_request() == 1) { // bad request
-                    Log.d("LOGVAL", "bad request");
-                    return LoginState.ERROR;
-                } else {
-                    switch (response.getBody().getSuccess()) {
-                        case 0: {  //onError
-                            switch (response.getBody().getError()) {
-                                case 1: { // email not found
-                                    Log.d("LOGVAL", "email nnot found");
-                                    return LoginState.WRONG_LOGIN;
-                                }
-                                case 2: { // incorrect password
-                                    Log.d("LOGVAL", "incorrect pass");
-                                    return LoginState.WRONG_PASSWORD;
-                                }
-                            }
-                        }
-                        case 1: { //onSuccess
-                            String token = response.getBody().getData().getToken();
-                            RespUser user = response.getBody().getData().getUser();
-                            //TODO
-                            //save token & userData(only if they aren't the same)
-                            Log.d("LOGVAL", "Ok");
-                            return LoginState.NO_ERRORS;
-                        }
-                    }
-                }
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-                Log.d("LOGVAL", "exception & ");
-                return LoginState.ERROR;
-            }
-        } else {
-            // network error
-            Log.d("LOGVAL", "network err");
-            return LoginState.ERROR;
-        }
-
-        Log.d("LOGVAL", "nothing");
-        return LoginState.ERROR;
+        if (response != null)
+            return BackendKt.validAuth(response);
+        else return LoginState.ERROR;
     }
 }
