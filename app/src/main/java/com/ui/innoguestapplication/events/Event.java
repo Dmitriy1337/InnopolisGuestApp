@@ -10,10 +10,6 @@ public class Event {
     @SerializedName("must_visit")
     private boolean eventMustVisit;
 
-    public String getEventGroupId() {
-        return eventGroupId;
-    }
-
     @SerializedName("group_id")
     private String eventGroupId;
     @SerializedName("lang")
@@ -113,6 +109,16 @@ public class Event {
         return eventTimeEnd;
     }
 
+    public boolean isEventMustVisit() {
+        return eventMustVisit;
+    }
 
+    public String getEventGroupId() {
+        return eventGroupId;
+    }
+
+    public String getEventLang() {
+        return eventLang;
+    }
 
 }
