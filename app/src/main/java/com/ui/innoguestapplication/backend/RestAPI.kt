@@ -41,25 +41,7 @@ data class RespData(
 data class RespUser(
         @SerializedName("id") val id: Int?,
         @SerializedName("email") val email: String?,
-        @SerializedName("tg") val tg: String?,
+        @SerializedName("name") val name: String?,
         @SerializedName("barcode") val barcode: String?
-)
-data class RespEvent(
-        @SerializedName("title") val title: String?,
-        @SerializedName("description") val description: String?,
-        @SerializedName("faq") val faq: String?,
-        @SerializedName("groups_amount") val groups_amount: Int?,
-        @SerializedName("start_date") val start_date: String?,
-        @SerializedName("end_date") val end_date: String?
-)
-data class RespSchedElem(
-        @SerializedName("title") val title: String?,
-        @SerializedName("date_time") val date_time: String?,
-        @SerializedName("start_date") val start_date: String?,
-        @SerializedName("end_date") val end_date: String?,
-        @SerializedName("location") val location: String?,
-        @SerializedName("must_visit") val must_visit: Boolean?,
-        @SerializedName("group_id") val group_id: String?,
-        @SerializedName("lang") val lang: String?
 )
 
