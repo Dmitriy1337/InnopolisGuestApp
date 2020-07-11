@@ -1,4 +1,4 @@
-package com.ui.innoguestapplication
+package com.ui.innoguestapplication.events
 
 class FaqElem(var question: String, var answer: String, var lang: String) {
 
