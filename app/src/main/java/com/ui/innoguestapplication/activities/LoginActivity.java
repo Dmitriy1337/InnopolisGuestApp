@@ -17,8 +17,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.ui.innoguestapplication.R;
 import com.ui.innoguestapplication.backend.APIRequests;
 import com.ui.innoguestapplication.backend.ResponseRest;
-import com.ui.innoguestapplication.events.EventList;
-import com.ui.innoguestapplication.events.EventListStorage;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
 import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
@@ -174,8 +172,8 @@ public class LoginActivity extends AppCompatActivity {
                             String intentAction = getIntent().getAction();
                             //Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
                             intent.setAction(intentAction);
-                            Log.d("Intent",  response.body().getBody().getData().getUser().getTg()+"check");
-                            LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).setName(response.body().getBody().getData().getUser().getTg());
+                            Log.d("Intent",  response.body().getBody().getData().getUser().getName()+"check");
+                            LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).setName(response.body().getBody().getData().getUser().getName());
                             startActivity(intent);
 
                             break;
@@ -195,24 +193,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void loginWithPreloaded() {
-
-             APIRequests.getData(LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).getToken(), new Callback<ResponseRest>(){
-
-                         @Override
-                          public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
-                                EventList newEventList = APIRequests.getEventList(response.body());
-                                EventListStorage.setEventList(newEventList);
-                                Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
-                                startActivity(intent);
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResponseRest> call, Throwable t) {
-
-                            }
-                        });
-    }
 
 
 

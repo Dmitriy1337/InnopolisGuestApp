@@ -62,11 +62,12 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
                 EventList newEventList = APIRequests.getEventList(response.body());
+                newEventList.faqElems = response.body().getBody().getData().getFaq();
                 EventListStorage.setEventList(newEventList);
                 Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
 
-                Log.d("Intent",  response.body().getBody().getData().getUser().getTg()+"check");
-                LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).setName(response.body().getBody().getData().getUser().getTg());
+                Log.d("Intent",  response.body().getBody().getData().getUser().getName()+"check");
+                LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).setName(response.body().getBody().getData().getUser().getName());
                 String intentAction = getIntent().getAction();
                 intent.setAction(intentAction);
                 startActivity(intent);

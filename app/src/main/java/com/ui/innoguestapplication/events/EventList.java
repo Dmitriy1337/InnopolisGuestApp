@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class EventList {
     MainEvent mainEvent;
     ArrayList<Event> eventList;
+    public ArrayList<FaqElem>faqElems;
 
 
     public EventList(MainEvent mainEvent, ArrayList<Event> eventList){
@@ -24,6 +25,8 @@ public class EventList {
             e.setFormattedTime();
         }
         this.eventList = eventList;
+        this.faqElems =new ArrayList<>();
+
 
 
     }

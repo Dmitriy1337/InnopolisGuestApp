@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ui.innoguestapplication.R;
 import com.ui.innoguestapplication.adapters.FAQList_adapter;
+import com.ui.innoguestapplication.events.EventListStorage;
+import com.ui.innoguestapplication.events.FaqElem;
 
 public class FAQFragment extends Fragment {
 
@@ -28,9 +30,25 @@ public class FAQFragment extends Fragment {
 
         recycler_list = thisView.findViewById(R.id.faq_list);
         recycler_list.setLayoutManager(new LinearLayoutManager(getActivity()));
+        int faqSize = EventListStorage.eventList.faqElems.size();
+        String[] testListQ;
+        String[] testListA;
+        if(faqSize>0) {
+            testListQ = new String[faqSize];
+            testListA = new String[faqSize];
+            int i = 0;
+            for(FaqElem elem:EventListStorage.eventList.faqElems){
+                testListQ[i] = elem.getQuestion();
+                testListA[i] = elem.getAnswer();
+                i++;
+            }
 
-        String[] testListQ = {"In April 2018, Russia’s telecom regulator Roskomnadzor blocked Telegram on the country’s territory.", "The first week of the ban was challenging, and many of our users in Russia had connection issues."};
-        String[] testListA = {"We knew it was coming, so by the time the block went live, we had already upgraded the Telegram apps with support for rotating proxy servers, ways to hide traffic and other anti-censorship tools. We were joined by thousands of Russian engineers that set up their own proxies for Telegram users, forming a decentralised movement called Digital Resistance.", "In an attempt to prevent users from accessing Telegram, Roskomnadzor blacklisted millions of IP addresses. However, thanks to Digital Resistance, after May 2018 Telegram became largely accessible in Russia."};
+        }else{
+            testListQ = new String[1];
+            testListA = new String[1];
+            testListA[0] = "Sample Question";
+            testListA[0] = "Sample Answer is provided, because event organizers have not provided any FAQ list yet";
+        }
         FAQList_adapter adapter = new FAQList_adapter(testListQ, testListA, recycler_list);
         recycler_list.setAdapter(adapter);
 

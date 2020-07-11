@@ -34,27 +34,30 @@ public class ScheduleNotifyService extends JobService {
     @Override
 
     public boolean onStartJob(JobParameters jobParameters) {
-        Event next = EventListStorage.eventList.getFollowingEvent();
+        if(EventListStorage.eventList!=null) {
+            Event next = EventListStorage.eventList.getFollowingEvent();
 
 
-        if(!next.isWasNotified() && !next.getEventTimeStart().equals("-/-")){
-            EventListStorage.eventList.getFollowingEvent().setWasNotified(true);
-            Log.d("test",next.isWasNotified()+"");
-            if(Math.abs(EventList.convertDateToInt(next.getEventTimeStart())
-                -EventList.convertDateToInt(EventList.getCurrentTimeFormat()))<10){
-                Log.d("test",next.isWasNotified()+"");
-            String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
+            if (!next.isWasNotified() && !next.getEventTimeStart().equals("-/-")) {
+                EventListStorage.eventList.getFollowingEvent().setWasNotified(true);
+                Log.d("test", next.isWasNotified() + "");
+                if (Math.abs(EventList.convertDateToInt(next.getEventTimeStart())
+                        - EventList.convertDateToInt(EventList.getCurrentTimeFormat())) < 10) {
+                    Log.d("test", next.isWasNotified() + "");
+                    String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
 
-            addNotification(new Notification("Upcoming event",currentTime,next.getEventName()+
-                    " is starting soon!"),context);
+                    addNotification(new Notification("Upcoming event", currentTime, next.getEventName() +
+                            " is starting soon!"), context);
 
-             }
+                }
 
 
+            }
         }
+            BackgroundRunner.scheduleJob(getBaseContext());
 
-        BackgroundRunner.scheduleJob(getBaseContext());
         return true;
+
     }
 
     @Override

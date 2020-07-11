@@ -41,6 +41,7 @@ public class SplashActivity extends AppCompatActivity  {
             @Override
             public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
                 EventList newEventList = APIRequests.getEventList(response.body());
+                newEventList.faqElems = response.body().getBody().getData().getFaq();
                 EventListStorage.setEventList(newEventList);
 
                 Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
