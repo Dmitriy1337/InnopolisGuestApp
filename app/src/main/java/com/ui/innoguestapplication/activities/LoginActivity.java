@@ -1,22 +1,24 @@
-package com.ui.innoguestapplication;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.ui.innoguestapplication.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.ui.innoguestapplication.R;
 import com.ui.innoguestapplication.backend.APIRequests;
 import com.ui.innoguestapplication.backend.ResponseRest;
+import com.ui.innoguestapplication.events.EventList;
+import com.ui.innoguestapplication.events.EventListStorage;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
 import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
@@ -61,13 +63,13 @@ public class LoginActivity extends AppCompatActivity {
         loginLocalDatabase =  LoginLocalDatabase.getLoginLocalDatabase(getBaseContext());
 
 
-        LoginData preloadedData = loginLocalDatabase.getLoginDataOrNull();
-
-        if(preloadedData!=null){
-
-            loginWithPreloaded(preloadedData);
-
-        }
+//        LoginData preloadedData = loginLocalDatabase.getLoginDataOrNull();
+//
+//        if(preloadedData!=null){
+//
+//            loginWithPreloaded();
+//
+//        }
 
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,25 +152,33 @@ public class LoginActivity extends AppCompatActivity {
             APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
                 @Override
                 public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
-                    switch (APIRequests.validateAuth(response.body())){
+                    switch (APIRequests.validateAuth(response.body(),getBaseContext())){
                         case ERROR:{
                             //TODO
                             //connection problem of smth else
+                            break;
                         }
                         case WRONG_LOGIN: {
                             til_email.setError(getString(R.string.email_wrong));
                             til_email.setErrorEnabled(true);
+                            break;
                         }
                         case WRONG_PASSWORD:{
-                            til_email.setError(getString(R.string.password_error));
-                            til_email.setErrorEnabled(true);
+                            til_password.setError(getString(R.string.password_error));
+                            til_password.setErrorEnabled(true);
+                            break;
                         }
-                        case NO_ERRORS:{
-                            Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
+                        case NO_ERRORS: {
+
+                            Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
                             String intentAction = getIntent().getAction();
-                            Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
                             intent.setAction(intentAction);
+                            Log.d("Intent", "Login caught");
+
                             startActivity(intent);
+
+                            break;
                         }
                     }
                 }
@@ -183,25 +193,25 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
-    private void loginWithPreloaded(LoginData loginData) {
 
-            APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
-                @Override
-                public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
-                    if (APIRequests.validateAuth(response.body()) == APIRequests.LoginState.NO_ERRORS){
-                        //this is temporary
 
-                        Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
-                        startActivity(intent);
-                    }
-                }
+    private void loginWithPreloaded() {
 
-                @Override
-                public void onFailure(Call<ResponseRest> call, Throwable t) {
+             APIRequests.getData(LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).getToken(), new Callback<ResponseRest>(){
 
-                }
-            });
+                         @Override
+                          public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
+                                EventList newEventList = APIRequests.getEventList(response.body());
+                                EventListStorage.setEventList(newEventList);
+                                Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+                                startActivity(intent);
+                            }
 
+                            @Override
+                            public void onFailure(Call<ResponseRest> call, Throwable t) {
+
+                            }
+                        });
     }
 
 
@@ -244,6 +254,8 @@ public class LoginActivity extends AppCompatActivity {
             return true;
         }
     }
+
+
 
     @Override
     public void onBackPressed() {
