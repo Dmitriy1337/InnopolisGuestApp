@@ -152,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
             APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
                 @Override
                 public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
-                    switch (APIRequests.validateAuth(response.body(),getBaseContext())){
+                    switch (APIRequests.validateAuth(response.body())){
                         case ERROR:{
                             //TODO
                             //connection problem of smth else
@@ -169,7 +169,7 @@ public class LoginActivity extends AppCompatActivity {
                             break;
                         }
                         case NO_ERRORS: {
-
+                            APIRequests.storeUserInfo(getBaseContext(), response.body()); //store user data
                             Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
                             String intentAction = getIntent().getAction();
                             //Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
