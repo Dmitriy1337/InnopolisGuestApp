@@ -1,13 +1,15 @@
 package com.ui.innoguestapplication.backend;
 
+import android.content.Context;
 import android.util.Log;
 
-import com.ui.innoguestapplication.Event;
-import com.ui.innoguestapplication.EventList;
-import com.ui.innoguestapplication.FaqElem;
-import com.ui.innoguestapplication.MainEvent;
-import com.ui.innoguestapplication.UserProfileData;
+import com.ui.innoguestapplication.events.FaqElem;
+import com.ui.innoguestapplication.events.Event;
+import com.ui.innoguestapplication.events.EventList;
+import com.ui.innoguestapplication.events.MainEvent;
+import com.ui.innoguestapplication.sqlite_database.LocalLoginStorage;
 import com.ui.innoguestapplication.sqlite_database.LoginData;
+import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
 
 import java.util.ArrayList;
@@ -53,7 +55,7 @@ public class APIRequests {
     public static EventList getEventList(ResponseRest response){
         if (validateData(response) == DataState.NO_ERROR){
             ArrayList<Event> list = response.getBody().getData().getSchedule();
-            return new EventList(getMainEvent(response), list, null);
+            return new EventList(getMainEvent(response), list);
         } return null;
     }
 
@@ -63,18 +65,19 @@ public class APIRequests {
         } return null;
     }
 
-    public static UserProfileData getUserProfileData(ResponseRest response) {
-        //not implemented yet
-        if (validateData(response) == DataState.NO_ERROR) {
-            RespUser user = response.getBody().getData().getUser();
-            return new UserProfileData(user.getName(), user.getName(), user.getEmail());
-        } return null;
-    }
 
     public static String getToken(ResponseRest response){
         if (validateAuth(response) == LoginState.NO_ERRORS) {
             return response.getBody().getData().getToken();
         } return null;
+    }
+
+    public static void storeUserInfo(Context context, ResponseRest resp){
+        String token = resp.getBody().getData().getToken();
+        RespUser user = resp.getBody().getData().getUser();
+        LoginLocalDatabase.getLoginLocalDatabase(context).setToken(token);
+        LocalLoginStorage.getInstance(context,user.getEmail(),token);
+        LocalLoginStorage.getInstance(context).setToken(token);
     }
 
     public static DataState validateData(ResponseRest response){
