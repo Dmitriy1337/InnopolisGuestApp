@@ -174,6 +174,7 @@ public class LoginActivity extends AppCompatActivity {
                             intent.setAction(intentAction);
                             Log.d("Intent",  response.body().getBody().getData().getUser().getName()+"check");
                             LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).setName(response.body().getBody().getData().getUser().getName());
+                            LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).setBarcode(response.body().getBody().getData().getUser().getBarcode());
                             startActivity(intent);
 
                             break;

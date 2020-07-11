@@ -12,9 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import com.ui.innoguestapplication.R;
 import com.ui.innoguestapplication.events.Event;
 import com.ui.innoguestapplication.events.EventListStorage;
-import com.ui.innoguestapplication.R;
+import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
 public class MenuFragment extends Fragment {
     TextView eventName;
@@ -42,6 +43,7 @@ public class MenuFragment extends Fragment {
         Log.d("currentEvent",currentEvent.getEventDate()+" / "+currentEvent.getEventName());
         upcomingName.setText(currentEvent.getEventName());
         upcomingTime.setText(currentEvent.getEventTimeStart()+" - "+currentEvent.getEventTimeEnd());
+        barcode.setText(LoginLocalDatabase.getLoginLocalDatabase(getContext()).getBarcode());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

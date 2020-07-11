@@ -12,6 +12,7 @@ public class LoginDataContract {
                     LoginEntry.COLUMN_NAME_THEME + " TEXT,"+
                     LoginEntry.COLUMN_NAME_NOTIFICATIONS + " TEXT,"+
                     LoginEntry.COLUMN_NAME_NAME + " TEXT,"+
+                    LoginEntry.COLUMN_NAME_BARCODE + " TEXT,"+
                     LoginEntry.COLUMN_NAME_TOKEN + " TEXT)";
 
      static final String SQL_DELETE_ENTRIES =
@@ -31,6 +32,7 @@ public class LoginDataContract {
         public static final String COLUMN_NAME_NOTIFICATIONS = "notifications";
         public static final String COLUMN_NAME_NAME = "name";
         public static final String COLUMN_NAME_TOKEN = "token";
+        public static final String COLUMN_NAME_BARCODE = "barcode";
 
     }
 }
