@@ -10,7 +10,8 @@ public class LoginDataContract {
                     LoginEntry.COLUMN_NAME_PASSWORD + " TEXT,"+
                     LoginEntry.COLUMN_NAME_LAN + " TEXT,"+
                     LoginEntry.COLUMN_NAME_THEME + " TEXT,"+
-                    LoginEntry.COLUMN_NAME_NOTIFICATIONS + " TEXT)";
+                    LoginEntry.COLUMN_NAME_NOTIFICATIONS + " TEXT,"+
+                    LoginEntry.COLUMN_NAME_TOKEN + " TEXT)";
 
      static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + LoginEntry.TABLE_NAME;
@@ -27,6 +28,7 @@ public class LoginDataContract {
         public static final String COLUMN_NAME_LAN = "lan";
         public static final String COLUMN_NAME_THEME = "theme";
         public static final String COLUMN_NAME_NOTIFICATIONS = "notifications";
+        public static final String COLUMN_NAME_TOKEN = "token";
 
     }
 }
