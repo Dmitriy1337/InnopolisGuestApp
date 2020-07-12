@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity  {
 
         if(preloadedData!=null){
 
-            loginWithPreloaded();
+            loginWithPreloaded(preloadedData);
 
         }
 
@@ -55,29 +55,88 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-    private void loginWithPreloaded() {
+    private void loginWithPreloaded(LoginData preloadData) {
 
         APIRequests.getData(LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).getToken(), new Callback<ResponseRest>(){
-
             @Override
             public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
-                EventList newEventList = APIRequests.getEventList(response.body());
-                newEventList.faqElems = response.body().getBody().getData().getFaq();
-                EventListStorage.setEventList(newEventList);
-                Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
+                switch (APIRequests.validateData(response.body())){
+                    case NO_ERROR:
+                        Log.d("getData Main", "no error");
+                        Log.d("getData Main", "no error"+APIRequests.getMainEvent(response.body()).getTitle());
+                        EventList newEventList = APIRequests.getEventList(response.body());
+                        newEventList.faqElems = response.body().getBody().getData().getFaq();
+                        EventListStorage.setEventList(newEventList);
+                        Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
 
-                Log.d("Intent",  response.body().getBody().getData().getUser().getName()+"check");
-                LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).setName(response.body().getBody().getData().getUser().getName());
-                String intentAction = getIntent().getAction();
-                intent.setAction(intentAction);
-                startActivity(intent);
+                        Log.d("Intent",  response.body().getBody().getData().getUser().getName()+"check");
+                        LoginLocalDatabase.getLoginLocalDatabase(getApplicationContext()).setName(response.body().getBody().getData().getUser().getName());
+                        String intentAction = getIntent().getAction();
+                        intent.setAction(intentAction);
+                        startActivity(intent);
+                        break;
+                    case NO_TOKEN:
+                        Log.d("getData Main", "no token");
+                        tryToLogin(preloadData);
+                        break;
+                    case WRONG_TOKEN:
+                        Log.d("getData Main", "wrong token");
+                        tryToLogin(preloadData);
+                        break;
+                    case USER_NOT_EXIST:
+                        Log.d("getData Main", "user not exist");
+                        tryToLogin(preloadData);
+                        break;
+                    case ERROR:
+                        Log.d("getData Main", "error");
+                        goToLogin();
+                        break;
+                }
             }
 
             @Override
             public void onFailure(Call<ResponseRest> call, Throwable t) {
-
+                t.printStackTrace();
+                goToLogin();
             }
         });
+    }
+
+    private void tryToLogin(LoginData loginData){
+        APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
+            @Override
+            public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
+                switch (APIRequests.validateAuth(response.body())){
+                    case ERROR:
+                    case WRONG_LOGIN:
+                    case WRONG_PASSWORD: {
+                        goToLogin();
+                        break;
+                    }
+                    case NO_ERRORS: {
+                        Log.d("before store", "yes");
+                        APIRequests.storeUserInfo(getBaseContext(), response.body()); //store user data
+                        Log.d("after store", "yes");
+
+                        LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).setName(response.body().getBody().getData().getUser().getName());
+                        LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).setBarcode(response.body().getBody().getData().getUser().getBarcode());
+
+                        loginWithPreloaded(LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).getLoginDataOrNull());
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseRest> call, Throwable t) {
+                t.printStackTrace();
+                goToLogin();
+                //also error
+            }
+        });
+    }
+    private void goToLogin(){
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
 
