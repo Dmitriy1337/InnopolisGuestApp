@@ -1,7 +1,12 @@
 package com.ui.innoguestapplication.backend;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
 import android.util.Log;
+
+
 
 import com.ui.innoguestapplication.events.FaqElem;
 import com.ui.innoguestapplication.events.Event;
@@ -12,6 +17,7 @@ import com.ui.innoguestapplication.sqlite_database.LoginData;
 import com.ui.innoguestapplication.sqlite_database.LoginLocalDatabase;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Callback;
@@ -22,6 +28,8 @@ import retrofit2.Callback;
  * All the logic must be done in callbacks
  * */
 public class APIRequests {
+    private static String NO_NETWORK_TITLE = "No Internet";
+    private static String NO_NETWORK_MSG = "Check your connection";
 
     public enum LoginState {
         NO_ERRORS, WRONG_LOGIN, WRONG_PASSWORD, ERROR
@@ -39,11 +47,42 @@ public class APIRequests {
         //Returns ResponseRest(token & userdata) on Response
         Backend.INSTANCE.auth(loginData, callback);
     }
+
     public static void getData(String token, Callback<ResponseRest> callback) {
         //Returns ResponseRest(userdata & event & schedule[]) on Response
         Backend.INSTANCE.getData(token, callback);
     }
 
+    public static void checkValidityOfUser(LoginData loginData, Context context, AlertDialog dialog, Callback<ResponseRest> callback) {
+        //Returns ResponseRest(token & userdata) on Response
+        if (isConnected(context)){
+            dialog.show();
+            Backend.INSTANCE.auth(loginData, callback);
+        } else {
+            showMsg(context);
+        }
+    }
+    public static void getData(String token, Context context, Callback<ResponseRest> callback) {
+        //Returns ResponseRest(userdata & event & schedule[]) on Response
+        if (isConnected(context)){
+            Backend.INSTANCE.getData(token, callback);
+        } else {
+            showMsg(context);
+        }
+    }
+
+    public static void showMsg(Context context){
+        AlertDialog.Builder ad = new AlertDialog.Builder(context);
+        ad.setTitle(NO_NETWORK_TITLE);
+        ad.setMessage(NO_NETWORK_MSG);
+
+        ad.setPositiveButton("Continue", (dialogInterface, i) -> {
+
+        });
+        ad.setCancelable(true);
+        //ad.setOnCancelListener { }
+        ad.show();
+    }
 
 
     public static MainEvent getMainEvent(ResponseRest response) {
@@ -88,8 +127,28 @@ public class APIRequests {
 
     //checks auth response
     public static LoginState validateAuth(ResponseRest response) {
+        if (response == null)
+            Log.d("resp", "null");
         if (response != null)
             return BackendKt.validAuth(response);
         else return LoginState.ERROR;
     }
+
+    //checks only network state
+    public static boolean isConnected(Context context){
+        ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
+    // tries to ping google
+    public static boolean isConnected(){
+        try{
+            String command = "ping -c 1 google.com";
+            return Runtime.getRuntime().exec(command).waitFor() == 0;
+        } catch (InterruptedException | IOException ie){
+            return false;
+        }
+    }
+
+
 }
