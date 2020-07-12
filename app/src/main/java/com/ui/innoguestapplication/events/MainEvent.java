@@ -52,7 +52,7 @@ public class MainEvent {
     public MainEvent(String title, String description, int groups_amount,
                      String start_date, String end_date){
         this.title = title;
-        
+
         this.description = description;
         this.groups_amount = groups_amount;
         this.start_date = start_date;
