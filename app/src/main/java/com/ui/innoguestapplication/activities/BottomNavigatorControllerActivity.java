@@ -49,32 +49,36 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
     ImageButton notifications_button;
 
     static ScheduleFragment scheduleFragment;
-    static FAQFragment faqFragment = new FAQFragment();
-    static MenuFragment menuFragment = new MenuFragment();
-    static MapFragment mapFragment = new MapFragment();
-    static SettingsFragment settingsFragment ;
+    static FAQFragment faqFragment;
+    static MenuFragment menuFragment;
+    static MapFragment mapFragment;
+    static SettingsFragment settingsFragment;
 
-    static Fragment current = menuFragment;
-    static Fragment schedule =null;
+    static Fragment current;
+    static Fragment schedule = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         scheduleFragment = new ScheduleFragment();
         settingsFragment = new SettingsFragment();
+        faqFragment = new FAQFragment();
+        menuFragment = new MenuFragment();
+        mapFragment = new MapFragment();
+        current = menuFragment;
         BackgroundRunner.scheduleJob(getBaseContext());
         if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme() == Theme.DARK) {
             setTheme(R.style.DarkTheme);
+        } else {
+            switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+                case Configuration.UI_MODE_NIGHT_YES:
+                    setTheme(R.style.DarkTheme);
+                    break;
+                case Configuration.UI_MODE_NIGHT_NO:
+                    setTheme(R.style.LightTheme);
+                    break;
+            }
         }
-        else{
-        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_YES:
-                setTheme(R.style.DarkTheme);
-                break;
-            case Configuration.UI_MODE_NIGHT_NO:
-                setTheme(R.style.LightTheme);
-                break;
-        }
-    }
 
         setContentView(R.layout.activity_main);
 
@@ -134,8 +138,6 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
         loadFragment(menuFragment);
 
 
-
-
         //**add this line**
 
 
@@ -156,34 +158,27 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
     }
 
 
-
-
-
-
-
-
-
-    public    void addNotification(Notification notification, Context context) {
-        if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getSound() == NotifySound.ON){
+    public void addNotification(Notification notification, Context context) {
+        if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getSound() == NotifySound.ON) {
             NotificationStorage.getNotificationStorage(context).addNotification(notification);
 
             int requestID = (int) System.currentTimeMillis();
             Intent notificationIntent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            PendingIntent contentIntent = PendingIntent.getActivity(this, requestID,notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                        R.mipmap.ic_launcher))
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentIntent(contentIntent)
-                .setContentTitle(notification.getText())
-                .setContentText(notification.getDescription())
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT).setAutoCancel(true);
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+            PendingIntent contentIntent = PendingIntent.getActivity(this, requestID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
+                            R.mipmap.ic_launcher))
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentIntent(contentIntent)
+                    .setContentTitle(notification.getText())
+                    .setContentText(notification.getDescription())
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT).setAutoCancel(true);
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
 // notificationId is a unique int for each notification that you must define
-        notificationManager.notify(13, builder.build());
-    }
+            notificationManager.notify(13, builder.build());
+        }
     }
 
 
@@ -193,7 +188,6 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
     }
 
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
@@ -201,10 +195,10 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
         switch (item.getItemId()) {
             case R.id.navigation_schedule:
-                if(schedule==null){
-                fragment = scheduleFragment;
-                schedule = fragment;
-                }else{
+                if (schedule == null) {
+                    fragment = scheduleFragment;
+                    schedule = fragment;
+                } else {
                     fragment = schedule;
                 }
                 labelTop.setText(R.string.title_schedule);
@@ -214,7 +208,7 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
                 labelTop.setText(R.string.title_faq);
                 break;
             case R.id.navigation_home:
-                fragment =menuFragment;
+                fragment = menuFragment;
                 labelTop.setText(R.string.title_home);
                 break;
             case R.id.navigation_map:
@@ -234,27 +228,27 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
 
 
     @Override
-    protected void onStop () {
-        super .onStop() ;
+    protected void onStop() {
+        super.onStop();
         BackgroundRunner.scheduleJob(getBaseContext());
 
     }
 
     @Override
     public void onBackPressed() {
-        if(current instanceof ScheduleFragment){
+        if (current instanceof ScheduleFragment) {
             labelTop.setText(R.string.title_schedule);
         }
-        if(current instanceof FAQFragment){
+        if (current instanceof FAQFragment) {
             labelTop.setText(R.string.title_map);
         }
-        if(current instanceof MenuFragment){
+        if (current instanceof MenuFragment) {
             labelTop.setText(R.string.title_home);
         }
-        if(current instanceof MapFragment){
+        if (current instanceof MapFragment) {
             labelTop.setText(R.string.title_map);
         }
-        if(current instanceof SettingsFragment){
+        if (current instanceof SettingsFragment) {
             labelTop.setText(R.string.title_settings);
         }
         loadFragment(current);

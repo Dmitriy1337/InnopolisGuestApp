@@ -57,6 +57,9 @@ public class MenuFragment extends Fragment {
          upcomingName = view.findViewById(R.id.upcoming_name);
          upcomingTime = view.findViewById(R.id.upcoming_time);
          barcode = view.findViewById(R.id.barcode_text);
+         Log.d("onViewCrea","eventlist"+EventListStorage.eventList.toString());
+         Log.d("onViewCrea","mainEvent"+EventListStorage.eventList.getMainEvent().toString());
+         Log.d("onViewCrea","title"+EventListStorage.eventList.getMainEvent().getTitle());
         eventName.setText(EventListStorage.eventList.getMainEvent().getTitle());
         eventDates.setText(EventListStorage.eventList.getMainEvent().getStart_date()+" "
                 +EventListStorage.eventList.getMainEvent().getEnd_date());

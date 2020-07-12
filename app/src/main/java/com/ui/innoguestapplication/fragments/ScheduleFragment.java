@@ -1,6 +1,8 @@
 package com.ui.innoguestapplication.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.ui.innoguestapplication.R;
+import com.ui.innoguestapplication.activities.BottomNavigatorControllerActivity;
 import com.ui.innoguestapplication.adapters.ScheduleViewAdapter;
 import com.ui.innoguestapplication.backend.APIRequests;
 import com.ui.innoguestapplication.backend.ResponseRest;
@@ -57,7 +60,8 @@ public class ScheduleFragment extends Fragment {
 
         list2 = new ArrayList<>();
 
-
+        if (EventListStorage.eventList == null)
+            Log.d("scheduleEvent", "null");
 
         if(EventListStorage.eventList==null){
                  loadSchedule();
@@ -108,21 +112,35 @@ public class ScheduleFragment extends Fragment {
 
 
     private void loadSchedule(){
-        APIRequests.getData(LoginLocalDatabase.getLoginLocalDatabase(getContext()).getToken(),new Callback<ResponseRest>(){
+        APIRequests.getData(LoginLocalDatabase.getLoginLocalDatabase(getContext()).getToken(), getContext(),new Callback<ResponseRest>(){
 
             @Override
             public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
-
-
-                EventList newEventList = APIRequests.getEventList(response.body());
-                EventListStorage.setEventList(newEventList);
-                updateUI();
+                switch (APIRequests.validateData(response.body())){
+                    case NO_ERROR:
+                        EventList newEventList = APIRequests.getEventList(response.body());
+                        EventListStorage.setEventList(newEventList);
+                        updateUI();
+                        break;
+                    case NO_TOKEN:
+                        Log.d("getData schedFr", "no token");
+                        break;
+                    case WRONG_TOKEN:
+                        Log.d("getData schedFr", "wrong token");
+                        break;
+                    case USER_NOT_EXIST:
+                        Log.d("getData schedFr", "user not exist");
+                        break;
+                    case ERROR:
+                        Log.d("getData schedFr", "error");
+                        break;
+                }
 
             }
 
             @Override
             public void onFailure(Call<ResponseRest> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
     }

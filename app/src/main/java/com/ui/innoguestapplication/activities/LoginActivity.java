@@ -1,5 +1,7 @@
 package com.ui.innoguestapplication.activities;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                     "$");
     private TextInputLayout til_email;
     private TextInputLayout til_password;
+    private AlertDialog dialog;
 
 
     @Override
@@ -60,6 +64,12 @@ public class LoginActivity extends AppCompatActivity {
 
         loginLocalDatabase =  LoginLocalDatabase.getLoginLocalDatabase(getBaseContext());
 
+        LoginData preloadedData = loginLocalDatabase.getLoginDataOrNull();
+        if (preloadedData != null){
+            if (preloadedData.getEmail() != null) text_email.setText(preloadedData.getEmail());
+            if (preloadedData.getPassword() != null) text_password.setText(preloadedData.getPassword());
+        }
+
 
 //        LoginData preloadedData = loginLocalDatabase.getLoginDataOrNull();
 //
@@ -73,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                LoginData loadedLoginData = new LoginData(text_email.getText().toString(),text_password.getText().toString());
-
+                Log.d("input text", loadedLoginData.getEmail()+" "+loadedLoginData.getPassword());
                 loginLocalDatabase.setLoginData(loadedLoginData);
                 login(loadedLoginData);
             }
@@ -142,18 +152,29 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private AlertDialog setupDialog(Context context){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_dialog);
+        return builder.create();
+    }
+
 
     private void login(LoginData loginData) {
 
         if (validateEmail() && validatePassword()) {
-
-            APIRequests.checkValidityOfUser(loginData, new Callback<ResponseRest>() {
+            if (dialog == null)
+                dialog = setupDialog(this);
+            //dialog.show();
+            APIRequests.checkValidityOfUser(loginData,this, dialog, new Callback<ResponseRest>() {
                 @Override
                 public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
+                    dialog.dismiss();
                     switch (APIRequests.validateAuth(response.body())){
                         case ERROR:{
                             //TODO
                             //connection problem of smth else
+                            Log.d("ERROR", "yes");
                             break;
                         }
                         case WRONG_LOGIN: {
@@ -167,7 +188,10 @@ public class LoginActivity extends AppCompatActivity {
                             break;
                         }
                         case NO_ERRORS: {
+                            Log.d("before store", "yes");
                             APIRequests.storeUserInfo(getBaseContext(), response.body()); //store user data
+                            Log.d("after store", "yes");
+                            Log.d("after store", "token "+ APIRequests.getToken(response.body()));
                             Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
                             String intentAction = getIntent().getAction();
                             //Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
@@ -176,7 +200,6 @@ public class LoginActivity extends AppCompatActivity {
                             LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).setName(response.body().getBody().getData().getUser().getName());
                             LoginLocalDatabase.getLoginLocalDatabase(getBaseContext()).setBarcode(response.body().getBody().getData().getUser().getBarcode());
                             startActivity(intent);
-
                             break;
                         }
                     }
@@ -185,6 +208,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<ResponseRest> call, Throwable t) {
                     t.printStackTrace();
+                    dialog.dismiss();
                     //also error
                 }
             });

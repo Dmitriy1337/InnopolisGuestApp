@@ -55,7 +55,7 @@ public class LocalLoginStorage {
     public static LocalLoginStorage getInstance(Context cont,String email,String token){
         if(localLoginStorage==null){
             localLoginStorage=new LocalLoginStorage(email,token);
-           context = cont;
+            context = cont;
             LoginLocalDatabase.getLoginLocalDatabase(context).setToken(token);
         }
         return  localLoginStorage;

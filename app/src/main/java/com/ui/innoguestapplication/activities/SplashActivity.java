@@ -2,6 +2,7 @@ package com.ui.innoguestapplication.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,20 +41,38 @@ public class SplashActivity extends AppCompatActivity  {
 
             @Override
             public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
-                EventList newEventList = APIRequests.getEventList(response.body());
-                newEventList.faqElems = response.body().getBody().getData().getFaq();
-                EventListStorage.setEventList(newEventList);
-
-                Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
-                String intentAction = getIntent().getAction();
-                //Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
-                intent.setAction(intentAction);
-                startActivity(intent);
+                switch (APIRequests.validateData(response.body())){
+                    case NO_ERROR:
+                        Log.d("getData splash", "no error");
+                        //Log.d("getData splash", ""+);
+                        EventList newEventList = APIRequests.getEventList(response.body());
+                        newEventList.faqElems = response.body().getBody().getData().getFaq();
+                        EventListStorage.setEventList(newEventList);
+                        Log.d("descEventStorageOnREsp",""+EventListStorage.eventList.getMainEvent().getDescription());
+                        Intent intent = new Intent(getApplicationContext(), BottomNavigatorControllerActivity.class);
+                        String intentAction = getIntent().getAction();
+                        //Toast.makeText(getApplicationContext(), "Success:"+response.body().getBody().getData().getToken(), Toast.LENGTH_SHORT).show();
+                        intent.setAction(intentAction);
+                        startActivity(intent);
+                        break;
+                    case NO_TOKEN:
+                        Log.d("getData splash", "no token");
+                        break;
+                    case WRONG_TOKEN:
+                        Log.d("getData splash", "wrong token");
+                        break;
+                    case USER_NOT_EXIST:
+                        Log.d("getData splash", "user not exist");
+                        break;
+                    case ERROR:
+                        Log.d("getData splash", "error");
+                        break;
+                }
             }
 
             @Override
             public void onFailure(Call<ResponseRest> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
     }
