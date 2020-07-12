@@ -1,16 +1,11 @@
 package com.ui.innoguestapplication.events;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.stream.Collectors;
+import java.util.Locale;
 
 public class EventList {
     MainEvent mainEvent;
@@ -30,17 +25,26 @@ public class EventList {
 
 
     }
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     public Event getFollowingEvent(){
         int i = 0;
 
         int now =convertDateToInt(getCurrentTimeFormat());
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM");
 
-        LocalDateTime currentDate = LocalDateTime.now();
-        ArrayList<Event> eventListTemp = (ArrayList<Event>) eventList.stream()
-                .filter(event -> event.getEventDate().equals(dtf.format(currentDate)))
-                .collect(Collectors.toList());
+
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        String currentDate = new SimpleDateFormat("dd.MM", Locale.getDefault()).format(new Date());
+        ArrayList<Event> eventListTemp = new ArrayList<>();
+        for(Event e: eventList){
+            if(e.getEventDate().equals(currentDate)){
+                eventListTemp.add(e);
+            }
+        }
+
+
+
 
         if(eventListTemp.isEmpty()){
             return  new Event("There is no other events for today",""

@@ -6,10 +6,8 @@ import android.app.job.JobService;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.util.Log;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -30,7 +28,7 @@ import java.util.Locale;
 public class ScheduleNotifyService extends JobService {
     private static final String CHANNEL_ID = "CHANNEL_ID";
     public static Context context;
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     @Override
 
     public boolean onStartJob(JobParameters jobParameters) {

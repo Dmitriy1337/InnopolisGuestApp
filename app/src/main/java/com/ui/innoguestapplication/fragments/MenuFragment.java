@@ -1,6 +1,5 @@
 package com.ui.innoguestapplication.fragments;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.ui.innoguestapplication.R;
@@ -32,7 +30,6 @@ public class MenuFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_menu, container, false);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onStart() {
         super.onStart();
@@ -46,7 +43,7 @@ public class MenuFragment extends Fragment {
         barcode.setText(LoginLocalDatabase.getLoginLocalDatabase(getContext()).getBarcode());
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
