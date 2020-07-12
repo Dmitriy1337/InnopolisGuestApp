@@ -1,16 +1,27 @@
 package com.ui.innoguestapplication.events;
 
+import androidx.annotation.Keep;
+
+import com.google.gson.annotations.SerializedName;
+
+@Keep
 public class MainEvent {
+    @SerializedName("title")
     private String title;
+    @SerializedName("description")
     private String description;
+
+    private String faq;
+    @SerializedName("groups_amount")
     private int groups_amount;
+    @SerializedName("start_date")
     private String start_date; //yyyy-mm-dd
+    @SerializedName("end_date")
+    private String end_date; //yyyy-mm-dd
 
     public void setStart_date(String start_date) {
         this.start_date = start_date;
     }
-
-    private String end_date; //yyyy-mm-dd
 
     public String getTitle() {
         return title;
@@ -18,6 +29,10 @@ public class MainEvent {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getFaq() {
+        return faq;
     }
 
     public int getGroups_amount() {

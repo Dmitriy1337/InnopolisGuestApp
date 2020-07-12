@@ -2,6 +2,7 @@ package com.ui.innoguestapplication.events;
 
 import android.os.Build;
 
+import androidx.annotation.Keep;
 import androidx.annotation.RequiresApi;
 
 import java.text.SimpleDateFormat;
@@ -12,6 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+@Keep
 public class EventList {
     MainEvent mainEvent;
     ArrayList<Event> eventList;

@@ -1,7 +1,9 @@
 package com.ui.innoguestapplication.events;
 
-import com.google.gson.annotations.SerializedName;
+import androidx.annotation.Keep;
 
+import com.google.gson.annotations.SerializedName;
+@Keep
 public class Event {
     @SerializedName("title")
     private String eventName;

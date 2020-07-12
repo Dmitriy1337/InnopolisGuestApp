@@ -1,8 +1,10 @@
 package com.ui.innoguestapplication.events
 
-class FaqElem(var question: String, var answer: String, var lang: String) {
+import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
+@Keep
+class FaqElem(@SerializedName("question")var question: String,
+              @SerializedName("answer")var answer: String,
+              @SerializedName("lang")var lang: String) {
 
-    override fun toString(): String {
-        return "FaqElem: que-$question;\nanswer-$answer;\nlang-$lang\n";
-    }
 }

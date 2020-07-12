@@ -1,5 +1,8 @@
 package com.ui.innoguestapplication.events;
 
+import androidx.annotation.Keep;
+
+@Keep
 public class EventListStorage {
 
     public synchronized static void setEventList(EventList eventList) {
@@ -7,8 +10,6 @@ public class EventListStorage {
     }
 
     public static EventList eventList = null;
-
-
 
 
 }
