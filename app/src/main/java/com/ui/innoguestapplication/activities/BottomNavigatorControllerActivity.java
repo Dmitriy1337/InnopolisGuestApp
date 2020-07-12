@@ -61,6 +61,9 @@ public class BottomNavigatorControllerActivity extends AppCompatActivity impleme
         super.onCreate(savedInstanceState);
         scheduleFragment = new ScheduleFragment();
         settingsFragment = new SettingsFragment();
+        faqFragment = new FAQFragment();
+        menuFragment = new MenuFragment();
+        mapFragment = new MapFragment();
         BackgroundRunner.scheduleJob(getBaseContext());
         if (LocalSettingsStorage.getLocalSettingsStorage(getBaseContext()).getTheme() == Theme.DARK) {
             setTheme(R.style.DarkTheme);
