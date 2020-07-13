@@ -41,7 +41,7 @@ public class MapFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mapPic.setImageResource(R.drawable.firstf);
+        mapPic.setImageResource(R.drawable.en_floor1);
         Snackbar snackbar = Snackbar
                 .make(coordinatorLayout, R.string.zoom_in_using_two_fingers, Snackbar.LENGTH_SHORT);
         snackbar.show();
@@ -54,15 +54,15 @@ public class MapFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0: {
-                        mapPic.setImageResource(R.drawable.firstf);
+                        mapPic.setImageResource(R.drawable.en_floor1);
                         break;
                     }
                     case 1: {
-                        mapPic.setImageResource(R.drawable.secondf);
+                        mapPic.setImageResource(R.drawable.en_floor2);
                         break;
                     }
                     case 2: {
-                        mapPic.setImageResource(R.drawable.thirdf);
+                        mapPic.setImageResource(R.drawable.en_floor3);
                         break;
                     }
                     default: {
