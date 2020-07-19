@@ -49,5 +49,13 @@
     <string name="image_below_map">map picture</string>
     <string name="language">Language</string>
 
+    <string name="coming">I will go</string>
+    <string name="not_coming">I won\'t go</string>
+
+    <string name="telegram_handle">Enter your telegram handle</string>
+    <string name="telegram_ok">Ok</string>
+    <string name="telegram_cancel">Cancel</string>
+    <string name="enter_your_telegram">Enter your telegram</string>
+
 
 </resources>

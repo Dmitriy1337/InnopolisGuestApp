@@ -3,4 +3,6 @@
     <dimen name="default_size">4dp</dimen>
     <dimen name="bottom_margin">6dp</dimen>
     <dimen name="tab_spacing_half">5dp</dimen>
+    <dimen name="dialog_margin">20dp</dimen>
+
 </resources>

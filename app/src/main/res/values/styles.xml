@@ -96,6 +96,8 @@
         <item name="outlineColor">#f5f5f5</item>
         <item name="bgColor">#121212</item>
         <item name="navbar_not_selected">@color/dark_mode</item>
+        <item name="important">@color/colorAccent</item>
+
 
     </style>
 
@@ -114,6 +116,7 @@
         <item name="outlineColor">@color/colorPrimary</item>
         <item name="bgColor">@color/almost_white</item>
         <item name="navbar_not_selected">@color/colorPrimaryDark</item>
+        <item name="important">@color/colorAccent</item>
 
     </style>
 

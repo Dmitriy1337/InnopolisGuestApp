@@ -54,7 +54,7 @@ public class ScheduleListFragment extends Fragment {
         this.context = getContext();
         recyclerView = view.findViewById(R.id.schedule_fragment_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        EventList_adapter adapter = new EventList_adapter(list_of_events, recyclerView);
+        EventList_adapter adapter = new EventList_adapter(list_of_events, recyclerView, this);
         recyclerView.setAdapter(adapter);
         refresh = view.findViewById(R.id.refresh_schedule);
 

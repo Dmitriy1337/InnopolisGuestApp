@@ -1,12 +1,18 @@
 package com.ui.innoguestapplication.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -36,6 +42,9 @@ public class SettingsFragment extends Fragment {
     Language languageS;
     Theme theme;
     NotifySound notifySound;
+    ImageButton edit_telegram;
+    private String new_telegram;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -49,6 +58,7 @@ public class SettingsFragment extends Fragment {
         logout_view = thisView.findViewById(R.id.logout_card);
         userEmail = thisView.findViewById(R.id.user_email);
         userName = thisView.findViewById(R.id.user_name);
+        edit_telegram = thisView.findViewById(R.id.edit_telegram);
 
          languageS = LocalSettingsStorage.getLocalSettingsStorage(getContext()).getLanguage();
          theme = LocalSettingsStorage.getLocalSettingsStorage(getContext()).getTheme();
@@ -95,17 +105,57 @@ public class SettingsFragment extends Fragment {
                 } else
                     LocalSettingsStorage.getLocalSettingsStorage(getContext()).setTheme(Theme.LIGHT);
 
-               Intent logout = new Intent(getContext(), BottomNavigatorControllerActivity.class);
-               startActivity(logout);
+                Intent logout = new Intent(getContext(), BottomNavigatorControllerActivity.class);
+                startActivity(logout);
 
             }
         });
+
+        new_telegram = "";
+        edit_telegram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(getString(R.string.telegram_handle));
+                FrameLayout container = new FrameLayout(getActivity());
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.leftMargin = getResources().getDimensionPixelSize(R.dimen.dialog_margin);
+                params.rightMargin = getResources().getDimensionPixelSize(R.dimen.dialog_margin);
+
+
+// Set up the input
+                final EditText input = new EditText(getContext());
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setLayoutParams(params);
+                container.addView(input);
+                builder.setView(container);
+
+// Set up the buttons
+                builder.setPositiveButton(getString(R.string.telegram_ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new_telegram = input.getText().toString();
+                    }
+                });
+                builder.setNegativeButton(getString(R.string.telegram_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+
+                builder.show();
+            }
+        });
+
         alerts.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton b,boolean isChecked) {
+            public void onCheckedChanged(CompoundButton b, boolean isChecked) {
                 if (isChecked) {
                     LocalSettingsStorage.getLocalSettingsStorage(getContext()).setSound(NotifySound.OFF);
-                }else{
+                } else {
                     LocalSettingsStorage.getLocalSettingsStorage(getContext()).setSound(NotifySound.ON);
 
                 }

@@ -1,17 +1,25 @@
 package com.ui.innoguestapplication.adapters;
 
+import android.app.Fragment;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ui.innoguestapplication.R;
 import com.ui.innoguestapplication.events.Event;
+import com.ui.innoguestapplication.fragments.ScheduleListFragment;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
@@ -21,6 +29,7 @@ public class EventList_adapter extends RecyclerView.Adapter<EventList_adapter.Vi
 
     ArrayList<Event> events;
     RecyclerView rv;
+    ScheduleListFragment parent_fragment;
 
     private static final int UNSELECTED = -1;
     private int selectedItem = UNSELECTED;
@@ -43,12 +52,29 @@ public class EventList_adapter extends RecyclerView.Adapter<EventList_adapter.Vi
         holder.description.setText(current_event.getEventName());
 
 
+        //API
+        //holder.toggleButton.setChecked();
+
+
+        int pL = holder.background.getPaddingLeft();
+        int pT = holder.background.getPaddingTop();
+        int pR = holder.background.getPaddingRight();
+        int pB = holder.background.getPaddingBottom();
+
+        Drawable red_background = ContextCompat.getDrawable(parent_fragment.getActivity(), R.drawable.schedulebg_red);
+        //if (event.obligatory){
+        if (position % 2 == 0) {
+            holder.background.setBackground(red_background);
+            holder.background.setPadding(pL, pT, pR, pB);
+        }
+
 
     }
 
-    public EventList_adapter(ArrayList<Event> events, RecyclerView rv) {
+    public EventList_adapter(ArrayList<Event> events, RecyclerView rv, ScheduleListFragment fragment) {
         this.events = events;
         this.rv = rv;
+        this.parent_fragment = fragment;
     }
 
     @Override
@@ -63,6 +89,8 @@ public class EventList_adapter extends RecyclerView.Adapter<EventList_adapter.Vi
         public TextView location;
         ExpandableLayout layoutExpand;
         ImageView arrow;
+        ConstraintLayout background;
+        ToggleButton toggleButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,6 +103,21 @@ public class EventList_adapter extends RecyclerView.Adapter<EventList_adapter.Vi
             layoutExpand.setInterpolator(new OvershootInterpolator());
             layoutExpand.setOnExpansionUpdateListener(this);
             itemView.setOnClickListener(this);
+            background = itemView.findViewById(R.id.schedule_item_bg);
+            toggleButton = itemView.findViewById(R.id.toggle_event);
+            int width = ((int) toggleButton.getPaint().measureText(parent_fragment.getString(R.string.not_coming)) + toggleButton.getPaddingLeft() + toggleButton.getPaddingRight());
+            toggleButton.setWidth(width + 80);
+
+            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        //API
+                    } else {
+                        //API
+                    }
+                }
+            });
         }
 
         public void bind() {

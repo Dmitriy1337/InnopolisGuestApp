@@ -8,4 +8,5 @@
     <attr name="outlineColor" format="color" />
     <attr name="bgColor" format="color" />
     <attr name="navbar_not_selected" format="color" />
+    <attr name="important" format="color" />
 </resources>

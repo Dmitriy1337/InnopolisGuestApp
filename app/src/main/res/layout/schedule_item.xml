@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/schedule_item_bg"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5sp"
@@ -54,6 +55,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.473" />
 
+    <ImageView
+        android:id="@+id/schedule_location_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/location_icon_description"
+
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:tint="?attr/textPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/schedule_location"
+        app:layout_constraintStart_toStartOf="@+id/schedule_name"
+        app:layout_constraintTop_toTopOf="@+id/schedule_location"
+        app:srcCompat="@drawable/ic_location_on_black_24dp" />
+
+    <TextView
+        android:id="@+id/schedule_location"
+        style="@style/TextSecondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/location"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/schedule_location_icon"
+        app:layout_constraintTop_toBottomOf="@+id/schedule_name" />
+
     <net.cachapa.expandablelayout.ExpandableLayout
         android:id="@+id/schedule_expand"
         android:layout_width="match_parent"
@@ -84,34 +110,25 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <ToggleButton
+                android:id="@+id/toggle_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/settings_bg2"
+                android:checked="false"
+                android:drawableStart="@drawable/togglebutton"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="@string/coming"
+                android:textAppearance="@style/TextDefault"
+                android:textOff="@string/not_coming"
+                android:textOn="@string/coming"
+                app:layout_constraintStart_toStartOf="@id/description_text"
+                app:layout_constraintTop_toBottomOf="@id/description_text" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </net.cachapa.expandablelayout.ExpandableLayout>
-
-    <TextView
-        android:id="@+id/schedule_location"
-        style="@style/TextSecondary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/location"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/schedule_location_icon"
-        app:layout_constraintTop_toBottomOf="@+id/schedule_name" />
-
-    <ImageView
-        android:id="@+id/schedule_location_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/location_icon_description"
-
-        android:scaleX="0.7"
-        android:scaleY="0.7"
-        android:tint="?attr/textPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/schedule_location"
-        app:layout_constraintStart_toStartOf="@+id/schedule_name"
-        app:layout_constraintTop_toTopOf="@+id/schedule_location"
-        app:srcCompat="@drawable/ic_location_on_black_24dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
