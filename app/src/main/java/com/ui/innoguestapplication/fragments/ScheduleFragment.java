@@ -9,14 +9,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.ui.innoguestapplication.R;
 import com.ui.innoguestapplication.activities.BottomNavigatorControllerActivity;
@@ -42,8 +47,14 @@ public class ScheduleFragment extends Fragment {
     ArrayList<EventList> list2;
     TextView group;
     ImageButton editGroup;
+
+    LinearLayout slideUp;
+    ExtendedFloatingActionButton fab;
+    RecyclerView slide_list;
+
     boolean hasFinished = false;
     String groupLabel = "1";
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -56,6 +67,10 @@ public class ScheduleFragment extends Fragment {
         vp = thisView.findViewById(R.id.schedule_viewpager2);
         group = thisView.findViewById(R.id.schedule_group);
         editGroup = thisView.findViewById(R.id.edit_group);
+        fab = thisView.findViewById(R.id.events_fab);
+        slideUp = thisView.findViewById(R.id.schedule_slide_up);
+        slide_list = thisView.findViewById(R.id.all_events_list);
+        //slideUp.setVisibility(View.INVISIBLE);
         vp.setOffscreenPageLimit(2);
 
         list2 = new ArrayList<>();
@@ -63,28 +78,27 @@ public class ScheduleFragment extends Fragment {
         if (EventListStorage.eventList == null)
             Log.d("scheduleEvent", "null");
 
-        if(EventListStorage.eventList==null){
-                 loadSchedule();
+        if (EventListStorage.eventList == null) {
+            loadSchedule();
 
-        }else{
+        } else {
             updateUI();
         }
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-
-
-
-
-
-
+            }
+        });
 
         editGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PopupMenu menu = new PopupMenu(getContext(), getActivity().findViewById(R.id.edit_group), Gravity.CENTER);
                 int groupAmount = EventListStorage.eventList.getMainEvent().getGroups_amount();
-                for(int i = 1;i<=groupAmount;i++){
-                    menu.getMenu().add(Menu.NONE, i, i, "Group "+i);
+                for (int i = 1; i <= groupAmount; i++) {
+                    menu.getMenu().add(Menu.NONE, i, i, "Group " + i);
                 }
 
 
@@ -96,7 +110,7 @@ public class ScheduleFragment extends Fragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         int i = menuItem.getItemId();
-                        groupLabel = i+"";
+                        groupLabel = i + "";
                         updateUI();
                         return false;
                     }
@@ -110,13 +124,12 @@ public class ScheduleFragment extends Fragment {
     }
 
 
-
-    private void loadSchedule(){
-        APIRequests.getData(LoginLocalDatabase.getLoginLocalDatabase(getContext()).getToken(), getContext(),new Callback<ResponseRest>(){
+    private void loadSchedule() {
+        APIRequests.getData(LoginLocalDatabase.getLoginLocalDatabase(getContext()).getToken(), getContext(), new Callback<ResponseRest>() {
 
             @Override
             public void onResponse(Call<ResponseRest> call, Response<ResponseRest> response) {
-                switch (APIRequests.validateData(response.body())){
+                switch (APIRequests.validateData(response.body())) {
                     case NO_ERROR:
                         EventList newEventList = APIRequests.getEventList(response.body());
                         EventListStorage.setEventList(newEventList);
@@ -146,42 +159,43 @@ public class ScheduleFragment extends Fragment {
     }
 
 
-    public  void updateUI(){
+    public void updateUI() {
         list2.clear();
-        splitEventsByDate(list2,EventListStorage.eventList,groupLabel);
+        splitEventsByDate(list2, EventListStorage.eventList, groupLabel);
         group.setText(String.format("Group %s", groupLabel));
         createTabFragment();
     }
-    public void updateShcedule(){
+
+    public void updateShcedule() {
         loadSchedule();
     }
 
-    private static void splitEventsByDate(ArrayList<EventList> list,EventList newEventList,String group){
+    private static void splitEventsByDate(ArrayList<EventList> list, EventList newEventList, String group) {
 
 
         ArrayList<ArrayList<Event>> listOfSchedules = new ArrayList<>();
         ArrayList<Event> first = new ArrayList<>();
         first.add(newEventList.getEventList().get(0));
-        for(int i = 1;i<newEventList.getEventList().size();i++){
-               if(newEventList.getEventList().get(i-1).getEventDate()
-                       .equals(newEventList.getEventList().get(i).getEventDate())){
-                   if(newEventList.getEventList().get(i).getEventGroupId().equals(group)){
-                   first.add(newEventList.getEventList().get(i));
-                   }
-               }else{
-                   if(newEventList.getEventList().get(i).getEventGroupId().equals(group)){
-                   listOfSchedules.add(first);
-                   first = new ArrayList<>();
-                   first.add(newEventList.getEventList().get(i));
-                   }
+        for (int i = 1; i < newEventList.getEventList().size(); i++) {
+            if (newEventList.getEventList().get(i - 1).getEventDate()
+                    .equals(newEventList.getEventList().get(i).getEventDate())) {
+                if (newEventList.getEventList().get(i).getEventGroupId().equals(group)) {
+                    first.add(newEventList.getEventList().get(i));
+                }
+            } else {
+                if (newEventList.getEventList().get(i).getEventGroupId().equals(group)) {
+                    listOfSchedules.add(first);
+                    first = new ArrayList<>();
+                    first.add(newEventList.getEventList().get(i));
+                }
 
 
-               }
-       }
+            }
+        }
         listOfSchedules.add(first);
-        for(ArrayList<Event> l: listOfSchedules){
+        for (ArrayList<Event> l : listOfSchedules) {
 
-            EventList eventList = new EventList(newEventList.getMainEvent(),l);
+            EventList eventList = new EventList(newEventList.getMainEvent(), l);
             eventList.getMainEvent().setStart_date(l.get(0).getEventDate());
             list.add(eventList);
         }

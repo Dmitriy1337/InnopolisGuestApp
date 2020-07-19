@@ -53,9 +53,10 @@
     <string name="not_coming">I won\'t go</string>
 
     <string name="telegram_handle">Enter your telegram handle</string>
-    <string name="telegram_ok">Ok</string>
+    <string name="telegram_ok">OK</string>
     <string name="telegram_cancel">Cancel</string>
     <string name="enter_your_telegram">Enter your telegram</string>
+    <string name="show_events">Show other events</string>
 
 
 </resources>
