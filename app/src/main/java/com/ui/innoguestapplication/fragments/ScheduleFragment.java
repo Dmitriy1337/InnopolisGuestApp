@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -25,6 +26,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.tabs.TabLayout;
 import com.ui.innoguestapplication.R;
 import com.ui.innoguestapplication.activities.BottomNavigatorControllerActivity;
+import com.ui.innoguestapplication.adapters.EventList_adapter;
 import com.ui.innoguestapplication.adapters.ScheduleViewAdapter;
 import com.ui.innoguestapplication.backend.APIRequests;
 import com.ui.innoguestapplication.backend.ResponseRest;
@@ -48,7 +50,7 @@ public class ScheduleFragment extends Fragment {
     TextView group;
     ImageButton editGroup;
 
-    LinearLayout slideUp;
+    ConstraintLayout slideUp;
     ExtendedFloatingActionButton fab;
     RecyclerView slide_list;
 
@@ -72,6 +74,10 @@ public class ScheduleFragment extends Fragment {
         slide_list = thisView.findViewById(R.id.all_events_list);
         //slideUp.setVisibility(View.INVISIBLE);
         vp.setOffscreenPageLimit(2);
+
+        ArrayList<Event> slide_dataset = new ArrayList<>();
+        //insert events here
+        EventList_adapter adapter = new EventList_adapter(slide_dataset, slide_list, getActivity());
 
         list2 = new ArrayList<>();
 

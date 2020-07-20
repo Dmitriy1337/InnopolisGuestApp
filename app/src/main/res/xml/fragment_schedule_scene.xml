@@ -3,28 +3,111 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ConstraintSet android:id="@+id/start">
-        <Constraint android:id="@+id/schedule_group" />
+
+        <Constraint
+            android:id="@+id/schedule_viewpager2"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scheduleTabs"
+            app:layout_constraintStart_toStartOf="@id/schedule_slide_up" />
+
         <Constraint
             android:id="@+id/schedule_slide_up"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:visibility="gone" />
+            android:layout_marginTop="8dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/events_fab"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="8dp">
+            <CustomAttribute
+                app:attributeName="text"
+                app:customStringValue="@string/show_events" />
+        </Constraint>
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
-        <Constraint android:id="@id/schedule_group" />
+
+        <Constraint
+            android:id="@+id/schedule_slide_up"
+            app:layout_constraintTop_toBottomOf="@id/scheduleTabs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="match_parent" />
+        <Constraint
+            android:id="@+id/schedule_viewpager2"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scheduleTabs"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/scheduleTabs"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/schedule_group"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/edit_group"
+            android:elevation="3sp"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            app:layout_constraintStart_toEndOf="@+id/schedule_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/schedule_group"
+            android:layout_marginStart="10sp"
+            app:layout_constraintTop_toTopOf="@+id/schedule_group"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/schedule_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="3sp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/events_fab"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="8dp">
+            <CustomAttribute
+                app:attributeName="text"
+                app:customStringValue="@string/hide_events" />
+        </Constraint>
+
     </ConstraintSet>
 
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start"
-        app:duration="1000"
+        app:duration="300"
         app:motionInterpolator="linear">
         <OnClick
             app:clickAction="toggle"
             app:targetId="@+id/events_fab" />
+
+
     </Transition>
+
 
 </MotionScene>

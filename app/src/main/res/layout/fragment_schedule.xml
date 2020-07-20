@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/bgColor"
-    tools:context=".fragments.ScheduleFragment"
-    app:layoutDescription="@xml/fragment_schedule_scene">
+    app:layoutDescription="@xml/fragment_schedule_scene"
+    tools:context=".fragments.ScheduleFragment">
 
 
     <TextView
@@ -104,30 +104,41 @@
         android:text="@string/show_events"
         android:textAppearance="@style/TextDefault"
         app:icon="@drawable/ic_schedule_24px"
-        app:layout_constraintBottom_toBottomOf="@+id/schedule_viewpager2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/schedule_viewpager2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/schedule_slide_up"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/schedulebg"
+        android:padding="3sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/drag_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:src="@tools:sample/backgrounds/scenic" />
+            android:layout_marginTop="8dp"
+
+            android:src="@drawable/ic_drag_handle_24px"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/all_events_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/drag_icon">
 
         </androidx.recyclerview.widget.RecyclerView>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

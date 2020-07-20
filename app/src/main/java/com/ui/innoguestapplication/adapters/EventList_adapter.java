@@ -1,5 +1,6 @@
 package com.ui.innoguestapplication.adapters;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -29,7 +31,8 @@ public class EventList_adapter extends RecyclerView.Adapter<EventList_adapter.Vi
 
     ArrayList<Event> events;
     RecyclerView rv;
-    ScheduleListFragment parent_fragment;
+    //ScheduleListFragment parent_fragment;
+    Activity parent_activity;
 
     private static final int UNSELECTED = -1;
     private int selectedItem = UNSELECTED;
@@ -61,7 +64,7 @@ public class EventList_adapter extends RecyclerView.Adapter<EventList_adapter.Vi
         int pR = holder.background.getPaddingRight();
         int pB = holder.background.getPaddingBottom();
 
-        Drawable red_background = ContextCompat.getDrawable(parent_fragment.getActivity(), R.drawable.schedulebg_red);
+        Drawable red_background = ContextCompat.getDrawable(parent_activity, R.drawable.schedulebg_red);
         //if (event.obligatory){
         if (position % 2 == 0) {
             holder.background.setBackground(red_background);
@@ -71,10 +74,10 @@ public class EventList_adapter extends RecyclerView.Adapter<EventList_adapter.Vi
 
     }
 
-    public EventList_adapter(ArrayList<Event> events, RecyclerView rv, ScheduleListFragment fragment) {
+    public EventList_adapter(ArrayList<Event> events, RecyclerView rv, Activity parent_activity) {
         this.events = events;
         this.rv = rv;
-        this.parent_fragment = fragment;
+        this.parent_activity = parent_activity;
     }
 
     @Override
@@ -105,7 +108,7 @@ public class EventList_adapter extends RecyclerView.Adapter<EventList_adapter.Vi
             itemView.setOnClickListener(this);
             background = itemView.findViewById(R.id.schedule_item_bg);
             toggleButton = itemView.findViewById(R.id.toggle_event);
-            int width = ((int) toggleButton.getPaint().measureText(parent_fragment.getString(R.string.not_coming)) + toggleButton.getPaddingLeft() + toggleButton.getPaddingRight());
+            int width = ((int) toggleButton.getPaint().measureText(parent_activity.getString(R.string.not_coming)) + toggleButton.getPaddingLeft() + toggleButton.getPaddingRight());
             toggleButton.setWidth(width + 80);
 
             toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -126,6 +129,7 @@ public class EventList_adapter extends RecyclerView.Adapter<EventList_adapter.Vi
 
         @Override
         public void onClick(View view) {
+            Toast.makeText(parent_activity.getApplicationContext(), "its working lol", Toast.LENGTH_SHORT).show();
             EventList_adapter.ViewHolder holder = (EventList_adapter.ViewHolder) rv.findViewHolderForAdapterPosition(selectedItem);
             if (holder != null) {
                 //holder.arrow.setSelected(false);

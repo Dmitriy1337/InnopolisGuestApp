@@ -57,6 +57,7 @@
     <string name="telegram_cancel">Cancel</string>
     <string name="enter_your_telegram">Enter your telegram</string>
     <string name="show_events">Show other events</string>
+    <string name="hide_events">Hide other events</string>
 
 
 </resources>
