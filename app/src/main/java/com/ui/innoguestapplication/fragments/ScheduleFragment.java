@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -78,6 +79,8 @@ public class ScheduleFragment extends Fragment {
         ArrayList<Event> slide_dataset = new ArrayList<>();
         //insert events here
         EventList_adapter adapter = new EventList_adapter(slide_dataset, slide_list, getActivity());
+        slide_list.setAdapter(adapter);
+        slide_list.setLayoutManager(new LinearLayoutManager(getContext()));
 
         list2 = new ArrayList<>();
 
